@@ -1,12 +1,5 @@
 import { PlaygroundComponent } from "../types";
-//import Button from "./components/button";
-
-type size = 'sm' | 'md' | 'lg';
-const sizeVariants: Record<size, string> = {
-    'sm': 'text-sm',
-    'md': 'text-base',
-    'lg': 'text-lg',
-}
+import { cursorList, cursorStyles, roundedList, roundedStyles, sizeList, sizeStyles, variantList, variantStyles } from "../variants";
 
 export const componentRegistry: PlaygroundComponent[] = [
     {
@@ -14,17 +7,34 @@ export const componentRegistry: PlaygroundComponent[] = [
         name: "Button",
         render: (props) => {
             return (<button
-                className={`${sizeVariants[props['size'] as size]} px-4 py-2 bg-blue-500 text-white`}
-                disabled={props['disabled']}>
+                className={`
+                    ${sizeStyles[props['size'] as string]}
+                    ${variantStyles[props['variant'] as string]}
+                    ${roundedStyles[props['rounded'] as string]}
+                    ${props.disabled ? 'opacity-50 cursor-not-allowed' : cursorStyles[props['cursor'] as string]}
+                `}
+                disabled={props['disabled'] as boolean}>
                 {props['label']}
             </button>)
         },
-        code: (props) => { return '' },
+        code: {
+            jsx: (props) => {
+                const sizeClass = sizeStyles[props['size'] as string];
+                return `<button className="${sizeClass} bg-blue-500 text-white rounded" ${props.disabled ? 'disabled' : ''}>${props.label}</button>`;
+            },
+            html: (props) => {
+                const sizeClass = sizeStyles[props['size'] as string];
+                return `<button class="${sizeClass} bg-blue-500 text-white rounded" ${props.disabled ? 'disabled' : ''}>${props.label}</button>`;
+            },
+        },
         category: 'Action',
         tags: ["button", 'link'],
         defaultProps: [
             { name: 'label', type: 'string', label: 'Text', defaultValue: 'Click Me' },
-            { name: 'size', type: 'select', label: 'Size', options: ['sm', 'md', 'lg'], defaultValue: 'md' },
+            { name: 'size', type: 'select', label: 'Size', options: sizeList, defaultValue: sizeList[2] },
+            { name: 'variant', type: 'select', label: 'Variant', options: variantList, defaultValue: variantList[0] },
+            { name: 'rounded', type: 'select', label: 'Rounded', options: roundedList, defaultValue: roundedList[0] },
+            { name: 'cursor', type: 'select', label: 'Cursor', options: cursorList, defaultValue: cursorList[0] },
             { name: 'disabled', type: 'boolean', label: 'Disabled', defaultValue: false },
         ]
     },
@@ -41,7 +51,3 @@ export const componentRegistry: PlaygroundComponent[] = [
     //     tags: ['input']
     // }
 ];
-
-function renderToString(node: React.ReactNode, props: Record<string, any>) {
-
-}

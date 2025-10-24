@@ -4,7 +4,7 @@ import { useSelectedComponent } from "../hooks/SelectedComponentContext";
 import ComponentsSection from "./ComponentsSection";
 import PreviewSection from "./PreviewSection";
 import PropertiesSection from "./PropertiesSection";
-import { PlaygroundComponent } from "../types";
+import { PlaygroundComponent, PropValue } from "../types";
 
 export interface Theme {
     id: string;
@@ -57,13 +57,13 @@ export const defaultTheme: Theme = {
 };
 
 
-export function extractDefaultProps(component: PlaygroundComponent): Record<string, any> {
+export function extractDefaultProps(component: PlaygroundComponent): Record<string, PropValue> {
     return Object.fromEntries(
         component.defaultProps.map((prop) => [prop.name, prop.defaultValue ?? getFallbackValue(prop.type)])
     );
 }
 
-function getFallbackValue(type: string): any {
+function getFallbackValue(type: string): PropValue {
     switch (type) {
         case 'string':
             return '';
@@ -74,25 +74,25 @@ function getFallbackValue(type: string): any {
         case 'select':
             return ''; // or first option if available
         default:
-            return null;
+            return undefined;
     }
 }
 
 export default function Dashboard() {
-    const [componentProps, setComponentProps] = useState<Record<string, any>>({});
+    const [componentProps, setComponentProps] = useState<Record<string, PropValue>>({});
     const { selectedComponent } = useSelectedComponent();
     
     const Component = componentRegistry.find(c => c.name === selectedComponent);
 
     useEffect(() => {
         if (Component) {
-            let initialProps: Record<string, any> = extractDefaultProps(Component);
+            const initialProps: Record<string, PropValue> = extractDefaultProps(Component);
             setComponentProps(initialProps);
         }
         else {
             setComponentProps({});
         }
-    }, [selectedComponent]);
+    }, [Component, selectedComponent]);
       
     return (
         <div className="flex flex-col md:flex-row h-screen">
@@ -102,23 +102,15 @@ export default function Dashboard() {
             </div>
 
             {/* Preview Panel */}
-            <div className="flex-1 bg-white p-4 overflow-auto">
+            <div className="flex-1 p-4 overflow-auto">
                 <PreviewSection
                     selectedComponent={Component}
                     values={componentProps}
                     />
-                {/* Display Current Props for Debug */}
-                <div className="w-full max-w-2xl bg-gray-100 p-4 rounded-lg mt-8">
-                    <h3 className="text-md font-semibold text-gray-700 mb-2">Current Props (JSON)</h3>
-                    <pre className="text-xs text-gray-600 bg-gray-200 p-3 rounded-md overflow-x-auto">
-                        {JSON.stringify(componentProps, null, 2)}
-                        {`${Component?.render(componentProps)}`}
-                    </pre>
-                </div>
             </div>
 
             {/* Properties Panel */}
-            <div className="md:w-1/4 w-full bg-gray-50 p-4 border-t md:border-t-0 md:border-l border-gray-300 overflow-auto">
+            <div className="md:w-1/4 w-full p-4 border-t md:border-t-0 md:border-l border-gray-300 overflow-auto">
                 <PropertiesSection
                     selectedComponent={Component}
                     values={componentProps}
