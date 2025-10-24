@@ -1,11 +1,16 @@
 import React from "react";
 
+export type PropValue = string | number | boolean | undefined | readonly string [];
+
 export type Category = 'Action' | 'Input';
 export interface PlaygroundComponent {
     id: string;
     name: string;
-    render: (props: Record<string, any>) => React.ReactNode;
-    code: (props: Record<string, any>) => string;
+    render: (props: Record<string, PropValue>) => React.ReactNode;
+    code?: {
+        jsx: (props: Record<string, PropValue>) => string;
+        html: (props: Record<string, PropValue>) => string;
+    };
     category: Category;
     tags: string[];
     //component: {};
@@ -18,7 +23,7 @@ export interface ComponentProperty {
     type: 'text' | 'number' | 'boolean' | 'select' | 'color' | 'range' | 'string';
     label: string;
     value?: string;
-    defaultValue?: any;
+    defaultValue?: PropValue;
     options?: string[];
     min?: number;
     max?: number;
