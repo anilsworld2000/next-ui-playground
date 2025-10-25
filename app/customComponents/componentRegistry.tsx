@@ -1,10 +1,14 @@
 import { PlaygroundComponent } from "../types";
 import { cursorList, cursorStyles, roundedList, roundedStyles, sizeList, sizeStyles, variantList, variantStyles } from "../variants";
 
+const newLine: string = '\n';
+const tab: string = '\t';
 export const componentRegistry: PlaygroundComponent[] = [
     {
         id: 'button',
         name: "Button",
+        classes: (props) => {
+            return (`${componentRegistry.find(comp => comp.id === 'button')?.classes(props)}`)},
         render: (props) => {
             return (<button
                 className={`
@@ -24,7 +28,8 @@ export const componentRegistry: PlaygroundComponent[] = [
             },
             html: (props) => {
                 const sizeClass = sizeStyles[props['size'] as string];
-                return `<button class="${sizeClass} bg-blue-500 text-white rounded" ${props.disabled ? 'disabled' : ''}>${props.label}</button>`;
+                return (`<button${newLine + tab}class="${sizeClass} bg-blue-500 text-white rounded"${props.disabled ? 'disabled' : ''}>${newLine + tab}${props.label}${newLine}</button>`
+                );
             },
         },
         category: 'Action',
