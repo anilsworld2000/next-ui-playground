@@ -27,7 +27,7 @@ const styles = `
 export default function Counter() {
     const [count, setCount] = useState(0);
     const [isPopping, setIsPopping] = useState(false);
-    const [maxValue, setMaxValue] = useState<number>(5);
+    const [maxValue, setMaxValue] = useState(0);
     const [cycleCount, setCycleCount] = useState(0);
 
     const handleClick = () => {
@@ -48,8 +48,37 @@ export default function Counter() {
     };
 
     const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(e.target.value, 10);
-        if (!isNaN(value) && value > 0) setMaxValue(value);
+        let value = e.target.value;
+        if (value === "") {
+            setMaxValue(NaN);
+            return;
+        }
+
+        // Remove leading zeros
+        value = value.replace(/^0+/, "");
+
+        const parsed = parseInt(value, 10);
+        if (!isNaN(parsed) && parsed > 0 && parsed <= 9999) {
+            setMaxValue(parsed);
+            setCycleCount(0);
+        }
+        // let value = e.target.value.replace(/^0+/, ""); // remove leading zeros
+        // if (value === "") value = ""; // fallback to 1 if user deletes all digits
+        // const parsed = parseInt(value, 10);
+
+        // // prevent extremely large values or invalid input
+        // if (!isNaN(parsed) && parsed > 0 && parsed <= 9999) {
+        //     setMaxValue(parsed);
+        //     setCycleCount(0);
+        // }
+
+
+        // const value = parseInt(e.target.value);
+        // if (!isNaN(value) && value > 0) {
+        //     setMaxValue(value);
+        //     setCycleCount(0);
+        // }
+        
     };
 
     return (
@@ -108,19 +137,29 @@ export default function Counter() {
                     </p>
 
                     {/* Secondary Counter */}
-                    <div className="flex flex-row items-center text-sm opacity-80">
-                        <span className="">Cycles Completed: {cycleCount}</span>{" "}
+                    <div className="flex flex-col items-center text-sm opacity-80">
+                        <span className="mb-2">Cycles Completed: {cycleCount}</span>{" "}
 
                         {/* Max Value Input */}
-                        <label className="ml-4">Set Max Value</label>
-                        <input
-                            title="Max"
-                            type="number"
-                            value={maxValue}
-                            min={1}
-                            onChange={handleMaxChange}
-                            className="ml-2 w-24 text-center px-2 py-1 rounded-md outline-1 focus:ring-2 focus:ring-indigo-400"
-                        />
+                        <div className="flex flex-row items-center">
+                            <label className="">Set Max Value</label>
+                            <input
+                                title="Max"
+                                type="number"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                value={isNaN(maxValue) ? "" : maxValue}
+                                min={1}
+                                placeholder="Max"
+                                onChange={handleMaxChange}
+                                onBlur={() => {
+                                    // When user leaves the field, reset to 1 if empty
+                                    if (isNaN(maxValue) || maxValue <= 0) setMaxValue(1);
+                                }}
+                                className="ml-2 w-24 text-center px-2 py-1 rounded-md outline-1 focus:ring-2 focus:ring-indigo-400"
+                            />
+                        </div>
+                        
                     </div>
                 </div>
             </div>
