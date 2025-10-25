@@ -39,7 +39,7 @@ export default function PreviewSection({ className, selectedComponent, values }:
             </div>
 
             {htmlString && (
-                <div className="w-full max-w-2xl bg-gray-100 p-4 rounded-lg mt-8 relative">
+                <div className="w-full max-w-2xl bg-slate-900 p-4 rounded-lg mt-8 relative">
                     <div className="h-7">
                         <button
                             onClick={handleCopy}
@@ -49,7 +49,7 @@ export default function PreviewSection({ className, selectedComponent, values }:
                         </button>
                     </div>
 
-                    <pre className="bg-gray-200 p-3 pt-5 rounded-md text-xs overflow-x-auto">{htmlString}</pre>
+                    <pre className="bg-slate-800 text-white p-3 pt-5 rounded-md text-xs overflow-x-auto">{htmlString}</pre>
                 </div>
             )}
 
