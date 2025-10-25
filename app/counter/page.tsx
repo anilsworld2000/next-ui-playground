@@ -27,11 +27,17 @@ const styles = `
 export default function Counter() {
     const [count, setCount] = useState(0);
     const [isPopping, setIsPopping] = useState(false);
+    const [maxValue, setMaxValue] = useState<number>(5);
+    const [cycleCount, setCycleCount] = useState(0);
 
     const handleClick = () => {
         // 1. Increment the count
-        setCount(prevCount => prevCount + 1);
-
+        if (count + 1 >= maxValue) {
+            setCount(0);
+            setCycleCount((prevCount) => prevCount + 1);
+        } else {
+            setCount(prevCount => prevCount + 1);
+        }
         // 2. Trigger the animation
         setIsPopping(true);
     };
@@ -39,6 +45,11 @@ export default function Counter() {
     const handleAnimationEnd = () => {
         // 3. Reset the animation state so it can play again next time
         setIsPopping(false);
+    };
+
+    const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        if (!isNaN(value) && value > 0) setMaxValue(value);
     };
 
     return (
@@ -54,8 +65,7 @@ export default function Counter() {
           - font-sans: Clean font
           - select-none: Prevent text selection on rapid clicks
         */}
-            <div className="h-screen w-full flex items-center justify-center text-white font-sans select-none overflow-hidden">
-
+            <div className="h-screen w-full flex items-center justify-center  font-sans select-none overflow-hidden">
                 <div className="flex flex-col items-center">
                     <h1 className="text-center text-4xl font-bold text-slate-900 mb-8">
                         Counter
@@ -75,17 +85,18 @@ export default function Counter() {
                     <div
                         className={`
                             text-center
-                w-64 h-64 
-                bg-blue-600 
-                rounded-full 
-                flex items-center justify-center 
-                text-8xl font-black 
-                shadow-2xl 
-                cursor-pointer 
-                transition-all duration-150 ease-out
-                active:scale-95 active:shadow-lg
-                ${isPopping ? 'animate-pop' : ''}
-              `}
+                            text-white
+                            w-64 h-64 
+                            bg-blue-600 
+                            rounded-full 
+                            flex items-center justify-center 
+                            text-8xl font-black 
+                            shadow-2xl 
+                            cursor-pointer 
+                            transition-all duration-150 ease-out
+                            active:scale-95 active:shadow-lg
+                            ${isPopping ? 'animate-pop' : ''}
+                        `}
                         onClick={handleClick}
                         onAnimationEnd={handleAnimationEnd} // Listen for when the animation finishes
                     >
@@ -95,8 +106,23 @@ export default function Counter() {
                     <p className="text-center text-lg text-slate-500 mt-8">
                         Tap the circle to increase the count.
                     </p>
-                </div>
 
+                    {/* Secondary Counter */}
+                    <div className="flex flex-row items-center text-sm opacity-80">
+                        <span className="">Cycles Completed: {cycleCount}</span>{" "}
+
+                        {/* Max Value Input */}
+                        <label className="ml-4">Set Max Value</label>
+                        <input
+                            title="Max"
+                            type="number"
+                            value={maxValue}
+                            min={1}
+                            onChange={handleMaxChange}
+                            className="ml-2 w-24 text-center px-2 py-1 rounded-md outline-1 focus:ring-2 focus:ring-indigo-400"
+                        />
+                    </div>
+                </div>
             </div>
         </>
     );
