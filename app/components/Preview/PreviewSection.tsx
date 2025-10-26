@@ -23,33 +23,37 @@ export default function PreviewSection({ className, selectedComponent, values }:
             {/* Preview Component */}
             <PreviewComponent component={RenderedComponent} />
 
-            <div className="text-white w-full max-w-2xl bg-slate-900 p-4 rounded-lg mt-8">
-                {/* JSX Code */}
-                {
-                    jsxString && (
+            {/* Preview Code */}
+            {
+                selectedComponent &&
+                <div className="text-white w-full max-w-2xl bg-slate-900 p-4 rounded-lg mt-8">
+                    {/* JSX Code */}
+                    {
+                        jsxString && (
+                            <PreviewCode
+                                title='JSX'
+                                value={jsxString}
+                            ></PreviewCode>
+                        )}
+
+                    {/* HTML Code */}
+                    {
+                        htmlString && (
+                            <PreviewCode
+                                title='HTML'
+                                value={htmlString}
+                            ></PreviewCode>
+                        )}
+
+                    {/* Display Current Props for Debug */}
+                    {Object.keys(values).length > 0 && (
                         <PreviewCode
-                            title='JSX'
-                            value={jsxString}
+                            title='Current Props (JSON)'
+                            value={JSON.stringify(values, null, 2)}
                         ></PreviewCode>
                     )}
-
-                {/* HTML Code */}
-                {
-                    htmlString && (
-                        <PreviewCode
-                            title='HTML'
-                            value={htmlString}
-                        ></PreviewCode>
-                    )}
-
-                {/* Display Current Props for Debug */}
-                {Object.keys(values).length > 0 && (
-                    <PreviewCode
-                        title='Current Props (JSON)'
-                        value={JSON.stringify(values, null, 2)}
-                    ></PreviewCode>
-                )}
-            </div>
+                </div>
+            }
         </section >
     )
 }
