@@ -18,7 +18,7 @@ export const componentRegistry: PlaygroundComponent[] = [
                 return `<button ${newLine + tab} className = ${getStyleClassesFromProps(props)} ${newLine}${props.disabled ? 'disabled' : ''}> ${newLine + tab + props.label + newLine}</button>`;
             },
             html: (props) => {
-                return (`<button ${newLine + tab} class = ${getStyleClassesFromProps(props)}" ${newLine}${props.disabled ? 'disabled' : ''}>${newLine + tab + props.label + newLine}</button>`
+                return (`<button ${newLine + tab} class = ${getStyleClassesFromProps(props)} ${newLine}${props.disabled ? 'disabled' : ''}>${newLine + tab + props.label + newLine}</button>`
                 );
             },
         },
