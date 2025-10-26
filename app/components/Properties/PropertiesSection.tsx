@@ -1,4 +1,4 @@
-import { PlaygroundComponent, PropValue } from "../types";
+import { PlaygroundComponent, PropValue } from "../../types";
 
 type props = {
     className?: string

@@ -7,7 +7,7 @@ export interface PlaygroundComponent {
     id: string;
     name: string;
     render: (props: Record<string, PropValue>) => React.ReactNode;
-    classes: (props: Record<string, PropValue>) => string;
+    //classes: (props: Record<string, PropValue>) => string;
     code?: {
         jsx: (props: Record<string, PropValue>) => string;
         html: (props: Record<string, PropValue>) => string;

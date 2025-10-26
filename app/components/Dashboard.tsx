@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { componentRegistry } from "../customComponents/componentRegistry";
 import { useSelectedComponent } from "../hooks/SelectedComponentContext";
 import ComponentsSection from "./ComponentsSection";
-import PreviewSection from "./PreviewSection";
-import PropertiesSection from "./PropertiesSection";
+import PreviewSection from "./Preview/PreviewSection";
+import PropertiesSection from "./Properties/PropertiesSection";
 import { PlaygroundComponent, PropValue } from "../types";
 
 export interface Theme {

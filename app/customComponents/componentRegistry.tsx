@@ -1,34 +1,24 @@
 import { PlaygroundComponent } from "../types";
-import { cursorList, cursorStyles, roundedList, roundedStyles, sizeList, sizeStyles, variantList, variantStyles } from "../variants";
+import { getStyleClassesFromProps, newLine, tab } from "../utils";
+import { cursorList, roundedList, sizeList, variantList } from "../variants";
 
-const newLine: string = '\n';
-const tab: string = '\t';
 export const componentRegistry: PlaygroundComponent[] = [
     {
         id: 'button',
         name: "Button",
-        classes: (props) => {
-            return (`${componentRegistry.find(comp => comp.id === 'button')?.classes(props)}`)},
         render: (props) => {
             return (<button
-                className={`
-                    ${sizeStyles[props['size'] as string]}
-                    ${variantStyles[props['variant'] as string]}
-                    ${roundedStyles[props['rounded'] as string]}
-                    ${props.disabled ? 'opacity-50 cursor-not-allowed' : cursorStyles[props['cursor'] as string]}
-                `}
+                className={` ${getStyleClassesFromProps(props)} `}
                 disabled={props['disabled'] as boolean}>
                 {props['label']}
             </button>)
         },
         code: {
             jsx: (props) => {
-                const sizeClass = sizeStyles[props['size'] as string];
-                return `<button className="${sizeClass} bg-blue-500 text-white rounded" ${props.disabled ? 'disabled' : ''}>${props.label}</button>`;
+                return `<button ${newLine + tab} className = ${getStyleClassesFromProps(props)} ${newLine}${props.disabled ? 'disabled' : ''}> ${newLine + tab + props.label + newLine}</button>`;
             },
             html: (props) => {
-                const sizeClass = sizeStyles[props['size'] as string];
-                return (`<button${newLine + tab}class="${sizeClass} bg-blue-500 text-white rounded"${props.disabled ? 'disabled' : ''}>${newLine + tab}${props.label}${newLine}</button>`
+                return (`<button ${newLine + tab} class = ${getStyleClassesFromProps(props)}" ${newLine}${props.disabled ? 'disabled' : ''}>${newLine + tab + props.label + newLine}</button>`
                 );
             },
         },
