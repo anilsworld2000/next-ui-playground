@@ -18,7 +18,7 @@ export default function PropertiesSection({ className, selectedComponent, values
             <div className="mb-4">
                 <p className="font-semibold">Properties: {selectedComponent?.name}</p>
 
-                {!selectedComponent && <p className="text-sm font-medium">Select a component to edit its properties.</p>}
+                {!selectedComponent && <p className="text-sm text-gray-500">Select a component to edit its properties.</p>}
 
                 {selectedComponent &&
                     selectedComponent.defaultProps.map(prop => (
