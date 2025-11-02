@@ -1,35 +1,75 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 
-type route = {
+type Route = {
   id: string;
   name: string;
   path: string;
+  description: string;
 };
-export default function Home() {
 
-  const routes: route[] = [
-    {id: '_ui_playground', name: 'UI Playground', path: '/playground' },
-    {id: '_counter', name: 'Counter', path: '/counter' },
+export default function Home() {
+  const routes: Route[] = [
+    {
+      id: "_ui_playground",
+      name: "UI Playground",
+      path: "/playground",
+      description: "A playground to visualize components",
+    },
+    {
+      id: "_counter",
+      name: "Counter",
+      path: "/counter",
+      description: "Counter for you",
+    },
   ];
 
   return (
-    <div className="">
-      <main className="rounded-2xl flex-1 overflow">
-        <div className="p-4">
-          <h1 className="mb-2">Dashboards</h1>
+    <main className="p-8">
+      <h1 className="text-2xl font-bold mb-4">Dashboards</h1>
 
-          <div className="grid grid-cols-2 gap-8 p-2">
-            {routes.map(route => (
-              <Link key={route.id} className="border rounded-md text-center grid-cols-2" title={route.name} href={route.path}>
-                  {route.name}
-                  {route.name}
-              </Link>
-            ))}
-          </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {routes.map((dash) => (
+          <DashboardPreview key={dash.id} dash={dash} />
+        ))}
+      </div>
+    </main>
+  );
+}
 
-        </div>
-      </main>
-    </div>
+function DashboardPreview({ dash }: { dash: Route }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <Link
+      href={dash.path}
+      className="group rounded-2xl shadow-md border border-gray-200 overflow-hidden bg-white hover:shadow-lg transition"
+    >
+      {/* 👇 Preview (mini live dashboard) */}
+      <div className="relative h-48 bg-gray-100 overflow-hidden">
+        {/* Shimmer placeholder until iframe loads */}
+        {!loaded && (
+          <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200" />
+        )}
+
+        <iframe
+          src={dash.path}
+          className={`absolute top-0 left-0 w-full h-full scale-[1] origin-top-left pointer-events-none transform ${loaded ? "opacity-100" : "opacity-0"
+            } transition-opacity duration-500`}
+          title={dash.name}
+          onLoad={() => setLoaded(true)}
+        />
+
+        {/* Overlay for hover effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      </div>
+
+      {/* 👇 Info */}
+      <div className="p-4">
+        <h3 className="text-lg font-semibold">{dash.name}</h3>
+        <p className="text-sm text-gray-600 mt-1">{dash.description}</p>
+      </div>
+    </Link>
   );
 }
