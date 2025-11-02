@@ -16,13 +16,18 @@ export default function Home() {
   return (
     <div className="">
       <main className="rounded-2xl flex-1 overflow">
-        <div className="pl-4">
+        <div className="p-4">
           <h1 className="mb-2">Dashboards</h1>
+
+          <div className="grid grid-cols-2 gap-8 p-2">
             {routes.map(route => (
-              <Link key={route.id} className="border p-2 rounded-2xl text-center w-2xl mr-2" title={route.name} href={route.path}>
-                {route.name}
+              <Link key={route.id} className="border rounded-md text-center grid-cols-2" title={route.name} href={route.path}>
+                  {route.name}
+                  {route.name}
               </Link>
             ))}
+          </div>
+
         </div>
       </main>
     </div>
