@@ -11,3 +11,12 @@ export function getStyleClassesFromProps(props: Record<string, PropValue>) {
     return (`\'${sizeStyles[props['size'] as string]} ${variantStyles[props['variant'] as string]} ${roundedStyles[props['rounded'] as string]} ${props.disabled ? 'opacity-50 cursor-not-allowed' : cursorStyles[props['cursor'] as string]}\'`);
 }
 
+
+export function generateJSXCode() {
+    
+}
+
+export function generateHTMLCode() {
+    
+}
+

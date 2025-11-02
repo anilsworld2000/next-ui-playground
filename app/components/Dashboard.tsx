@@ -5,6 +5,7 @@ import ComponentsSection from "./ComponentsSection";
 import PreviewSection from "./Preview/PreviewSection";
 import PropertiesSection from "./Properties/PropertiesSection";
 import { PlaygroundComponent, PropValue } from "../types";
+import Loader from "./Loader";
 
 export interface Theme {
     id: string;
@@ -73,18 +74,23 @@ function getFallbackValue(type: string): PropValue {
             return false;
         case 'select':
             return ''; // or first option if available
+        case 'jsx':
+            return '';
         default:
             return undefined;
     }
 }
 
 export default function Dashboard() {
+    const [loading, setLoading] = useState(true);
     const [componentProps, setComponentProps] = useState<Record<string, PropValue>>({});
     const { selectedComponent } = useSelectedComponent();
-    
+
     const Component = componentRegistry.find(c => c.name === selectedComponent);
 
     useEffect(() => {
+        setLoading(true);
+
         if (Component) {
             const initialProps: Record<string, PropValue> = extractDefaultProps(Component);
             setComponentProps(initialProps);
@@ -92,8 +98,14 @@ export default function Dashboard() {
         else {
             setComponentProps({});
         }
-    }, [Component, selectedComponent]);
-      
+
+        setLoading(false);
+
+    }, [Component, selectedComponent, setLoading]);
+
+    if (loading)
+        <Loader />
+
     return (
         <div className="flex flex-col md:flex-row h-screen">
             {/* Components Panel */}
@@ -106,7 +118,7 @@ export default function Dashboard() {
                 <PreviewSection
                     selectedComponent={Component}
                     values={componentProps}
-                    />
+                />
             </div>
 
             {/* Properties Panel */}
@@ -114,7 +126,7 @@ export default function Dashboard() {
                 <PropertiesSection
                     selectedComponent={Component}
                     values={componentProps}
-                    onChange={setComponentProps}/>
+                    onChange={setComponentProps} />
             </div>
         </div>
     );
