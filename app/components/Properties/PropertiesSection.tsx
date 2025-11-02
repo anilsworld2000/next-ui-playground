@@ -23,7 +23,20 @@ export default function PropertiesSection({ className, selectedComponent, values
                 {selectedComponent &&
                     selectedComponent.defaultProps.map(prop => (
                         <div key={prop.name} className="flex flex-col">
-                            {prop.type != 'boolean' && <label className={`text-sm mt-1`}>{prop.label || prop.name}</label>}
+                            {prop.type != 'boolean' && prop.type != 'jsx' && <label className={`text-sm mt-1`}>{prop.label || prop.name}</label>}
+
+                            {prop.type === 'jsx' && values['useJSX'] && (
+                                <div className="flex flex-col">
+                                    <textarea
+                                        title={prop.label}
+                                        value={values[prop.name] as string ?? ''}
+                                        onChange={(e) => handleChange(prop.name, e.target.value)}
+                                        className="text-sm border rounded px-2 py-1 font-mono"
+                                        rows={6}
+                                        placeholder="Enter JSX or HTML content"
+                                    />
+                                </div>
+                            )}
 
                             {prop.type === 'string' && (
                                 <input
@@ -44,7 +57,7 @@ export default function PropertiesSection({ className, selectedComponent, values
                                 />
                             )}
                             {prop.type === 'boolean' && (
-                                <div className="flex items-center justify-between mb-3 mt-1">
+                                <div className="flex items-center justify-between mt-1">
                                     <label htmlFor={prop.name} className="text-sm font-medium">
                                         {prop.label}
                                     </label>

@@ -10,16 +10,17 @@ export const componentRegistry: PlaygroundComponent[] = [
             return (<button
                 className={` ${getStyleClassesFromProps(props)} `}
                 disabled={props['disabled'] as boolean}>
-                {props['label']}
+                {props['useJSX'] ? props['JSX'] : props['label']}
             </button>)
         },
         code: {
             jsx: (props) => {
-                return `<button ${newLine + tab} className = ${getStyleClassesFromProps(props)} ${newLine}${props.disabled ? 'disabled' : ''}> ${newLine + tab + props.label + newLine}</button>`;
+                const content = props.children ? `{/* custom children */}` : props.label;
+                return `<button${newLine + tab}className=${getStyleClassesFromProps(props)}${newLine}${props.disabled ? 'disabled' : ''}>${newLine + tab}${content}${newLine}</button>`;
             },
             html: (props) => {
-                return (`<button ${newLine + tab} class = ${getStyleClassesFromProps(props)} ${newLine}${props.disabled ? 'disabled' : ''}>${newLine + tab + props.label + newLine}</button>`
-                );
+                const content = props.children ? '<!-- custom children -->' : props.label;
+                return `<button${newLine + tab}class=${getStyleClassesFromProps(props)}${newLine}${props.disabled ? 'disabled' : ''}>${newLine + tab}${content}${newLine}</button>`;
             },
         },
         category: 'Action',
@@ -31,18 +32,8 @@ export const componentRegistry: PlaygroundComponent[] = [
             { name: 'rounded', type: 'select', label: 'Rounded', options: roundedList, defaultValue: roundedList[0] },
             { name: 'cursor', type: 'select', label: 'Cursor', options: cursorList, defaultValue: cursorList[0] },
             { name: 'disabled', type: 'boolean', label: 'Disabled', defaultValue: false },
+            { name: 'useJSX', type: 'boolean', label: 'Use Custom Elements', defaultValue: false },
+            { name: 'JSX', type: 'jsx', label: 'Custom Element', defaultValue: '' },
         ]
-    },
-    // {
-    //     name: "Link",
-    //     render: () => <a href="#" className="text-blue-600 underline">Visit</a>,
-    //     category: "Action",
-    //     tags: ['link', 'download', 'button']
-    // },
-    // {
-    //     name: "Input",
-    //     render: () => <input type="text" placeholder="Type here..." className="border p-2" />,
-    //     category: "Input",
-    //     tags: ['input']
-    // }
+    }
 ];
