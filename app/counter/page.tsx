@@ -68,57 +68,24 @@ export default function Counter() {
         <>
             {/* Inject the keyframes animation styles into the page */}
             <style>{styles}</style>
-
-            {/* Main container:
-          - h-screen: Full height
-          - bg-slate-900: Dark background
-          - flex, items-center, justify-center: Center the content
-          - text-white: White text
-          - font-sans: Clean font
-          - select-none: Prevent text selection on rapid clicks
-        */}
-            <div className="h-[calc(100vh-4rem)] pt-1 w-full flex flex-col items-center justify-between font-sans select-none overflow-hidden">
+            <div className="h-[calc(100vh-4rem)] pt-1 w-full flex flex-col items-center justify-center font-sans select-none overflow-hidden">
                 <div className="flex flex-col items-center">
                     <h1 className="text-center text-4xl font-bold text-slate-900 mb-8">
                         Counter
                     </h1>
-
-                    {/* The Counter Button:
-              - w-64 h-64: Large square shape
-              - bg-blue-600: Blue color
-              - rounded-full: Make it a circle
-              - flex, items-center, justify-center: Center the number
-              - text-8xl font-black: Huge, bold number
-              - shadow-2xl: Strong shadow for depth
-              - cursor-pointer: Show it's clickable
-              - transition-all duration-150: Smooth transitions for transform and shadow
-              - active:scale-95 active:shadow-lg: Shrink and reduce shadow when pressed
-            */}
-                    <div
-                        className={`
-                            text-center
-                            text-white
-                            w-64 h-64 
-                            bg-blue-600 
-                            rounded-full 
-                            flex items-center justify-center 
-                            text-8xl font-black 
-                            shadow-2xl 
-                            cursor-pointer 
-                            transition-all duration-150 ease-out
-                            active:scale-95 active:shadow-lg
-                            flex-col
-                            ${isPopping ? 'animate-pop' : ''}
-                        `}
+                    <button
+                        className={`w-64 h-64 bg-blue-600 rounded-full text-white text-8xl font-black shadow-2xl cursor-pointer transition-all duration-150 ease-out
+                        active:scale-95 active:shadow-lg
+                        ${isPopping ? 'animate-pop' : ''}`}
                         onClick={handleClick}
-                        onAnimationEnd={handleAnimationEnd} // Listen for when the animation finishes
+                        onAnimationEnd={handleAnimationEnd}
                     >
                         {count}
-                    </div>
+                    </button>
 
                     {/* Secondary Counter */}
-                    <div className="absolute bottom-4 items-center text-sm opacity-80">
-                        <span className="mb-2">Cycles Completed: {cycleCount}</span>{" "}
+                    <div className="absolute bottom-4 text-sm opacity-80">
+                        <p className="flex flex-row items-center justify-center mb-2">Cycles Completed: {cycleCount}</p>
 
                         {/* Max Value Input */}
                         <div className="flex flex-row items-center">
