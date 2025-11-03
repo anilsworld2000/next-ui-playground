@@ -62,23 +62,6 @@ export default function Counter() {
             setMaxValue(parsed);
             setCycleCount(0);
         }
-        // let value = e.target.value.replace(/^0+/, ""); // remove leading zeros
-        // if (value === "") value = ""; // fallback to 1 if user deletes all digits
-        // const parsed = parseInt(value, 10);
-
-        // // prevent extremely large values or invalid input
-        // if (!isNaN(parsed) && parsed > 0 && parsed <= 9999) {
-        //     setMaxValue(parsed);
-        //     setCycleCount(0);
-        // }
-
-
-        // const value = parseInt(e.target.value);
-        // if (!isNaN(value) && value > 0) {
-        //     setMaxValue(value);
-        //     setCycleCount(0);
-        // }
-        
     };
 
     return (
@@ -94,7 +77,7 @@ export default function Counter() {
           - font-sans: Clean font
           - select-none: Prevent text selection on rapid clicks
         */}
-            <div className="h-screen w-full flex items-center justify-center  font-sans select-none overflow-hidden">
+            <div className="h-[calc(100vh-4rem)] pt-1 w-full flex flex-col items-center justify-between font-sans select-none overflow-hidden">
                 <div className="flex flex-col items-center">
                     <h1 className="text-center text-4xl font-bold text-slate-900 mb-8">
                         Counter
@@ -124,6 +107,7 @@ export default function Counter() {
                             cursor-pointer 
                             transition-all duration-150 ease-out
                             active:scale-95 active:shadow-lg
+                            flex-col
                             ${isPopping ? 'animate-pop' : ''}
                         `}
                         onClick={handleClick}
@@ -132,12 +116,8 @@ export default function Counter() {
                         {count}
                     </div>
 
-                    <p className="text-center text-lg text-slate-500 mt-8">
-                        Tap the circle to increase the count.
-                    </p>
-
                     {/* Secondary Counter */}
-                    <div className="flex flex-col items-center text-sm opacity-80">
+                    <div className="absolute bottom-4 items-center text-sm opacity-80">
                         <span className="mb-2">Cycles Completed: {cycleCount}</span>{" "}
 
                         {/* Max Value Input */}
@@ -159,7 +139,6 @@ export default function Counter() {
                                 className="ml-2 w-24 text-center px-2 py-1 rounded-md outline-1 focus:ring-2 focus:ring-indigo-400"
                             />
                         </div>
-                        
                     </div>
                 </div>
             </div>

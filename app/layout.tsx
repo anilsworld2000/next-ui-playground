@@ -25,12 +25,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <header className="p-4 text-left text-indigo-800 text-lg font-extrabold">
-        <Link className="" href='./'>Home</Link>
-      </header>
-
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <header className="p-1 pl-4 text-left text-indigo-800 text-lg font-extrabold">
+          <nav>
+            <Link href="./" className="hover:underline">Home</Link>
+          </nav>
+        </header>
+
+        <main role="main" className="p-4 pt-0.5">
+          {children}
+        </main>
       </body>
     </html>
   );
