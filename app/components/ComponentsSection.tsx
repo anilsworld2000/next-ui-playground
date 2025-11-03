@@ -7,7 +7,6 @@ interface ComponentsSecProps {
     className?: string;
 }
 
-
 export default function ComponentsSection({ className }: ComponentsSecProps) {
     const [searchTerm, setSearchTerm] = useState("");
     const [openCategory, setOpenCategory] = useState<string | null>(null);
