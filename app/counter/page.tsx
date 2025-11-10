@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSelectedDashboard } from "../hooks/SelectedDashboardContext";
 
 const styles = `
   @keyframes pop {
@@ -29,6 +30,8 @@ export default function Counter() {
     const [isPopping, setIsPopping] = useState(false);
     const [maxValue, setMaxValue] = useState(0);
     const [cycleCount, setCycleCount] = useState(0);
+    const { selectDashboard } = useSelectedDashboard();
+    selectDashboard("Counter");
 
     const handleClick = () => {
         // 1. Increment the count
@@ -70,9 +73,6 @@ export default function Counter() {
             <style>{styles}</style>
             <div className="h-[calc(100vh-4rem)] pt-1 w-full flex flex-col items-center justify-center font-sans select-none overflow-hidden">
                 <div className="flex flex-col items-center">
-                    <h1 className="text-center text-4xl font-bold text-slate-900 mb-8">
-                        Counter
-                    </h1>
                     <button
                         className={`w-64 h-64 bg-blue-600 rounded-full text-white text-8xl font-black shadow-2xl cursor-pointer transition-all duration-150 ease-out
                         active:scale-95 active:shadow-lg

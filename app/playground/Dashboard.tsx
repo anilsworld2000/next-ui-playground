@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { componentRegistry } from "../customComponents/componentRegistry";
 import { useSelectedComponent } from "../hooks/SelectedComponentContext";
-import ComponentsSection from "./ComponentsSection";
+import ComponentsSection from "../playground/ComponentsSection";
 import PreviewSection from "./Preview/PreviewSection";
 import PropertiesSection from "./Properties/PropertiesSection";
 import { PlaygroundComponent, PropValue } from "../types";
 import Loader from "./Loader";
+import { useSelectedRoute } from "../hooks/CurrentRoute";
 
 export interface Theme {
     id: string;
@@ -57,7 +58,6 @@ export const defaultTheme: Theme = {
     },
 };
 
-
 export function extractDefaultProps(component: PlaygroundComponent): Record<string, PropValue> {
     return Object.fromEntries(
         component.defaultProps.map((prop) => [prop.name, prop.defaultValue ?? getFallbackValue(prop.type)])
@@ -85,7 +85,7 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [componentProps, setComponentProps] = useState<Record<string, PropValue>>({});
     const { selectedComponent } = useSelectedComponent();
-
+    const { selectedRoute } = useSelectedRoute();
     const Component = componentRegistry.find(c => c.name === selectedComponent);
 
     useEffect(() => {
