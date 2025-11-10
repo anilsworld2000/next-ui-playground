@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import { CurrentRouteContextProvider } from "./hooks/CurrentRoute";
+import { SelectedDashboardProvider } from "./hooks/SelectedDashboardContext";
+import NavBar from "./navBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,21 +22,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <header className="p-1 pl-4 text-left text-indigo-800 text-lg font-extrabold">
-          <nav>
-            <Link href="./" className="hover:underline">Home</Link>
-          </nav>
-        </header>
-
-        <main role="main" className="p-4 pt-0.5">
-          {children}
-        </main>
+        <CurrentRouteContextProvider >
+          <SelectedDashboardProvider>
+            <header className="p-1 pl-4">
+              <NavBar />
+            </header>
+            <main role="main" className="p-4 pt-0.5">
+              {children}
+            </main>
+          </SelectedDashboardProvider>
+        </CurrentRouteContextProvider>
       </body>
     </html>
   );

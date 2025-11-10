@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useSelectedRoute } from "./hooks/CurrentRoute";
 
 type Route = {
   id: string;
@@ -40,7 +41,6 @@ export default function Home() {
 
 function DashboardPreview({ dash }: { dash: Route }) {
   const [loaded, setLoaded] = useState(false);
-
   return (
     <Link
       aria-label={`Navigate to ${dash.name}`}
