@@ -20,8 +20,13 @@ export const CurrentRouteContextProvider = ({ children }: { children: ReactNode 
         if (!pathname) return;
 
         // Normalize pathname to a readable format
-        const cleanPath = pathname === "/" ? "" : pathname;
-        //const cleanPath = pathname === "/" ? "" : pathname.replace("/", "");
+        let cleanPath = '';
+        if (pathname === "" || pathname === "/" || pathname === undefined) {
+            cleanPath = "";
+            setRoutes([]);
+        }
+        else
+            cleanPath = pathname;
 
         setSelectedRoute(cleanPath);
         setRoutes((prev) => {
