@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelectedDashboard } from "../hooks/SelectedDashboardContext";
 
 const styles = `
@@ -48,6 +48,23 @@ export default function Counter() {
         setIsPopping(true);
     };
 
+    const handleKeyPress = useCallback((event: { key: string; }) => {
+        // Check for the desired key or key combination (e.g., 'Enter' key)
+        if (event.key === 'Enter') {
+            handleClick();
+        }
+        // For combinations, you might check event.ctrlKey, event.altKey, event.shiftKey
+        // Example for Ctrl+S: if (event.ctrlKey && event.key === 's') { handleSave(); }
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleKeyPress]);
+
     const handleAnimationEnd = () => {
         // 3. Reset the animation state so it can play again next time
         setIsPopping(false);
@@ -83,6 +100,7 @@ export default function Counter() {
                         onClick={handleClick}
                         onAnimationEnd={handleAnimationEnd}
                         accessKey="enter"
+                        aria-keyshortcuts="Enter"
                     >
                         {count}
                     </button>
