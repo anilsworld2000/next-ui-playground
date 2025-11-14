@@ -38,6 +38,9 @@ export default function Counter() {
         if (count + 1 >= maxValue) {
             setCount(0);
             setCycleCount((prevCount) => prevCount + 1);
+            if (typeof window !== "undefined" && "vibrate" in navigator) {
+                navigator.vibrate(200); // vibrate for 200ms
+            }
         } else {
             setCount(prevCount => prevCount + 1);
         }
@@ -79,6 +82,7 @@ export default function Counter() {
                         ${isPopping ? 'animate-pop' : ''}`}
                         onClick={handleClick}
                         onAnimationEnd={handleAnimationEnd}
+                        accessKey="enter"
                     >
                         {count}
                     </button>

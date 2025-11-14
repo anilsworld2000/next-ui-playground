@@ -14,14 +14,15 @@ export default function NavBar() {
             <div>
                 <Link href="./" className="text-indigo-800 text-lg font-extrabold">Home</Link>
                 {routes.map((route) => (
+                    route.length > 2 &&
                     <Link
                         href={route}
                         key={route}
                         className="text-gray-500 text-sm">
-                        {route}
+                        {"\t" + route[0] + route.charAt(1).toUpperCase() + route.slice(2)}
                     </Link>
                 ))}
             </div>
-            <h1 className="">{selectedDashboard}</h1>
+            <h1 className="text-slate-800 text-sm">{selectedDashboard}</h1>
         </nav>);
 }

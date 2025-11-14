@@ -6,7 +6,6 @@ import PreviewSection from "./Preview/PreviewSection";
 import PropertiesSection from "./Properties/PropertiesSection";
 import { PlaygroundComponent, PropValue } from "../types";
 import Loader from "./Loader";
-import { useSelectedRoute } from "../hooks/CurrentRoute";
 
 export interface Theme {
     id: string;
@@ -85,7 +84,6 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [componentProps, setComponentProps] = useState<Record<string, PropValue>>({});
     const { selectedComponent } = useSelectedComponent();
-    const { selectedRoute } = useSelectedRoute();
     const Component = componentRegistry.find(c => c.name === selectedComponent);
 
     useEffect(() => {

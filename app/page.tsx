@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useSelectedRoute } from "./hooks/CurrentRoute";
+import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
 
 type Route = {
   id: string;
@@ -11,7 +11,10 @@ type Route = {
 };
 
 export default function Home() {
-  const routes: Route[] = [
+  const { selectDashboard } = useSelectedDashboard();
+  selectDashboard("");
+
+  const routesList: Route[] = [
     {
       id: "_ui_playground",
       name: "UI Playground",
@@ -31,7 +34,7 @@ export default function Home() {
       <h1 className="text-2xl font-bold mb-4">Dashboards</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {routes.map((dash) => (
+        {routesList.map((dash) => (
           <DashboardPreview key={dash.id} dash={dash} />
         ))}
       </div>
@@ -57,7 +60,7 @@ function DashboardPreview({ dash }: { dash: Route }) {
         <iframe
           loading="lazy"
           src={dash.path}
-          className={`absolute top-0 left-0 w-full h-full scale-[1] origin-top-left pointer-events-none transform ${loaded ? "opacity-100" : "opacity-0"
+          className={`w-full h-full scale-[1] overflow-hidden pointer-events-none transform ${loaded ? "opacity-100" : "opacity-0"
             } transition-opacity duration-500`}
           title={dash.name}
           onLoad={() => setLoaded(true)}

@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <CurrentRouteContextProvider >
           <SelectedDashboardProvider>
-            <header className="p-1 pl-4">
+            <header className="p-1 pl-4 pr-4">
               <NavBar />
             </header>
             <main role="main" className="p-4 pt-0.5">
