@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelectedDashboard } from "../hooks/SelectedDashboardContext";
 
 const styles = `
@@ -30,12 +30,18 @@ export default function Counter() {
     const [isPopping, setIsPopping] = useState(false);
     const [maxValue, setMaxValue] = useState(0);
     const [cycleCount, setCycleCount] = useState(0);
+    const maxInputRef = useRef<HTMLInputElement>(null);
+
     const { selectDashboard } = useSelectedDashboard();
     selectDashboard("Counter");
 
     const handleClick = () => {
         // 1. Increment the count
-        if (count + 1 >= maxValue) {
+        const inputVal = maxInputRef.current?.value;
+        const parsed = parseInt(inputVal || "", 10);
+        const effectiveMax = !isNaN(parsed) && parsed > 0 ? parsed : 1;
+    
+        if (count + 1 >= effectiveMax) {
             setCount(0);
             setCycleCount((prevCount) => prevCount + 1);
             if (typeof window !== "undefined" && "vibrate" in navigator) {
@@ -113,6 +119,7 @@ export default function Counter() {
                         <div className="flex flex-row items-center">
                             <label className="">Set Max Value</label>
                             <input
+                                ref={maxInputRef}
                                 title="Max"
                                 type="number"
                                 inputMode="numeric"
