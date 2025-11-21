@@ -27,6 +27,12 @@ export default function Home() {
       path: "/counter",
       description: "Counter for you",
     },
+    {
+      id: "_wallet",
+      name: "Wallet",
+      path: "/wallet",
+      description: "A Wallet for you",
+    },
   ];
 
   return (

@@ -28,3 +28,16 @@ export interface ComponentProperty {
     max?: number;
     step?: number;
 }
+
+export type NavItem = {
+    id: string;
+    name: string;
+    icon?: React.ReactNode;
+    href: string;
+};
+
+export type NavGroup = {
+    id: string;
+    title: string;
+    items: NavItem[];
+};

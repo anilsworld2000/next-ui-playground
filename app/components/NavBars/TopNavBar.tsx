@@ -1,9 +1,19 @@
 "use client";
 import Link from "next/link";
-import { useSelectedRoute } from "./hooks/CurrentRoute";
-import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
+import { useSelectedRoute } from "../../hooks/CurrentRoute";
+import { useSelectedDashboard } from "../../hooks/SelectedDashboardContext";
+import HorizontalNavBar from "./HontalNavBar";
+import { NavItem } from "@/app/types";
 
-export default function NavBar() {
+const topNavBarItems: NavItem[] = [
+    {
+        id: "_login",
+        name: "Login",
+        href: '/login'
+    }
+];
+
+export default function TopNavBar() {
     const { routes } = useSelectedRoute();
     const { selectedDashboard } = useSelectedDashboard();
 
@@ -18,11 +28,14 @@ export default function NavBar() {
                     <Link
                         href={route}
                         key={route}
-                        className="text-gray-500 text-sm">
+                        className="text-indigo-500 text-sm">
                         {"\t" + route[0] + route.charAt(1).toUpperCase() + route.slice(2)}
                     </Link>
                 ))}
             </div>
             <h1 className="text-slate-800 text-sm">{selectedDashboard}</h1>
+            <HorizontalNavBar
+                items={topNavBarItems}>
+            </HorizontalNavBar>
         </nav>);
 }
