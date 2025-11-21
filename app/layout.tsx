@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CurrentRouteContextProvider } from "./hooks/CurrentRoute";
 import { SelectedDashboardProvider } from "./hooks/SelectedDashboardContext";
-import NavBar from "./navBar";
+import TopNavBar from "./components/NavBars/TopNavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +29,7 @@ export default function RootLayout({
         <CurrentRouteContextProvider >
           <SelectedDashboardProvider>
             <header className="p-1 pl-4 pr-4">
-              <NavBar />
+              <TopNavBar />
             </header>
             <main role="main" className="p-4 pt-0.5">
               {children}
