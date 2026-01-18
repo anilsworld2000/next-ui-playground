@@ -35,7 +35,7 @@ export default function Counter() {
     const { selectDashboard } = useSelectedDashboard();
     selectDashboard("Counter");
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         // 1. Increment the count
         const inputVal = maxInputRef.current?.value;
         const parsed = parseInt(inputVal || "", 10);
@@ -52,7 +52,7 @@ export default function Counter() {
         }
         // 2. Trigger the animation
         setIsPopping(true);
-    };
+    }, [count]);
 
     const handleKeyPress = useCallback((event: { key: string; }) => {
         // Check for the desired key or key combination (e.g., 'Enter' key)
@@ -61,7 +61,7 @@ export default function Counter() {
         }
         // For combinations, you might check event.ctrlKey, event.altKey, event.shiftKey
         // Example for Ctrl+S: if (event.ctrlKey && event.key === 's') { handleSave(); }
-    }, []);
+    }, [handleClick]);
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeyPress);

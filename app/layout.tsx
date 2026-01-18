@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+//import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CurrentRouteContextProvider } from "./hooks/CurrentRoute";
 import { SelectedDashboardProvider } from "./hooks/SelectedDashboardContext";
 import TopNavBar from "./components/NavBars/TopNavBar";
-import { ThemeProvider, useTheme } from "./hooks/ThemeContext";
+import { ThemeProvider } from "./hooks/ThemeContext";
 import ThemeWrapper from "./components/Wrappers/ThemeWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Next UI Playground",
