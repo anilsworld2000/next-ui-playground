@@ -57,7 +57,7 @@ function DashboardPreview({ dash }: { dash: Route }) {
     <Link
       aria-label={`Navigate to ${dash.name}`}
       href={dash.path}
-      className={cnClassNames(theme.theme.card, theme.theme.border, theme.theme.hover, "group rounded-2xl shadow-md border overflow-hidden hover:shadow-lg transition")}
+      className={cnClassNames(theme.theme.card, theme.theme.border, theme.theme.hoverBg, "group rounded-2xl shadow-md border overflow-hidden hover:shadow-lg transition")}
     >
       {/* 👇 Preview (mini live dashboard) */}
       <div className="relative h-48 overflow-hidden">
