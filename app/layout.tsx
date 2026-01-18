@@ -4,6 +4,8 @@ import "./globals.css";
 import { CurrentRouteContextProvider } from "./hooks/CurrentRoute";
 import { SelectedDashboardProvider } from "./hooks/SelectedDashboardContext";
 import TopNavBar from "./components/NavBars/TopNavBar";
+import { ThemeProvider, useTheme } from "./hooks/ThemeContext";
+import ThemeWrapper from "./components/Wrappers/ThemeWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,17 +27,21 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <CurrentRouteContextProvider >
-          <SelectedDashboardProvider>
-            <header className="p-1 pl-4 pr-4">
-              <TopNavBar />
-            </header>
-            <main role="main" className="p-4 pt-0.5">
-              {children}
-            </main>
-          </SelectedDashboardProvider>
-        </CurrentRouteContextProvider>
+      <body>
+        <ThemeProvider>
+          <ThemeWrapper>
+            <CurrentRouteContextProvider >
+              <SelectedDashboardProvider>
+                <header className="p-1 pl-4 pr-4">
+                  <TopNavBar />
+                </header>
+                <main role="main" className="p-4 pt-0.5">
+                  {children}
+                </main>
+              </SelectedDashboardProvider>
+            </CurrentRouteContextProvider>
+          </ThemeWrapper>
+        </ThemeProvider>
       </body>
     </html>
   );
