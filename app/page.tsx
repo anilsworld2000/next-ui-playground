@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
+import cnClassNames from "./utils";
+import { useTheme } from "./hooks/ThemeContext";
 
 type Route = {
   id: string;
@@ -39,7 +41,7 @@ export default function Home() {
     <main className="">
       <h1 className="text-2xl font-bold mb-4">Dashboards</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className={cnClassNames("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8")}>
         {routesList.map((dash) => (
           <DashboardPreview key={dash.id} dash={dash} />
         ))}
@@ -50,14 +52,15 @@ export default function Home() {
 
 function DashboardPreview({ dash }: { dash: Route }) {
   const [loaded, setLoaded] = useState(false);
+  const theme = useTheme();
   return (
     <Link
       aria-label={`Navigate to ${dash.name}`}
       href={dash.path}
-      className="group rounded-2xl shadow-md border border-gray-200 overflow-hidden bg-white hover:shadow-lg transition"
+      className={cnClassNames(theme.theme.card, theme.theme.border, theme.theme.hover, "group rounded-2xl shadow-md border overflow-hidden hover:shadow-lg transition")}
     >
       {/* 👇 Preview (mini live dashboard) */}
-      <div className="relative h-48 bg-gray-100 overflow-hidden">
+      <div className="relative h-48 overflow-hidden">
         {/* Shimmer placeholder until iframe loads */}
         {!loaded && (
           <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200" />

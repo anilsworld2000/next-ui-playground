@@ -4,38 +4,49 @@ import { useSelectedRoute } from "../../hooks/CurrentRoute";
 import { useSelectedDashboard } from "../../hooks/SelectedDashboardContext";
 import HorizontalNavBar from "./HontalNavBar";
 import { NavItem } from "@/app/types";
+import ThemeButton from "../Buttons/ThemeButton";
+import cnClassNames from "@/app/utils";
+import { useTheme } from "@/app/hooks/ThemeContext";
 
-const topNavBarItems: NavItem[] = [
-    {
-        id: "_login",
-        name: "Login",
-        href: '/login'
-    }
-];
-
+function navBarItems(): NavItem[] {
+    return [
+        {
+            id: '_theme',
+            name: 'Toggle Theme',
+            href: '#',
+            icon: ThemeButton(),
+        },
+        {
+            id: "_login",
+            name: "Login",
+            href: '/login'
+        },
+    ];
+}
 export default function TopNavBar() {
     const { routes } = useSelectedRoute();
     const { selectedDashboard } = useSelectedDashboard();
+    const theme = useTheme();
 
     return (
         <nav
             className="flex flex-row justify-between"
         >
             <div>
-                <Link href="./" className="text-indigo-800 text-lg font-extrabold">Home</Link>
+                <Link href="./" className={cnClassNames(theme.theme.primaryText, "text-lg font-extrabold")}>Home</Link>
                 {routes.map((route) => (
                     route.length > 2 &&
                     <Link
-                        href={route}
-                        key={route}
-                        className="text-indigo-500 text-sm">
+                            href={route}
+                            key={route}
+                            className={cnClassNames(theme.theme.primaryText, "text-sm")}>
                         {"\t" + route[0] + route.charAt(1).toUpperCase() + route.slice(2)}
                     </Link>
                 ))}
             </div>
-            <h1 className="text-slate-800 text-sm">{selectedDashboard}</h1>
+            <h1 className={cnClassNames(theme.theme.textMain, "text-sm items-center")}>{selectedDashboard}</h1>
             <HorizontalNavBar
-                items={topNavBarItems}>
+                items={navBarItems()}>
             </HorizontalNavBar>
         </nav>);
 }
