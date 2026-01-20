@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
 import cnClassNames from "./utils";
 import { useTheme } from "./hooks/ThemeContext";
+import { LayoutDashboard } from "lucide-react";
 
 type Route = {
   id: string;
@@ -60,21 +61,9 @@ function DashboardPreview({ dash }: { dash: Route }) {
       className={cnClassNames(theme.theme.card, theme.theme.border, theme.theme.hoverText, "group rounded-2xl shadow-md border overflow-hidden hover:shadow-lg transition")}
     >
       {/* 👇 Preview (mini live dashboard) */}
-      <div className="relative h-48 overflow-hidden">
-        {/* Shimmer placeholder until iframe loads */}
-        {!loaded && (
-          <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200" />
-        )}
+      <div className="relative h-48 overflow-hidden flex items-center justify-center">
 
-        <iframe
-          loading="lazy"
-          src={dash.path}
-          className={`w-full h-full scale-[1] overflow-hidden pointer-events-none transform ${loaded ? "opacity-100" : "opacity-0"
-            } transition-opacity duration-500`}
-          title={dash.name}
-          onLoad={() => setLoaded(true)}
-        />
-
+        <LayoutDashboard size={50} strokeWidth={1}/>
         {/* Overlay for hover effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90 opacity-0 group-hover:opacity-100 transition-opacity"></div>
       </div>

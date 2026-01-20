@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelectedDashboard } from "../hooks/SelectedDashboardContext";
+import { useTheme } from "../hooks/ThemeContext";
 
 const styles = `
   @keyframes pop {
@@ -31,7 +32,7 @@ export default function Counter() {
     const [maxValue, setMaxValue] = useState(0);
     const [cycleCount, setCycleCount] = useState(0);
     const maxInputRef = useRef<HTMLInputElement>(null);
-
+    const theme = useTheme();
     const { selectDashboard } = useSelectedDashboard();
     selectDashboard("Counter");
 
@@ -100,7 +101,7 @@ export default function Counter() {
             <div className="h-[calc(100vh-4rem)] pt-1 w-full flex flex-col items-center justify-center font-sans select-none overflow-hidden">
                 <div className="flex flex-col items-center">
                     <button
-                        className={`w-64 h-64 bg-blue-600 rounded-full text-white text-8xl font-black shadow-2xl cursor-pointer transition-all duration-150 ease-out
+                        className={`w-64 h-64 ${theme.theme.button} rounded-full ${theme.theme.textMain} text-8xl font-black shadow-2xl cursor-pointer transition-all duration-150 ease-out
                         active:scale-95 active:shadow-lg
                         ${isPopping ? 'animate-pop' : ''}`}
                         onClick={handleClick}
@@ -117,7 +118,7 @@ export default function Counter() {
 
                         {/* Max Value Input */}
                         <div className="flex flex-row items-center">
-                            <label className="">Set Max Value</label>
+                            <label className="">Max Value</label>
                             <input
                                 ref={maxInputRef}
                                 title="Max"
