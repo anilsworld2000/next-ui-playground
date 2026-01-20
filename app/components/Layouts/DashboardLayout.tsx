@@ -24,7 +24,7 @@ export default function DashboardLayout({ children, horizontalItems, verticalGro
                 </div>
 
                 {/* Row 2: children content */}
-                <main className="flex-1 p-6 bg-gray-50">
+                <main className="flex-1 p-6">
                     {children}
                 </main>
             </div>
