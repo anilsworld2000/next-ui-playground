@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
 import cnClassNames from "./utils";
 import { useTheme } from "./hooks/ThemeContext";
@@ -52,7 +51,6 @@ export default function Home() {
 }
 
 function DashboardPreview({ dash }: { dash: Route }) {
-  const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
   return (
     <Link
