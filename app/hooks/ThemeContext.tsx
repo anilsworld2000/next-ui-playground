@@ -80,6 +80,21 @@ export const THEMES = {
         textMuted: 'text-slate-500',
         textMain: 'text-slate-900'
     },
+    monochrome: {
+        name: 'Black & White',
+        bg: 'bg-white',
+        sidebar: 'bg-zinc-50',
+        card: 'bg-white',
+        border: 'border-black',
+        primary: 'bg-black',
+        primaryText: 'text-black',
+        hoverBg: 'hover:bg-zinc-200',
+        hoverText: 'hover:text-zinc-600',
+        accent: 'bg-zinc-100',
+        button: 'bg-black hover:bg-zinc-800 text-white',
+        textMuted: 'text-zinc-500',
+        textMain: 'text-black'
+    },
 } as const;
 
 type ThemeKey = keyof typeof THEMES;

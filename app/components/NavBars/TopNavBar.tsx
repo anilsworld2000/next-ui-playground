@@ -29,24 +29,34 @@ export default function TopNavBar() {
     const theme = useTheme();
 
     return (
-        <nav
-            className="flex flex-row justify-between"
-        >
-            <div>
+        <nav className="relative flex flex-row items-center justify-between">
+            {/* Left Section */}
+            <div className="z-10">
                 <Link href="./" className={cnClassNames(theme.theme.primaryText, "text-lg font-extrabold")}>Home</Link>
                 {routes.map((route) => (
                     route.length > 2 &&
                     <Link
-                            href={route}
-                            key={route}
-                            className={cnClassNames(theme.theme.primaryText, "text-sm")}>
-                        {"\t" + route[0] + route.charAt(1).toUpperCase() + route.slice(2)}
+                        href={route}
+                        key={route}
+                        className={cnClassNames(theme.theme.primaryText, "text-sm ml-4")}>
+                        {route[0] + route.charAt(1).toUpperCase() + route.slice(2)}
                     </Link>
                 ))}
             </div>
-            <h1 className={cnClassNames(theme.theme.textMain, "text-sm items-center")}>{selectedDashboard}</h1>
-            <HorizontalNavBar
-                items={navBarItems()}>
-            </HorizontalNavBar>
-        </nav>);
+
+            {/* Centered H1 */}
+            <h1 className={cnClassNames(
+                theme.theme.textMain,
+                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm pointer-events-none"
+            )}>
+                {selectedDashboard}
+            </h1>
+
+            {/* Right Section */}
+            <div className="z-10">
+                <HorizontalNavBar items={navBarItems()} />
+            </div>
+        </nav>
+
+    );
 }
