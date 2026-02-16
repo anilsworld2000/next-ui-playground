@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import VerticalNavbar from "../NavBars/VerticalNavBar";
 import { NavGroup, NavItem } from "@/app/types";
 import HorizontalNavBar from "../NavBars/HontalNavBar";
+import { TrendingUp } from "lucide-react";
 
 interface DashboardLayoutProps {
     children: ReactNode;
@@ -14,7 +15,11 @@ export default function DashboardLayout({ children, horizontalItems, verticalGro
     return (
         <div className="flex min-h-screen">
             {/* First column: vertical nav bar */}
-            <VerticalNavbar groups={verticalGroups} />
+            <VerticalNavbar
+                title="FinPulse"
+                icon={<TrendingUp className="text-white" size={24} />}
+                groups={verticalGroups}
+            />
 
             {/* Second column: split into two rows */}
             <div className="flex flex-col flex-1">
