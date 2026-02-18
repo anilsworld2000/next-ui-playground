@@ -3,21 +3,22 @@ import { ReactNode } from "react";
 import VerticalNavbar from "../NavBars/VerticalNavBar";
 import { NavGroup, NavItem } from "@/app/types";
 import HorizontalNavBar from "../NavBars/HontalNavBar";
-import { TrendingUp } from "lucide-react";
 
 interface DashboardLayoutProps {
     children: ReactNode;
     horizontalItems: NavItem[]; // type NavGroup[] if you want strict typing
+    verticalNavbarTitle: string;
+    verticalNavbarIcon?: React.ReactNode;
     verticalGroups: NavGroup[]; // type NavGroup[] if you want strict typing
 }
 
-export default function DashboardLayout({ children, horizontalItems, verticalGroups }: DashboardLayoutProps) {
+export default function DashboardLayout({ children, horizontalItems, verticalNavbarTitle, verticalNavbarIcon, verticalGroups }: DashboardLayoutProps) {
     return (
         <div className="flex min-h-screen">
             {/* First column: vertical nav bar */}
             <VerticalNavbar
-                title="FinPulse"
-                icon={<TrendingUp className="text-white" size={24} />}
+                title={verticalNavbarTitle}
+                icon={verticalNavbarIcon}
                 groups={verticalGroups}
             />
 
