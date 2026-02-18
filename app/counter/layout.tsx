@@ -7,6 +7,7 @@ export default function CounterLayout({ children }: { children: ReactNode }) {
             <DashboardLayout
                 horizontalItems={[]}
                 verticalGroups={[]}
+                verticalNavbarTitle=''
             >
                 {children}
             </DashboardLayout>
