@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useSelectedRoute } from "../../hooks/CurrentRoute";
 import { useSelectedDashboard } from "../../hooks/SelectedDashboardContext";
-import HorizontalNavBar from "./HontalNavBar";
+import HorizontalNavBar from "./HorizontalNavBar";
 import { NavItem } from "@/app/types";
 import ThemeButton from "../Buttons/ThemeButton";
 import cnClassNames from "@/app/utils";

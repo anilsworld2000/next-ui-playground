@@ -46,6 +46,12 @@ export default function WalletLayout({ children }: { children: ReactNode }) {
             verticalNavbarTitle='FinPulse'
             verticalNavbarIcon={<TrendingUp className="text-white" size={24} />}
             verticalGroups={navGroups}
+            UserSectionType={{
+                name: '',
+                email: '',
+                avatarUrl: '',
+                isVertical: true
+            }}
         >
             {children}
         </DashboardLayout>

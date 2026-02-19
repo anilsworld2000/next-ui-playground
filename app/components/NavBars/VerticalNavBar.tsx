@@ -7,11 +7,13 @@ import { useState } from "react";
 import Button from "../Buttons/Button";
 import ToolTip from "../ToolTips/ToolTip";
 import { ArrowRightIcon } from "lucide-react";
+import UserSection from "../UserSections/UserSection";
 
 interface VerticalNavbarProps {
     title: string;
     icon?: React.ReactNode;
     groups: NavGroup[];
+    addUserSection: boolean; // Optional prop to include UserSection at the bottom
 }
 
 export default function VerticalNavbar(props: VerticalNavbarProps) {
@@ -81,8 +83,22 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                             ))}
                         </nav>
 
+
+
                         {/* Bottom Toggle Section */}
                         <div className="mt-auto p-4 border-t border-white/10">
+                            {/* User Profile */}
+                            {
+                                props.addUserSection && (
+                                    <UserSection
+                                        name="John Doe"
+                                        email="john@example.com"
+                                        isCollapsed={!isSidebarOpen}
+                                        layout="vertical"
+                                    />
+                                )
+                            }
+
                             <div
                                 onClick={() => setSidebarOpen(!isSidebarOpen)}
                                 className={cnClassNames(
