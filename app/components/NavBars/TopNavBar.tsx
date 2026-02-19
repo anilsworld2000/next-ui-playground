@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useSelectedRoute } from "../../hooks/CurrentRoute";
 import { useSelectedDashboard } from "../../hooks/SelectedDashboardContext";
-import HorizontalNavBar from "./HontalNavBar";
+import HorizontalNavBar from "./HorizontalNavBar";
 import { NavItem } from "@/app/types";
 import ThemeButton from "../Buttons/ThemeButton";
 import cnClassNames from "@/app/utils";
@@ -54,7 +54,10 @@ export default function TopNavBar() {
 
             {/* Right Section */}
             <div className="z-10">
-                <HorizontalNavBar items={navBarItems()} />
+                <HorizontalNavBar
+                    items={navBarItems()}
+                    addUserSection={false}
+                />
             </div>
         </nav>
 
