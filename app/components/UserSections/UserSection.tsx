@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames from "@/app/utils";
 import ToolTip from "../ToolTips/ToolTip";
+import Image from "next/image";
 
 interface UserSectionProps {
     name: string;
@@ -44,8 +45,12 @@ export default function UserSection({ name, email, avatarUrl, isCollapsed, layou
                     "flex items-center justify-center shrink-0 rounded-full font-bold text-white w-10 h-10 shadow-sm",
                     theme.theme.primary
                 )}>
-                    {avatarUrl ? <img src={avatarUrl}
-                        title={name} className="rounded-full" /> : name.charAt(0).toUpperCase()}
+                    {avatarUrl ? <Image
+                        src={avatarUrl}
+                        title={name}
+                        className="rounded-full"
+                        alt={name.charAt(0).toUpperCase()}
+                    /> : name.charAt(0).toUpperCase()}
                 </div>
 
                 {/* Name - only if not collapsed or is horizontal */}

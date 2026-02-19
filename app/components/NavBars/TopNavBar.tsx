@@ -54,7 +54,10 @@ export default function TopNavBar() {
 
             {/* Right Section */}
             <div className="z-10">
-                <HorizontalNavBar items={navBarItems()} />
+                <HorizontalNavBar
+                    items={navBarItems()}
+                    addUserSection={false}
+                />
             </div>
         </nav>
 
