@@ -4,6 +4,7 @@ import { NavItem } from "@/app/types";
 import cnClassNames from "@/app/utils";
 import Link from "next/link";
 import UserSection from "../UserSections/UserSection";
+import { useUser } from "@/app/hooks/UserContext";
 
 interface HorizontalNavBarProps {
     items: NavItem[];
@@ -13,6 +14,7 @@ interface HorizontalNavBarProps {
 
 export default function HorizontalNavBar({ items, rightContent, addUserSection }: HorizontalNavBarProps) {
     const theme = useTheme();
+    const user = useUser();
 
     return (
         <nav className={cnClassNames("flex flex-row justify-between items-center w-full")}>
@@ -42,10 +44,11 @@ export default function HorizontalNavBar({ items, rightContent, addUserSection }
                     </div>
                 )}
 
-                {addUserSection && (
+                {addUserSection && user.user && (
                     <UserSection
-                        name="John Doe"
-                        email="john@doe.com"
+                        name={user.user.name}
+                        email={user.user.email}
+                        avatarUrl={user.user.avatarUrl || undefined}
                         layout="horizontal"
                     />
                 )}

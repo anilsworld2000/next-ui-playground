@@ -1,15 +1,8 @@
 // components/DashboardLayout.tsx
 import { ReactNode } from "react";
 import VerticalNavbar from "../NavBars/VerticalNavBar";
-import { NavGroup, NavItem } from "@/app/types";
+import { NavGroup, NavItem, UserSectionPosition } from "@/app/types";
 import HorizontalNavBar from "../NavBars/HorizontalNavBar";
-
-type UserSectionType = {
-    name: string;
-    email?: string;
-    avatarUrl?: string;
-    isVertical?: boolean;
-};
 
 interface DashboardLayoutProps {
     children: ReactNode;
@@ -17,10 +10,10 @@ interface DashboardLayoutProps {
     verticalNavbarTitle: string;
     verticalNavbarIcon?: React.ReactNode;
     verticalGroups: NavGroup[]; // type NavGroup[] if you want strict typing
-    UserSectionType?: UserSectionType; // Optional prop to pass user info to UserSection
+    userSectionPosition: UserSectionPosition; // Optional prop to pass user info to UserSection
 }
 
-export default function DashboardLayout({ children, horizontalItems, verticalNavbarTitle, verticalNavbarIcon, verticalGroups, UserSectionType }: DashboardLayoutProps) {
+export default function DashboardLayout({ children, horizontalItems, verticalNavbarTitle, verticalNavbarIcon, verticalGroups, userSectionPosition }: DashboardLayoutProps) {
     return (
         <div className="flex min-h-screen">
             {/* First column: vertical nav bar */}
@@ -28,7 +21,7 @@ export default function DashboardLayout({ children, horizontalItems, verticalNav
                 title={verticalNavbarTitle}
                 icon={verticalNavbarIcon}
                 groups={verticalGroups}
-                addUserSection={!!UserSectionType?.isVertical} // Pass boolean to control UserSection rendering
+                addUserSection={userSectionPosition === UserSectionPosition.Vertical}
             />
 
             {/* Second column: split into two rows */}
@@ -36,7 +29,7 @@ export default function DashboardLayout({ children, horizontalItems, verticalNav
                 {/* Row 1: horizontal nav bar */}
                 <div className="">
                     <HorizontalNavBar items={horizontalItems}
-                    addUserSection={!!!UserSectionType?.isVertical} // Pass boolean to control UserSection rendering
+                        addUserSection={userSectionPosition === UserSectionPosition.Horizontal}
                     />
                 </div>
 

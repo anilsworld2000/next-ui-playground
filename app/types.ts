@@ -41,3 +41,9 @@ export type NavGroup = {
     title: string;
     items: NavItem[];
 };
+
+export enum UserSectionPosition {
+    Undefined,
+    Vertical,
+    Horizontal
+}

@@ -1,30 +1,59 @@
+"use client";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames from "@/app/utils";
+import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
-interface TootTipProps {
-    title: string;
-}
-
-export default function ToolTip(props: TootTipProps) {
+export default function ToolTip({ title }: { title: string }) {
     const theme = useTheme();
-    return (
-        <span className={cnClassNames(
-            // Position
-            "absolute left-full ml-4 px-3 py-1.5 rounded-md text-sm whitespace-nowrap",
-            // Animation/Visibility
-            "opacity-0 pointer-events-none transition-all duration-200",
-            "group-hover:opacity-100 group-hover:translate-x-1",
-            // Theme & Style
-            theme.theme.primary,
-            "text-white shadow-xl z-[100] hidden lg:block"
-        )}>
-            {/* The Tooltip Arrow */}
-            <div className={cnClassNames(
-                "absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-2 rotate-45",
-                theme.theme.primary
-            )} />
+    const triggerRef = useRef<HTMLSpanElement>(null);
+    const tooltipRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-            <span className="relative z-10 font-medium">{props.title}</span>
-        </span>
-    )
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const handleMouseEnter = () => {
+        if (triggerRef.current && tooltipRef.current) {
+            const rect = triggerRef.current.getBoundingClientRect();
+            // Calculate center point of the sidebar item
+            const yCenter = rect.top + rect.height / 2;
+
+            // Pass the dynamic coordinate to CSS via a Variable
+            tooltipRef.current.style.setProperty('--tooltip-y', `${yCenter}px`);
+            setIsVisible(true);
+        }
+    };
+
+    if (!mounted) return null;
+
+    return (
+        <>
+            {/* The Invisible Trigger: Stays inside the Sidebar link */}
+            <span
+                ref={triggerRef}
+                className="absolute inset-0 z-10 cursor-pointer"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={() => setIsVisible(false)}
+            />
+
+            {/* The Portal: Renders outside the Navbar entirely */}
+            {createPortal(
+                <div
+                    ref={tooltipRef}
+                    className={cnClassNames(
+                        "tooltip-portal",
+                        isVisible && "visible",
+                        theme.theme.primary
+                    )}
+                >
+                    <div className={cnClassNames("tooltip-arrow", theme.theme.primary)} />
+                    <span className="relative z-10">{title}</span>
+                </div>,
+                document.body
+            )}
+        </>
+    );
 }
