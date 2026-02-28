@@ -22,3 +22,60 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 } 
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* tooltips.css */
+.tooltip-portal {
+  position: fixed;
+  /* Use the CSS variable for dynamic vertical positioning */
+  top: var(--tooltip-y, 0);
+  left: 5.5rem; /* Calculated: Sidebar width (5rem) + offset (0.5rem) */
+  transform: translateY(-50%);
+  
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: white;
+  z-index: 9999;
+  pointer-events: none;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip-arrow {
+  position: absolute;
+  left: -0.25rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+/* Visibility State */
+.tooltip-portal:not(.visible) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tooltip-portal.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.15s ease-out;
+}

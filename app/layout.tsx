@@ -6,6 +6,7 @@ import { SelectedDashboardProvider } from "./hooks/SelectedDashboardContext";
 import TopNavBar from "./components/NavBars/TopNavBar";
 import { ThemeProvider } from "./hooks/ThemeContext";
 import ThemeWrapper from "./components/Wrappers/ThemeWrapper";
+import { UserProvider } from "./hooks/UserContext";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -32,12 +33,14 @@ export default function RootLayout({
           <ThemeWrapper>
             <CurrentRouteContextProvider >
               <SelectedDashboardProvider>
-                <header className="p-1 pl-4 pr-4">
-                  <TopNavBar />
-                </header>
-                <main role="main" className="p-4 pt-0.5">
-                  {children}
-                </main>
+                <UserProvider>
+                  <header className="p-1 pl-4 pr-4">
+                    <TopNavBar />
+                  </header>
+                  <main role="main" className="p-4 pt-0.5">
+                    {children}
+                  </main>
+                </UserProvider>
               </SelectedDashboardProvider>
             </CurrentRouteContextProvider>
           </ThemeWrapper>

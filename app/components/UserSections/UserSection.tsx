@@ -4,6 +4,7 @@ import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames from "@/app/utils";
 import ToolTip from "../ToolTips/ToolTip";
 import Image from "next/image";
+import { useUser } from "@/app/hooks/UserContext";
 
 interface UserSectionProps {
     name: string;
@@ -18,6 +19,7 @@ export default function UserSection({ name, email, avatarUrl, isCollapsed, layou
     const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const { user } = useUser();
 
     // Close menu when clicking outside
     useEffect(() => {
@@ -45,9 +47,9 @@ export default function UserSection({ name, email, avatarUrl, isCollapsed, layou
                     "flex items-center justify-center shrink-0 rounded-full font-bold text-white w-10 h-10 shadow-sm",
                     theme.theme.primary
                 )}>
-                    {avatarUrl ? <Image
-                        src={avatarUrl}
-                        title={name}
+                    {user?.avatarUrl ? <Image
+                        src={user.avatarUrl}
+                        title={user.name}
                         className="rounded-full"
                         alt={name.charAt(0).toUpperCase()}
                     /> : name.charAt(0).toUpperCase()}
@@ -56,12 +58,12 @@ export default function UserSection({ name, email, avatarUrl, isCollapsed, layou
                 {/* Name - only if not collapsed or is horizontal */}
                 {(!isCollapsed || layout === "horizontal") && (
                     <div className="flex flex-col truncate max-w-[120px]">
-                        <span className={cnClassNames("text-sm font-semibold truncate", theme.theme.primaryText)}>{name}</span>
+                        <span className={cnClassNames("text-sm font-semibold truncate", theme.theme.primaryText)}>{user?.name}</span>
                         {email && <span className="text-xs opacity-60 truncate">{email}</span>}
                     </div>
                 )}
 
-                {isCollapsed && layout === "vertical" && <ToolTip title={name} />}
+                {isCollapsed && layout === "vertical" && <ToolTip title={user?.name || ""} />}
             </div>
 
             {/* The Dropdown Menu */}
