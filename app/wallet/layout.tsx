@@ -13,13 +13,13 @@ const navGroups: NavGroup[] = [
                 id: "overview",
                 name: "Overview",
                 icon: <Wallet size={iconSize} />,
-                href: '/overview'
+                href: '/wallet/overview'
             },
             {
                 id: "goals",
                 name: "Goals",
                 icon: <Goal size={iconSize} />,
-                href: '/goals'
+                href: '/wallet/goals'
             }
         ],
     },
@@ -31,31 +31,31 @@ const navGroups: NavGroup[] = [
                 id: "stocks",
                 name: "Stocks",
                 icon: <ChartCandlestick size={iconSize} />,
-                href: '/stocks'
+                href: '/wallet/stocks'
             },
             {
                 id: "mutual-funds",
                 name: "Mutual Funds",
                 icon: <TicketSlash size={iconSize} />,
-                href: '/mutual-funds'
+                href: '/wallet/mutual-funds'
             },
             {
                 id: "banks",
                 name: "Banks",
                 icon: <Landmark size={iconSize} />,
-                href: '/banks'
+                href: '/wallet/banks'
             },
             {
                 id: "ppf",
                 name: "PPF",
                 icon: <HandCoins size={iconSize} />,
-                href: '/ppf'
+                href: '/wallet/ppf'
             },
             {
                 id: "pf",
                 name: "PF",
                 icon: <PiggyBank size={iconSize} />,
-                href: '/pf'
+                href: '/wallet/pf'
             }
         ],
     },
@@ -67,7 +67,7 @@ const navGroups: NavGroup[] = [
                 id: "preferences",
                 name: "Preferences",
                 icon: <TrendingUp size={iconSize} />,
-                href: '/preferences'
+                href: '/wallet/preferences'
             },
         ],
     },

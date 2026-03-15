@@ -33,15 +33,21 @@ export default function TopNavBar() {
             {/* Left Section */}
             <div className="z-10">
                 <Link href="./" className={cnClassNames(theme.theme.primaryText, "text-lg font-extrabold")}>Home</Link>
-                {routes.map((route) => (
-                    route.length > 2 &&
-                    <Link
-                        href={route}
-                        key={route}
-                        className={cnClassNames(theme.theme.primaryText, "text-sm ml-4")}>
-                        {route[0] + route.charAt(1).toUpperCase() + route.slice(2)}
-                    </Link>
-                ))}
+                {routes.map((route) => {
+                    if (route.length <= 2) return null;
+                    const segment = route.split("/").filter(Boolean).slice(-1)[0];
+                    const label = `/${segment}`;
+
+                    return (
+                        <Link
+                            href={route}
+                            key={route}
+                            className={cnClassNames(theme.theme.primaryText, "text-sm ml-4")}
+                        >
+                            {label}
+                        </Link>
+                    );
+                })}
             </div>
 
             {/* Centered H1 */}
