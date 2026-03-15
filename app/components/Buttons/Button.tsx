@@ -3,6 +3,7 @@
 type ButtonProps = {
     className?: string;
     children: React.ReactNode;
+    tooltip?: string;
     onClick?: () => void;
 };
 

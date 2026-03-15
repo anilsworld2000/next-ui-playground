@@ -20,21 +20,14 @@ export const CurrentRouteContextProvider = ({ children }: { children: ReactNode 
         if (!pathname) return;
 
         // Normalize pathname to a readable format
-        let cleanPath = '';
-        if (pathname === "" || pathname === "/" || pathname === undefined) {
-            cleanPath = "";
-            setRoutes([]);
-        }
-        else
-            cleanPath = pathname;
-
+        const cleanPath = pathname === "/" ? "" : pathname;
         setSelectedRoute(cleanPath);
-        setRoutes((prev) => {
-            // Avoid duplicate entries when navigating back/forth
-            const last = prev[prev.length - 1];
-            if (last === cleanPath) return prev;
-            return [...prev, cleanPath];
-        });
+
+        // Keep route list aligned to the current path hierarchy (breadcrumb-style)
+        // so users can click a higher level (e.g. /wallet) or the current leaf (e.g. /wallet/stocks).
+        const segments = cleanPath.split("/").filter(Boolean);
+        const normalizedRoutes = segments.map((_, idx) => `/${segments.slice(0, idx + 1).join("/")}`);
+        setRoutes(normalizedRoutes);
     }, [pathname]);
 
     const clearRoutes = () => {

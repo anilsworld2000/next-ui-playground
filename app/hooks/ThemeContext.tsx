@@ -95,6 +95,21 @@ export const THEMES = {
         textMuted: 'text-zinc-500',
         textMain: 'text-black'
     },
+    parchment: {
+        name: "Parchment",
+        bg: "#F4ECD8",          // Warm, paper-like cream
+        sidebar: "#E9DFCE",     // Slightly darker than bg to define space
+        card: "#FCF6E9",        // Lighter "page" surface
+        border: "#D3C6AA",      // Soft earthy border
+        primary: "#859900",     // Muted olive green (Natural accent)
+        primaryText: "#5C4F33", // Deep brown (Avoids pure black)
+        hoverBg: "#E3D4B6",
+        hoverText: "#433A26",
+        accent: "#E2D8B9",
+        button: "#859900",      // Matching muted green
+        textMuted: "#8B7D6B",   // Soft clay grey
+        textMain: "#433A26",    // Dark coffee bean (Softer than black)
+    },
 } as const;
 
 type ThemeKey = keyof typeof THEMES;
@@ -110,7 +125,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // 3. Provider Component
 export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [themeKey, setThemeKey] = useState<ThemeKey>('midnight');
+    const [themeKey, setThemeKey] = useState<ThemeKey>('monochrome');
 
     // Optional: Load theme from localStorage on mount
     useEffect(() => {
