@@ -1,0 +1,86 @@
+.container {
+  padding: 1rem;
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+.toolbar {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  min-width: 180px;
+}
+.formCard,
+.listCard {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.9rem;
+  background: #fff;
+}
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 0.4rem 0;
+}
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+.primaryBtn,
+.secondaryBtn,
+.smallBtn,
+.smallDangerBtn {
+  border: 1px solid #d1d5db;
+  border-radius: 0.35rem;
+  background: #f9fafb;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+}
+.primaryBtn {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+.secondaryBtn {
+  background: #e5e7eb;
+}
+.smallBtn {
+  background: #bfdbfe;
+}
+.smallDangerBtn {
+  background: #fecaca;
+  border-color: #fca5a5;
+}
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+.listItem {
+  padding: 0.65rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.status {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+  color: #374151;
+}
+.listActions {
+  display: flex;
+  gap: 0.4rem;
+}

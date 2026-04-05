@@ -1,5 +1,3 @@
-import { useSelectedDashboard } from "@/app/hooks/SelectedDashboardContext";
-
 export default function BankPage() {
         //const { selectDashboard } = useSelectedDashboard();
         //selectDashboard("Wallet - Banks");

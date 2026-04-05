@@ -13,10 +13,42 @@ export function getStyleClassesFromProps(props: Record<string, PropValue>) {
 
 
 export function generateJSXCode() {
-    
+
 }
 
 export function generateHTMLCode() {
-    
+
 }
 
+export function getFormatedCurrency(value: number): string {
+    return `₹${Intl.NumberFormat().format(value)}`;
+}
+
+export const GOAL_LABELS = {
+    goal: "Goal",
+    monthlyInvestment: "Monthly SIP",
+    currentValue: "Current Investment",
+    futureValue: "Target Value",
+    achievedPercent: "Achieved",
+    progress: "Progress",
+}
+
+export const GENERIC_LABELS = {
+    action: "Action",
+    status: "Status",
+    edit: "Edit",
+    delete: "Delete",
+    add: "Add",
+    print: "Print",
+    save: "Save",
+    cancel: "Cancel",
+    clear: "Clear",
+    search: "Search",
+    filter: "Filter",
+    view: "View",
+    sort: "Sort",
+    toggle: "Toggle",
+    asc: "Ascending",
+    desc: "Descending",
+    noDataFound: "No data found.",
+}
