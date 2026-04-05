@@ -79,3 +79,51 @@ body {
   visibility: visible;
   transition: opacity 0.15s ease-out;
 }
+
+.bar {
+  width: 2.5rem;
+  border-radius: 0.375rem;
+}
+
+.invested {
+  background-color: #3b82f6; /* blue-500 */
+}
+
+.required {
+  background-color: #9ca3af; /* gray-400 */
+}
+
+.h0 { height: 0%; }
+.h10 { height: 10%; }
+.h20 { height: 20%; }
+.h30 { height: 30%; }
+.h40 { height: 40%; }
+.h50 { height: 50%; }
+.h60 { height: 60%; }
+.h70 { height: 70%; }
+.h80 { height: 80%; }
+.h90 { height: 90%; }
+.h100 { height: 100%; }
+
+.progress-text {
+  font-size: 50%;          /* relative to your ring size */
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  font-weight: 500;        /* matches font-medium */
+  fill: currentColor;      /* picks up text color from parent */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(155, 155, 155, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(155, 155, 155, 0.5);
+}
+

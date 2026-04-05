@@ -69,7 +69,7 @@ function DashboardPreview({ dash }: { dash: Route }) {
       {/* 👇 Info */}
       <div className="p-4" role="region" aria-labelledby={`dash-${dash.id}`} >
         <h3 className="text-lg font-semibold">{dash.name}</h3>
-        <p className="text-sm text-gray-600 mt-1">{dash.description}</p>
+        <p className={cnClassNames("text-xs mt-1", theme.theme.textMuted)}>{dash.description}</p>
       </div>
     </Link>
   );

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import cnClassNames from '../utils';
 
 // 1. Define the shape of a single theme based on your object
 export type ThemeColors = {
@@ -90,7 +91,7 @@ export const THEMES = {
         primaryText: 'text-black',
         hoverBg: 'hover:bg-zinc-200',
         hoverText: 'hover:text-zinc-600',
-        accent: 'bg-zinc-100',
+        accent: 'bg-zinc-300',
         button: 'bg-black hover:bg-zinc-800 text-white',
         textMuted: 'text-zinc-500',
         textMain: 'text-black'
@@ -125,15 +126,16 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // 3. Provider Component
 export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [themeKey, setThemeKey] = useState<ThemeKey>('monochrome');
+    const [themeKey, setThemeKey] = useState<ThemeKey>('light');
+    const activeTheme = THEMES[themeKey];
 
-    // Optional: Load theme from localStorage on mount
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('app-theme') as ThemeKey;
-        if (savedTheme && THEMES[savedTheme]) {
-            setThemeKey(savedTheme);
-        }
-    }, []);
+    // This bridge converts your theme object into CSS variables
+    const dynamicStyles = {
+        '--color-primary': activeTheme.primary.startsWith('#') ? activeTheme.primary : '',
+        '--color-border': activeTheme.border.startsWith('#') ? activeTheme.border : '',
+        '--color-text-main': activeTheme.textMain.startsWith('#') ? activeTheme.textMain : '',
+        '--color-bg': activeTheme.bg.startsWith('#') ? activeTheme.bg : '',
+    } as React.CSSProperties;
 
     const handleSetTheme = (key: ThemeKey) => {
         setThemeKey(key);
@@ -142,11 +144,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
     return (
         <ThemeContext.Provider value={{
-            theme: THEMES[themeKey],
+            theme: activeTheme,
             themeKey,
             setTheme: handleSetTheme
         }}>
-            {children}
+            {/* The Wrapper now injects the variables into the DOM tree */}
+            <div
+                style={dynamicStyles}
+                className={cnClassNames(
+                    "min-h-screen transition-all duration-500",
+                    // Use Tailwind class if it's not a hex code
+                    !activeTheme.bg.startsWith('#') ? activeTheme.bg : ""
+                )}
+            >
+                {children}
+            </div>
         </ThemeContext.Provider>
     );
 }

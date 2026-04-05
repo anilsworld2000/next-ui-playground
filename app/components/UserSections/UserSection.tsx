@@ -15,7 +15,7 @@ interface UserSectionProps {
     onSignOut?: () => void; // Pass sign-out logic here
 }
 
-export default function UserSection({ name, email, avatarUrl, isCollapsed, layout, onSignOut }: UserSectionProps) {
+export default function UserSection({ name, email, isCollapsed, layout, onSignOut }: UserSectionProps) {
     const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
