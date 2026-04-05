@@ -70,7 +70,14 @@ const mockGoals: Goal[] = [
 
 const columns: Column<Goal>[] = [
     { header: 'Goal', accessor: 'name', width: 200, sortable: true },
-    { header: 'Monthly Investment', accessor: 'monthlyInvestment', width: 150, sortable: true, filterable: true, render: (val) => getFormatedCurrency(Number(val) || 0) },
+    {
+        header: 'Monthly Investment', accessor: 'monthlyInvestment', width: 150, sortable: true, filterable: true, editable: true, render: (val) => getFormatedCurrency(Number(val) || 0), onCellSave: (newVal, goal) => {
+            const numericValue = parseFloat(String(newVal));
+            if (isNaN(numericValue)) return;
+            goal.monthlyInvestment = numericValue;
+            console.log(`Update ${goal.name} to ${newVal}`);
+        }
+    },
     { header: 'Current Value', accessor: 'currentValue', width: 150, sortable: true, render: (val) => getFormatedCurrency(Number(val) || 0) },
     { header: 'Future Value', accessor: 'futureValue', width: 150, sortable: true, render: (val) => getFormatedCurrency(Number(val) || 0) },
     { header: 'Achieved %', accessor: 'achievedPercent', width: 100, sortable: true },
