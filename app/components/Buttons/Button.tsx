@@ -5,13 +5,14 @@ type ButtonProps = {
     children: React.ReactNode;
     tooltip?: string;
     disabled?: boolean;
+    isCursorPointer?: boolean;
     onClick?: () => void;
 };
 
 export default function Button(props: ButtonProps) {
     return (
         <button
-            className={`${props.className}`}
+            className={`${props.className} ${props.isCursorPointer ? 'cursor-pointer' : ''}`}
             onClick={props.onClick}
             disabled={props.disabled}
             title={props.tooltip}

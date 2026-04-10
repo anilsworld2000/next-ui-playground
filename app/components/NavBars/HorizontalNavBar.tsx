@@ -22,6 +22,7 @@ export default function HorizontalNavBar({ items, rightContent, addUserSection }
             <div className="flex gap-4">
                 {items?.map((item) => (
                     <Link
+                        title={item.name}
                         key={item.id}
                         href={item.href}
                         className={cnClassNames(
@@ -31,7 +32,6 @@ export default function HorizontalNavBar({ items, rightContent, addUserSection }
                         )}
                     >
                         {item.icon && <span>{item.icon}</span>}
-                        <span>{item.name}</span>
                     </Link>
                 ))}
             </div>

@@ -246,6 +246,8 @@ export default function StocksPage() {
             columns={columns}
             showRowNumbers
             enableSelection
+            scrollable
+            pagination
         />
     );
 }

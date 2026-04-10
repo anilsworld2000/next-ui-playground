@@ -74,21 +74,13 @@ export default function FilterButton({
                     )}
                 >
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-bold uppercase opacity-50 tracking-widest">Filter By</span>
-                        {value && (
-                            <Button
-                                onClick={handleClear}
-                                className="text-[10px] text-red-500 font-bold hover:underline"
-                                disabled={disabled}
-                            >
-                                {GENERIC_LABELS.clear}
-                            </Button>
-                        )}
+                        <span className="text-[10px] font-bold uppercase opacity-50 tracking-widest">{ GENERIC_LABELS.filterBy }</span>
                     </div>
 
                     {/* --- Input Type: Text --- */}
                     {type === "text" && (
                         <div className="relative">
+                            <Filter className="absolute left-2 top-1/2 -translate-y-1/2" size={iconSize} strokeWidth={iconStrokeWidth} />
                             <input
                                 autoFocus
                                 type="text"
@@ -96,17 +88,21 @@ export default function FilterButton({
                                 value={value}
                                 placeholder={placeholder}
                                 onChange={(e) => onChange(e.target.value)}
-                                style={{
-                                    borderColor: theme.border.startsWith('#') ? theme.border : undefined,
-                                    color: theme.textMain.startsWith('#') ? theme.textMain : undefined
-                                }}
                                 className={cnClassNames(
-                                    "w-full pl-8 pr-3 py-2 text-xs rounded border bg-transparent outline-none focus:ring-1 focus:ring-primary/40",
-                                    theme.border
+                                    "w-full pl-8 pr-8 py-2 text-xs rounded border bg-transparent outline-none focus:ring-1 focus:ring-primary/40",
+                                    theme.border,
+                                    theme.textMain
                                 )}
                             />
-                            <Filter size={iconSize}
-                                strokeWidth={iconStrokeWidth} />
+                            {value && (
+                                <button
+                                    onClick={handleClear}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700 text-xs font-bold"
+                                    disabled={disabled}
+                                >
+                                    ✕
+                                </button>
+                            )}
                         </div>
                     )}
 

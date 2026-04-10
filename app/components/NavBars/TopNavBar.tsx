@@ -12,14 +12,15 @@ function navBarItems(): NavItem[] {
     return [
         {
             id: '_theme',
-            name: 'Toggle Theme',
+            name: 'Theme',
             href: '#',
             icon: ThemeButton(),
         },
         {
             id: "_login",
             name: "Login",
-            href: '/login'
+            href: '/login',
+            icon: <span>Login</span>
         },
     ];
 }
@@ -31,7 +32,7 @@ export default function TopNavBar() {
     return (
         <nav className="relative flex flex-row items-center justify-between">
             {/* Left Section */}
-            <div className="z-10">
+            <div className="z-30">
                 <Link href="./" className={cnClassNames(theme.theme.primaryText, "text-lg font-extrabold")}>Home</Link>
                 {routes.map((route) => {
                     if (route.length <= 2) return null;
@@ -59,7 +60,7 @@ export default function TopNavBar() {
             </h1>
 
             {/* Right Section */}
-            <div className="z-10">
+            <div className="z-30">
                 <HorizontalNavBar
                     items={navBarItems()}
                     addUserSection={false}

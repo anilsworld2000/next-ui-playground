@@ -104,6 +104,25 @@ export interface DataGridProps<T> {
     enableSelection?: boolean;
     onSelectionChange?: (selectedIds: (string | number)[]) => void;
     className?: string;
+    headerHeight?: string; // e.g., "h-12", "py-4", etc.
+    rowHeight?: string; // e.g., "h-10", "py-2", etc.
+    autoHeight?: boolean; // When true, rows adjust height based on content
+    loading?: boolean;
+    emptyMessage?: string;
+    ariaLabel?: string;
+    scrollable?: boolean; // Fix table container height and show scrollbar
+    heightClass?: string; // Tailwind height class when scrollable is enabled, e.g. "h-96" or "h-[60vh]"
+    pagination?: boolean;
+    pageSize?: number;
+    pageSizeOptions?: number[];
+    initialPage?: number;
+}
+
+export interface DropdownOption<T> {
+    id: string | number;
+    label: string;
+    value: T;
+    render?: (item: T) => React.ReactNode;
 }
 
 export type SortConfig = {
