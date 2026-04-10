@@ -43,23 +43,23 @@ export default function Flyout({
         <div
             ref={flyoutRef}
             className={cnClassNames(
-                "absolute right-0 mt-3 w-48 border shadow-2xl z-50 p-2 animate-in fade-in zoom-in-95 rounded-2xl duration-100",
+                " overflow-auto absolute right-0 mt-3 w-48 border shadow-2xl z-50 p-2 animate-in fade-in zoom-in-95 rounded-2xl duration-100",
                 theme.card, theme.border,
                 className
             )}
         >
             {showCloseButton && (
-                <div className="flex justify-between w-full mb-1 items-center text-xs">
-                    <span className='font-bold text-xs opacity-50'>{title}</span>
+                <div className="flex justify-between w-full m-2 items-center text-xs">
+                    <span className={cnClassNames('font-bold tracking-widest')}>{title}</span>
                     <button
                         title={GENERIC_LABELS.close}
                         onClick={(e) => {
                             e.stopPropagation(); // Prevents the event from bubbling
                             onClose();
                         }}
-                        className="hover:text-red-500 transition-colors p-1"
+                        className="text-red-500 hover:text-red-700 text-xs transition-colors p-1"
                     >
-                        <span>✕</span>
+                        <span className='m-2 '>✕</span>
                     </button>
                 </div>
             )}

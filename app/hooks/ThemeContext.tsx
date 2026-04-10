@@ -98,7 +98,7 @@ export const THEMES = {
     },
 } as const;
 
-type ThemeKey = keyof typeof THEMES;
+export type ThemeKey = keyof typeof THEMES;
 
 // 2. Define Context Props
 interface ThemeContextType {

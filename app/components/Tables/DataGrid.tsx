@@ -226,6 +226,7 @@ export default function DataGrid<T extends { id: string | number }>({
                                                 iconSize={columnIconSize}
                                                 iconStrokeWidth={columnIconThickness}
                                                 sortButtonConfig={{
+                                                    title: col.header,
                                                     sortKey: String(col.accessor),
                                                     currentSort: sortConfig,
                                                     onSortChange: setSortConfig

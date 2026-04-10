@@ -7,6 +7,7 @@ import { SortConfig } from "@/app/types";
 import Button from "./Button";
 
 export interface SortButtonProps {
+    title?: string;
     sortKey: string;             // The key for this specific column
     currentSort: SortConfig;        // The current global sort state
     onSortChange: (config: SortConfig) => void; // The "Smart" callback
@@ -23,12 +24,14 @@ export default function SortButton({
     iconSize = 14,
     iconStrokeWidth = 1,
     cssClasses,
-    disabled = false
+    disabled = false,
+    title = "",
 }: SortButtonProps) {
     const { theme } = useTheme();
 
     // 1. Logic Check: Is this button the one currently active?
     const isActive = currentSort?.key === sortKey;
+    title = title || sortKey; // Fallback to sortKey if title is not provided
     const direction = isActive ? currentSort?.dir : null;
 
     // 2. The Internal Logic: Determine the next state
@@ -66,13 +69,14 @@ export default function SortButton({
 
     return (
         <Button
+            isCursorPointer
             disabled={disabled}
             onClick={handleSortToggle}
             className={cssClasses || cnClassNames(
                 "inline-flex items-center justify-center rounded p-1 transition-all",
                 isActive ? theme.textMain : "opacity-100 hover:opacity-100", theme.hoverBg
             )}
-            tooltip={isActive ? `Sorted ${getSortDirectionLabel}` : `Sort by ${sortKey}`}
+            tooltip={isActive ? `Sorted ${getSortDirectionLabel()}` : `Sort by ${title}`}
         >
             {getIcon()}
         </Button>
