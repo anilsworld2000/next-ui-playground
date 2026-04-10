@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import cnClassNames from '../utils';
 
 // 1. Define the shape of a single theme based on your object
@@ -71,7 +71,7 @@ export const THEMES = {
         bg: 'bg-slate-50',
         sidebar: 'bg-white',
         card: 'bg-white',
-        border: 'border-slate-200',
+        border: 'border-blue-200',
         primary: 'bg-blue-600',
         primaryText: 'text-blue-600',
         hoverBg: 'hover:bg-blue-100',       // Subtle background hover for light mode
@@ -86,7 +86,7 @@ export const THEMES = {
         bg: 'bg-white',
         sidebar: 'bg-zinc-50',
         card: 'bg-white',
-        border: 'border-black',
+        border: 'border-slate-300',
         primary: 'bg-black',
         primaryText: 'text-black',
         hoverBg: 'hover:bg-zinc-200',
@@ -95,21 +95,6 @@ export const THEMES = {
         button: 'bg-black hover:bg-zinc-800 text-white',
         textMuted: 'text-zinc-500',
         textMain: 'text-black'
-    },
-    parchment: {
-        name: "Parchment",
-        bg: "#F4ECD8",          // Warm, paper-like cream
-        sidebar: "#E9DFCE",     // Slightly darker than bg to define space
-        card: "#FCF6E9",        // Lighter "page" surface
-        border: "#D3C6AA",      // Soft earthy border
-        primary: "#859900",     // Muted olive green (Natural accent)
-        primaryText: "#5C4F33", // Deep brown (Avoids pure black)
-        hoverBg: "#E3D4B6",
-        hoverText: "#433A26",
-        accent: "#E2D8B9",
-        button: "#859900",      // Matching muted green
-        textMuted: "#8B7D6B",   // Soft clay grey
-        textMain: "#433A26",    // Dark coffee bean (Softer than black)
     },
 } as const;
 
@@ -141,6 +126,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         setThemeKey(key);
         localStorage.setItem('app-theme', key);
     };
+
+    useEffect(() => {
+        const storedTheme = localStorage.getItem('app-theme') as ThemeKey;
+        // Check if the stored theme actually exists in our THEMES object
+        if (storedTheme && THEMES[storedTheme]) {
+            setThemeKey(storedTheme);
+        }
+    }, []);
 
     return (
         <ThemeContext.Provider value={{
