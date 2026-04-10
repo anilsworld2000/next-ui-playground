@@ -32,6 +32,7 @@ export default function ViewToggleButton({
 
     return (
         <Button
+            isCursorPointer
             disabled={disabled}
             className={cnClassNames(
                 "flex items-center justify-center transition-all active:scale-95",

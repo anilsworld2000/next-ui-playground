@@ -79,6 +79,7 @@ export default function ControlBar({
             sortButtonConfig && (
                 <SortButton
                     disabled={sortButtonConfig.disabled}
+                    title={sortButtonConfig.title}
                     sortKey={sortButtonConfig.sortKey}
                     currentSort={sortButtonConfig.currentSort}
                     onSortChange={sortButtonConfig.onSortChange}

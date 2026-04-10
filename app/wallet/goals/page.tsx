@@ -147,6 +147,7 @@ export default function GoalsPage() {
                 columns={columns}
                 showRowNumbers
                 enableSelection
+                scrollable
             />
         );
     }
@@ -179,6 +180,7 @@ export default function GoalsPage() {
                     iconSize={18}
                     iconStrokeWidth={1}
                     sortButtonConfig={{
+                        title: "Goal Name",
                         sortKey: "name",
                         currentSort: sortConfig,
                         onSortChange: setSortConfig,
@@ -202,10 +204,18 @@ export default function GoalsPage() {
                         onToggle: (v) => setViewMode(v as LayoutConfig),
                     }}
                     utilityControlls={[
-                        <Button key="add" onClick={() => console.log("Add")} tooltip="Add">
+                        <Button
+                            isCursorPointer
+                            key="add"
+                            onClick={() => console.log("Add")}
+                            tooltip="Add">
                             <Plus size={18} strokeWidth={1} />
                         </Button>,
-                        <Button key="print" onClick={() => window.print()} tooltip="Print">
+                        <Button
+                            isCursorPointer
+                            key="print"
+                            onClick={() => window.print()}
+                            tooltip="Print">
                             <Printer size={18} strokeWidth={1} />
                         </Button>
                     ]}

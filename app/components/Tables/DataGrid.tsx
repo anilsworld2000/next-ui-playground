@@ -226,6 +226,7 @@ export default function DataGrid<T extends { id: string | number }>({
                                                 iconSize={columnIconSize}
                                                 iconStrokeWidth={columnIconThickness}
                                                 sortButtonConfig={{
+                                                    title: col.header,
                                                     sortKey: String(col.accessor),
                                                     currentSort: sortConfig,
                                                     onSortChange: setSortConfig
@@ -342,8 +343,8 @@ export default function DataGrid<T extends { id: string | number }>({
                                     value={currentPageSize}
                                     onChange={(e) => handlePageSizeChange(Number(e.target.value))}
                                     className={cnClassNames(
-                                        "rounded px-2 py-1 text-[10px] outline-none",
-                                        theme.border, theme.textMain, theme.bg
+                                        "rounded px-2 py-1 text-[10px] border outline-none",
+                                        theme.border,  theme.bg
                                     )}
                                 >
                                     {pageSizeOptions.map((size) => (

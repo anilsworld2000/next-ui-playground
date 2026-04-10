@@ -134,3 +134,12 @@ export type LayoutConfig =  'grid' | 'list';
 
 export type FilterOption = { value: string; label: string };
 
+export interface ListItem<T> {
+    id: string | number;
+    label: string;
+    description?: string;
+    icon?: React.ReactNode;      // For your Palette/Check icons
+    indicator?: React.ReactNode; // For your Theme color dots
+    value: T;                  // The data passed to the callback
+}
+
