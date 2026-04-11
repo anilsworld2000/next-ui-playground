@@ -71,3 +71,12 @@ export const GENERIC_LABELS = {
     selectRow: "Select row",
     editCell: "Edit",
 }
+
+export const ICON_SIZES = {
+    xlg: 18,
+    lg: 16,
+    md: 14,
+    sm: 12,
+    xs: 10,
+    xxs: 8
+}

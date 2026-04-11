@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import GoalCard from "./GoalCard";
 import WalletSectionLayout from "../WalletSectionLayout";
 import { Column, Goal, LayoutConfig, SortConfig } from "@/app/types";
-import cnClassNames, { GENERIC_LABELS, getFormatedCurrency } from "@/app/utils";
+import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, ICON_SIZES } from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import Button from "@/app/components/Buttons/Button";
 import { Plus, Printer } from "lucide-react";
@@ -177,7 +177,7 @@ export default function GoalsPage() {
                         "flex items-center gap-1 h-10 px-3 rounded-full font-semibold transition-all active:scale-95",
                         theme.hoverBg, theme.primaryText
                     )}
-                    iconSize={18}
+                    iconSize={ICON_SIZES.lg}
                     iconStrokeWidth={1}
                     sortButtonConfig={{
                         title: "Goal Name",
@@ -209,14 +209,14 @@ export default function GoalsPage() {
                             key="add"
                             onClick={() => console.log("Add")}
                             tooltip="Add">
-                            <Plus size={18} strokeWidth={1} />
+                            <Plus size={ICON_SIZES.lg} strokeWidth={1} />
                         </Button>,
                         <Button
                             isCursorPointer
                             key="print"
                             onClick={() => window.print()}
                             tooltip="Print">
-                            <Printer size={18} strokeWidth={1} />
+                            <Printer size={ICON_SIZES.lg} strokeWidth={1} />
                         </Button>
                     ]}
                 />

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
-import cnClassNames from "./utils";
+import cnClassNames, { ICON_SIZES } from "./utils";
 import { useTheme } from "./hooks/ThemeContext";
 import { LayoutDashboard } from "lucide-react";
 
@@ -61,7 +61,7 @@ function DashboardPreview({ dash }: { dash: Route }) {
       {/* 👇 Preview (mini live dashboard) */}
       <div className="relative h-48 overflow-hidden flex items-center justify-center">
 
-        <LayoutDashboard size={50} strokeWidth={1}/>
+        <LayoutDashboard size={ICON_SIZES.xlg} strokeWidth={1}/>
         {/* Overlay for hover effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90 opacity-0 group-hover:opacity-100 transition-opacity"></div>
       </div>

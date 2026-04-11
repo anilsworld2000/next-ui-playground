@@ -2,7 +2,7 @@ import Button from "./Button";
 import { Palette } from "lucide-react";
 import { ThemeKey, THEMES, useTheme } from "@/app/hooks/ThemeContext";
 import { useState } from "react";
-import cnClassNames from "@/app/utils";
+import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import Flyout from "../Flyout/Flyout";
 import { ListItem } from "@/app/types";
 import ActionList from "../Tables/ActionList";
@@ -25,7 +25,7 @@ export default function ThemeButton() {
                 onClick={() => setThemeMenuOpen(!isThemeMenuOpen)}
                 isCursorPointer
             >
-                <Palette size={20} strokeWidth={1} />
+                <Palette size={ICON_SIZES.md} strokeWidth={1} />
             </Button>
 
             {isThemeMenuOpen && (

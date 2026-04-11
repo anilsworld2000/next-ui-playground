@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import cnClassNames, { GENERIC_LABELS } from "@/app/utils";
+import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Button from "./Button";
 import { statusColors } from "@/app/types";
 
@@ -22,7 +22,7 @@ export default function SearchButton({
     onSearch,
     disabled = false,
     placeholder = GENERIC_LABELS.search,
-    iconSize = 18,
+    iconSize = ICON_SIZES.lg,
     iconStrokeWidth = 1,
     className = "",
     containerClassName = ""

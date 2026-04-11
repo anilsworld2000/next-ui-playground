@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import cnClassNames from "@/app/utils";
+import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import FilterButton, { FilterButtonProps } from "@/app/components/Buttons/FilterButton";
 import SortButton, { SortButtonProps } from "@/app/components/Buttons/SortButton";
@@ -24,7 +24,7 @@ export default function ControlBar({
     filterButtonConfig,
     viewToggleButtonConfig,
     utilityControlls,
-    iconSize = 18,
+    iconSize = ICON_SIZES.lg,
     iconStrokeWidth = 1,
     controlBarClassName = "",
     controlBarItemsClassName = ""

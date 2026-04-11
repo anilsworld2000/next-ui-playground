@@ -1,6 +1,7 @@
 import { ArrowLeft, Edit3, Trash2, Calendar, Link as LinkIcon } from "lucide-react";
 import Button from "@/app/components/Buttons/Button";
 import { Goal } from "@/app/types";
+import { ICON_SIZES } from "@/app/utils";
 
 type Props = {
     goal: Goal;
@@ -17,14 +18,14 @@ export default function GoalDetailView({ goal, onBack, onEdit, onDelete }: Props
             {/* Header / Actions */}
             <div className="flex justify-between items-center">
                 <button onClick={onBack} className="flex items-center gap-2 opacity-60 hover:opacity-100 transition-all">
-                    <ArrowLeft size={20} /> Back to Dashboard
+                    <ArrowLeft size={ICON_SIZES.lg} /> Back to Dashboard
                 </button>
                 <div className="flex gap-3">
                     <Button onClick={onEdit} className="p-2 px-4 border border-white/10 rounded-lg hover:bg-white/5 flex gap-2 items-center">
-                        <Edit3 size={16} /> Edit
+                        <Edit3 size={ICON_SIZES.lg} /> Edit
                     </Button>
                     <Button onClick={onDelete} className="p-2 px-4 border border-red-500/20 text-red-500 rounded-lg hover:bg-red-500/10 flex gap-2 items-center">
-                        <Trash2 size={16} /> Delete
+                        <Trash2 size={ICON_SIZES.lg} /> Delete
                     </Button>
                 </div>
             </div>

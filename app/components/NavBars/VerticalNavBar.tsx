@@ -1,7 +1,7 @@
 "use client";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import { NavGroup } from "@/app/types";
-import cnClassNames from "@/app/utils";
+import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../Buttons/Button";
@@ -121,7 +121,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                                     "text-lg transition-transform duration-500",
                                     isSidebarOpen ? "rotate-180" : "rotate-0"
                                 )}>
-                                    <ArrowRightIcon size={12} />
+                                    <ArrowRightIcon size={ICON_SIZES.md} />
                                 </span>
 
                                 {isSidebarOpen ? (

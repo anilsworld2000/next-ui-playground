@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 export type PropValue = string | number | boolean | undefined | readonly string[];
 
@@ -143,3 +143,43 @@ export interface ListItem<T> {
     value: T;                  // The data passed to the callback
 }
 
+export type AssetClassName = 'Equity' | 'Debt' | 'Cash' | 'Gold' | 'Silver';
+
+export interface AssetDetail {
+    name: string;
+    allocation: number; // e.g., 40% of Equity
+}
+
+export interface AssetClass {
+    type: AssetClassName;
+    allocation: number; // e.g., 60% of Growth Bucket
+    assets: AssetDetail[];
+}
+
+export interface AllocationBucket {
+    bucketName: string;
+    classes: AssetClass[];
+}
+
+export interface PortfolioSchema {
+    version: string;
+    lastUpdated: string;
+    buckets: AllocationBucket[];
+}
+
+export interface AllocationRow {
+    id: string;             // Unique ID (e.g., "Emergency-Debt-Bank")
+    bucketName: string;
+    assetClass: string;
+    assetClassDistribution: number; // e.g., 40 (for 40% Debt in Emergency)
+    assetName: string;
+    assetDistribution: number;  // e.g., 100 (for 100% Bank in Debt)
+    globalWeight: number;       // Calculated: (bucketDist/100 * assetDist/100)
+}
+
+export interface Tab<T extends string> {
+    id: T;
+    label: string;
+    icon?: ReactNode;
+    content: ReactNode; // Can be a DataGrid, Card, etc.
+}

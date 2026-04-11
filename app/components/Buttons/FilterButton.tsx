@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Filter, FunnelPlus } from "lucide-react";
 import Button from "./Button";
-import cnClassNames, { GENERIC_LABELS } from "@/app/utils";
+import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import Flyout from "../Flyout/Flyout";
 import { ListItem, statusColors } from "@/app/types";
@@ -29,7 +29,7 @@ export default function FilterButton({
     filterOptions,
     cssClasses,
     tooltip,
-    iconSize = 16,
+    iconSize = ICON_SIZES.lg,
     iconStrokeWidth = 2,
     placeholder = `${GENERIC_LABELS.filter}...`,
     type = "text",
