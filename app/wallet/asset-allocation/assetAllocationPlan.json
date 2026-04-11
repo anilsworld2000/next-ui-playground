@@ -1,0 +1,194 @@
+{
+    "version": "1.0",
+    "lastUpdated": "2026-04-11",
+    "buckets": [
+        {
+            "bucketName": "Emergency",
+            "classes": [
+                {
+                    "type": "Debt",
+                    "allocation": 40,
+                    "assets": [
+                        {
+                            "name": "Bank",
+                            "allocation": 100
+                        }
+                    ]
+                },
+                {
+                    "type": "Cash",
+                    "allocation": 60,
+                    "assets": [
+                        {
+                            "name": "Liquid Fund",
+                            "allocation": 100
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "bucketName": "Short Term",
+            "classes": [
+                {
+                    "type": "Debt",
+                    "allocation": 60,
+                    "assets": [
+                        {
+                            "name": "Debt Fund",
+                            "allocation": 100
+                        }
+                    ]
+                },
+                {
+                    "type": "Cash",
+                    "allocation": 40,
+                    "assets": [
+                        {
+                            "name": "FD",
+                            "allocation": 100
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "bucketName": "Balanced",
+            "classes": [
+                {
+                    "type": "Equity",
+                    "allocation": 30,
+                    "assets": [
+                        {
+                            "name": "Debt Fund",
+                            "allocation": 100
+                        }
+                    ]
+                },
+                {
+                    "type": "Debt",
+                    "allocation": 70,
+                    "assets": [
+                        {
+                            "name": "Large CAP",
+                            "allocation": 100
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "bucketName": "Growth",
+            "classes": [
+                {
+                    "type": "Equity",
+                    "allocation": 60,
+                    "assets": [
+                        {
+                            "name": "Large CAP",
+                            "allocation": 100
+                        }
+                    ]
+                },
+                {
+                    "type": "Equity",
+                    "allocation": 40,
+                    "assets": [
+                        {
+                            "name": "Mid CAP",
+                            "allocation": 100
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "bucketName": "Aggressive",
+            "classes": [
+                {
+                    "type": "Equity",
+                    "allocation": 60,
+                    "assets": [
+                        {
+                            "name": "Mid CAP",
+                            "allocation": 100
+                        }
+                    ]
+                },
+                {
+                    "type": "Equity",
+                    "allocation": 40,
+                    "assets": [
+                        {
+                            "name": "Small CAP",
+                            "allocation": 100
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "bucketName": "Full portfolio",
+            "classes": [
+                {
+                    "type": "Equity",
+                    "allocation": 65,
+                    "assets": [
+                        {
+                            "name": "Large CAP",
+                            "allocation": 40
+                        },
+                        {
+                            "name": "Mid CAP",
+                            "allocation": 35
+                        },
+                        {
+                            "name": "Small CAP",
+                            "allocation": 25
+                        }
+                    ]
+                },
+                {
+                    "type": "Debt",
+                    "allocation": 25,
+                    "assets": [
+                        {
+                            "name": "FD",
+                            "allocation": 35
+                        },
+                        {
+                            "name": "RD",
+                            "allocation": 15
+                        },
+                        {
+                            "name": "Debt Fund",
+                            "allocation": 15
+                        },
+                        {
+                            "name": "Gold",
+                            "allocation": 15
+                        },
+                        {
+                            "name": "Silver",
+                            "allocation": 10
+                        },
+                        {
+                            "name": "Liquid Fund",
+                            "allocation": 10
+                        }
+                    ]
+                },
+                {
+                    "type": "Cash",
+                    "allocation": 10,
+                    "assets": [
+                        {
+                            "name": "Cash",
+                            "allocation": 100
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

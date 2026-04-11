@@ -1,6 +1,6 @@
 "use client";
 import { Check } from "lucide-react";
-import cnClassNames from "@/app/utils";
+import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import { useTheme } from "../hooks/ThemeContext";
 
 interface CheckboxProps {
@@ -11,7 +11,7 @@ interface CheckboxProps {
     iconStrokeWidth?: number;
 }
 
-export default function CustomCheckbox({ checked, onChange, label, iconSize = 11, iconStrokeWidth = 2 }: CheckboxProps) {
+export default function CustomCheckbox({ checked, onChange, label, iconSize = ICON_SIZES.sm, iconStrokeWidth = 2 }: CheckboxProps) {
     const { theme } = useTheme();
 
     // Check if the theme uses hex codes (like Parchment)

@@ -2,7 +2,7 @@
 import React from "react";
 import { ChevronUp, ChevronDown, ArrowUpDown } from "lucide-react";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import cnClassNames, { GENERIC_LABELS } from "@/app/utils";
+import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import { SortConfig } from "@/app/types";
 import Button from "./Button";
 
@@ -21,7 +21,7 @@ export default function SortButton({
     sortKey,
     currentSort,
     onSortChange,
-    iconSize = 14,
+    iconSize = ICON_SIZES.lg,
     iconStrokeWidth = 1,
     cssClasses,
     disabled = false,

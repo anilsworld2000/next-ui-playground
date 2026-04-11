@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef, useMemo, useEffect, useCallback } from "react";
-import cnClassNames, { GENERIC_LABELS } from "@/app/utils";
+import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import { Column, DataGridProps, SortConfig } from "@/app/types";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import CustomCheckbox from "../CustomCheckbox";
@@ -28,7 +28,7 @@ export default function DataGrid<T extends { id: string | number }>({
 }: DataGridProps<T>) {
     const pl: string = autoHeight ? "pl-2" : "pl-4";
     const px: string = autoHeight ? "px-2" : "px-4";
-    const columnIconSize = 12;
+    const columnIconSize = ICON_SIZES.md;
     const columnIconThickness = 1;
     const scrollContainerClass = cnClassNames("overflow-auto custom-scrollbar", scrollable ? heightClass : undefined);
     const { theme } = useTheme();

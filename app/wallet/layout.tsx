@@ -2,8 +2,9 @@ import { ReactNode } from 'react'
 import DashboardLayout from '../components/Layouts/DashboardLayout'
 import { NavGroup, UserSectionPosition } from '@/app/types';
 import { ChartCandlestick, Goal, Landmark, TicketSlash, TrendingUp, Wallet, WalletMinimal, HandCoins, PiggyBank } from 'lucide-react';
+import { ICON_SIZES } from '../utils';
 
-const iconSize: number = 18;
+const iconSize: number = ICON_SIZES.lg;
 const navGroups: NavGroup[] = [
     {
         id: "wallet",
@@ -56,6 +57,12 @@ const navGroups: NavGroup[] = [
                 name: "PF",
                 icon: <PiggyBank size={iconSize} />,
                 href: '/wallet/pf'
+            },
+            {
+                id: "assetAllocation",
+                name: "Asset Allocation",
+                icon: <PiggyBank size={iconSize} />,
+                href: '/wallet/asset-allocation'
             }
         ],
     },
@@ -78,7 +85,7 @@ export default function WalletLayout({ children }: { children: ReactNode }) {
         <DashboardLayout
             horizontalItems={[]}
             verticalNavbarTitle='Wallet'
-            verticalNavbarIcon={<WalletMinimal className="text-white" size={24} />}
+            verticalNavbarIcon={<WalletMinimal className="text-white" size={ICON_SIZES.xlg} />}
             verticalGroups={navGroups}
             userSectionPosition={UserSectionPosition.Undefined}
         >

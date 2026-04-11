@@ -3,7 +3,7 @@ import Card from "@/app/components/Cards/Card";
 import ProgressRing from "@/app/components/Charts/ProgressRing";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import { Goal } from "@/app/types";
-import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, GOAL_LABELS } from "@/app/utils";
+import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, GOAL_LABELS, ICON_SIZES } from "@/app/utils";
 import KeyValueDisplay from "@/app/components/KeyValueDisplay";
 import { Pencil, Trash2 } from "lucide-react";
 import StatusBadge from "@/app/components/Badges/StatusBadge";
@@ -36,7 +36,7 @@ export default function GoalCard({ goal, onEdit, onDelete }: Props) {
                         {/* Progress Bar */}
                         <ProgressRing
                             value={goal.achievedPercent / 100}
-                            size={35}
+                            size={ICON_SIZES.xlg}
                             thickness={6}
                             color={theme.theme.textMain}
                         />

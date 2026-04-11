@@ -1,10 +1,10 @@
 import Button from "@/app/components/Buttons/Button";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import cnClassNames from "@/app/utils";
+import cnClassNames, { ICON_SIZES } from "@/app/utils";
 
 export default function InlineActionButtons(onClick: () => void, tooltip: string, IconComponent: React.FC<{ size: number; strokeWidth: number }>) {
     const theme = useTheme();
-    const iconSize: number = 16;
+    const iconSize: number = ICON_SIZES.lg;
     const iconThickness: number = 1;
 
         return (

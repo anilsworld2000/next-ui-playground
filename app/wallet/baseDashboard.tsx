@@ -2,7 +2,7 @@
 import { useState, ReactNode } from "react";
 import { Plus, Search, Filter } from "lucide-react";
 import Button from "@/app/components/Buttons/Button";
-import cnClassNames from "../utils";
+import cnClassNames, { ICON_SIZES } from "../utils";
 
 interface BaseDashboardProps<T> {
     title: string;
@@ -41,14 +41,14 @@ export default function BaseDashboard<T extends { id: string; title?: string; na
                     onClick={onAddClick}
                     className={cnClassNames("flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary font-semibold hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95")}
                 >
-                    <Plus size={20} /> Add New
+                    <Plus size={ICON_SIZES.lg} /> Add New
                 </Button>
             </div>
 
             {/* Controls Section */}
             <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 opacity-40" size={18} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 opacity-40" size={ICON_SIZES.lg} />
                     <input
                         type="text"
                         placeholder={searchPlaceholder}
@@ -58,7 +58,7 @@ export default function BaseDashboard<T extends { id: string; title?: string; na
                     />
                 </div>
                 <Button className="flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10">
-                    <Filter size={18} /> Filter
+                    <Filter size={ICON_SIZES.lg} /> Filter
                 </Button>
             </div>
 
@@ -73,7 +73,7 @@ export default function BaseDashboard<T extends { id: string; title?: string; na
                 {/* Empty State */}
                 {filteredItems.length === 0 && (
                     <div className="col-span-full py-20 border-2 border-dashed border-white/5 rounded-3xl flex flex-col items-center justify-center text-center opacity-40">
-                        <Search size={48} className="mb-4" />
+                        <Search size={ICON_SIZES.lg} className="mb-4" />
                         <p className="text-lg">No items found matching your search.</p>
                     </div>
                 )}
