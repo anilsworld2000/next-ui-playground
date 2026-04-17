@@ -34,7 +34,7 @@ export default function DashboardLayout({ children, horizontalItems, verticalNav
                 </div>
 
                 {/* Row 2: children content */}
-                <main className="flex-1 p-6">
+                <main className="flex-1 pl-1">
                     {children}
                 </main>
             </div>
