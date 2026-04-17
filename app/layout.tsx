@@ -34,10 +34,10 @@ export default function RootLayout({
             <CurrentRouteContextProvider >
               <SelectedDashboardProvider>
                 <UserProvider>
-                  <header className="p-1 pl-4 pr-4">
+                  <header className="p-1">
                     <TopNavBar />
                   </header>
-                  <main role="main" className="p-4 pt-0.5">
+                  <main role="main" className="p-1 pt-0.5">
                     {children}
                   </main>
                 </UserProvider>

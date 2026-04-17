@@ -23,13 +23,13 @@ export default function WalletSectionLayout({
 
     return (
         <div className={cnClassNames("flex h-full", className)}>
-            <main className={cnClassNames("flex-1 space-y-8 animate-in fade-in duration-500", theme.theme.bg, mainClassName)}>
+            <main className={cnClassNames("flex-1 space-y-2 animate-in fade-in duration-500", theme.theme.bg, mainClassName)}>
                 <header>
-                    <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg p-1 ">
+                    <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl  p-1">
                         <div className="min-w-0">
                             <div>
-                                {title && <h1 className="text-3xl font-bold tracking-tight truncate">{title}</h1>}
-                                {subtitle && <p className="opacity-60 text-sm mt-1 truncate">{subtitle}</p>}
+                                {title && <h1 className="text-xl font-bold tracking-tight truncate">{title}</h1>}
+                                {subtitle && <p className="opacity-60 text-xs mt-1 truncate">{subtitle}</p>}
                             </div>
                         </div>
                         {headerControls}

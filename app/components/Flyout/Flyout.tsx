@@ -9,6 +9,7 @@ interface FlyoutProps {
     className?: string;
     // We need to know if it's open and how to close it from the parent
     isOpen: boolean;
+    width?: number;
     onClose: () => void;
 }
 
@@ -18,6 +19,7 @@ export default function Flyout({
     className,
     isOpen,
     title,
+    width = 48,
     onClose
 }: FlyoutProps) {
     const { theme } = useTheme();
@@ -43,9 +45,8 @@ export default function Flyout({
         <div
             ref={flyoutRef}
             className={cnClassNames(
-                " overflow-auto absolute right-0 mt-3 w-48 border shadow-2xl z-50 p-2 animate-in fade-in zoom-in-95 rounded-2xl duration-100",
-                theme.card, theme.border,
-                className
+                "overflow-hidden absolute right-0 mt-3 border shadow-2xl z-50 p-2 animate-in fade-in zoom-in-95 rounded-2xl duration-100",
+                theme.card, theme.border, `w-${width}`, className
             )}
         >
             {showCloseButton && (

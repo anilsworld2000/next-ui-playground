@@ -38,7 +38,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                     theme.theme.sidebar,
                     // 1. Changed h-screen to handle top-nav offset
                     // 2. Added overflow-hidden to the aside itself
-                    "fixed lg:sticky top-16 left-0 z-50 h-[calc(100vh-4rem)] rounded-t-xl transition-all duration-300 ease-in-out overflow-hidden",
+                    "fixed lg:sticky top-2 left-0 z-50 h-[calc(100vh-4rem)] rounded-t-xl transition-all duration-300 ease-in-out overflow-hidden ",
                     isSidebarOpen ? "w-64 translate-x-0" : "-translate-x-full lg:translate-x-0 lg:w-20"
                 )}>
                     {/* The wrapper must be flex-col h-full to make the nav scrollable */}
@@ -60,11 +60,11 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
 
                         {/* NAV: This is the ONLY part that should scroll */}
                         {/* Use overflow-y-auto and ensure it takes available space */}
-                        <nav className="flex-1 px-3 space-y-2 overflow-y-auto overflow-x-hidden scrollbar-hide">
+                        <nav className="flex-1 px-3 space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hide">
                             {props.groups?.map((group) => (
                                 <div key={group.id} className="py-2">
                                     {isSidebarOpen && (
-                                        <div className="px-2 py-2 text-xs uppercase opacity-50">
+                                        <div className="px-2 py-0 text-xs uppercase opacity-50">
                                             {group.title}
                                         </div>
                                     )}
@@ -76,7 +76,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                                                 if (window.innerWidth < 1024) setSidebarOpen(false);
                                             }}
                                             className={cnClassNames(
-                                                "group relative flex items-center gap-4 px-3 py-3 rounded-lg cursor-pointer transition-all",
+                                                "group relative flex items-center gap-2 px-3 py-3 rounded-lg cursor-pointer transition-all",
                                                 pathname === item.href ? theme.theme.primary : theme.theme.hoverBg,
                                                 pathname === item.href ? "text-white" : "",
                                                 !isSidebarOpen && "justify-center"

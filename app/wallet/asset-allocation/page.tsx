@@ -222,10 +222,6 @@ export default function AssetAllocationPage() {
             >
                 
             </Tabs>
-            {/* <DataGrid
-                columns={ALLOCATION_COLUMNS}
-                data={finalDisplayData}
-            /> */}
         </WalletSectionLayout>
     );
 }
