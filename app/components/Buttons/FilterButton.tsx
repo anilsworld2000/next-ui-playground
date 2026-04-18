@@ -38,7 +38,6 @@ export default function FilterButton({
     const { theme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
-
     // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -119,6 +118,7 @@ export default function FilterButton({
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
                     className=""
+                    anchorRef={containerRef}
                 >
                     <div className="flex items-center justify-between m-2 text-xs">
                         <span className={cnClassNames("font-bold tracking-widest", theme.primaryText)}>{GENERIC_LABELS.filterBy}</span>

@@ -1,7 +1,7 @@
 import Button from "./Button";
 import { Palette } from "lucide-react";
 import { ThemeKey, THEMES, useTheme } from "@/app/hooks/ThemeContext";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import Flyout from "../Flyout/Flyout";
 import { ListItem } from "@/app/types";
@@ -10,6 +10,7 @@ import ActionList from "../Tables/ActionList";
 export default function ThemeButton() {
     const { setTheme, themeKey } = useTheme();
     const [isThemeMenuOpen, setThemeMenuOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const themeItems: ListItem<string>[] = Object.keys(THEMES).map(key => ({
         id: key,
@@ -19,7 +20,7 @@ export default function ThemeButton() {
     }));
 
     return (
-        <div className="relative">
+        <div className="relative" ref={containerRef}>
             <Button
                 className={cnClassNames(`transition-all flex`)}
                 onClick={() => setThemeMenuOpen(!isThemeMenuOpen)}
@@ -34,6 +35,7 @@ export default function ThemeButton() {
                     showCloseButton
                     isOpen={isThemeMenuOpen}
                     onClose={() => setThemeMenuOpen(false)}
+                    anchorRef={containerRef}
                 >
                     <ActionList
                         items={themeItems} selectedValue={themeKey} onSelect={(value) => { setTheme(value as ThemeKey); setThemeMenuOpen(false); }} />
