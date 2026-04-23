@@ -35,6 +35,12 @@ export default function Home() {
       path: "/wallet",
       description: "A Wallet for you",
     },
+    {
+      id: "_devotional",
+      name: "Devotional",
+      path: "/devotional",
+      description: "Let's pay devotional God",
+    },
   ];
 
   return (
