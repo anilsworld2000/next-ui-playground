@@ -70,6 +70,7 @@ export const GENERIC_LABELS = {
     resizeColumn: "Resize",
     selectRow: "Select row",
     editCell: "Edit",
+    back: "Back",
 }
 
 export const ICON_SIZES = {

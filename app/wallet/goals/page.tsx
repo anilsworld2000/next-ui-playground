@@ -10,6 +10,8 @@ import Button from "@/app/components/Buttons/Button";
 import { Plus, Printer } from "lucide-react";
 import ControlBar from "@/app/components/UnifiedControlls/ControlBar";
 import DataGrid from "@/app/components/Tables/DataGrid";
+import GoalCreate from "./GoalCreate";
+import { GoalCreateFormData } from "./GoalCreateForm";
 // Mock data - replace with actual data fetching
 const mockGoals: Goal[] = [
     {
@@ -90,6 +92,7 @@ export default function GoalsPage() {
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [filterValue, setFilterValue] = useState<string>("");
     const [sortConfig, setSortConfig] = useState<SortConfig>(null);
+    const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
     const { theme } = useTheme();
 
     // --- STEP 1: Filter Logic ---
@@ -166,63 +169,120 @@ export default function GoalsPage() {
         );
     }
 
+    function handleAdd() {
+        setIsCreateDrawerOpen(true);
+    }
+
+    function handleCreateGoal(formData: GoalCreateFormData) {
+        // Generate a new goal ID
+        const newGoalId = (Math.max(...goals.map(g => parseInt(g.id)), 0) + 1).toString();
+        
+        // Calculate tenure
+        const tenure = formData.targetYear - formData.startYear;
+        
+        // Calculate future value (simplified: targetAmount with inflation)
+        const futureValue = formData.targetAmount * Math.pow(1 + formData.inflationRate / 100, tenure);
+        
+        // Calculate achieved percent (based on initial investment vs target)
+        const achievedPercent = formData.initialInvestment > 0 
+            ? Math.min(Math.round((formData.initialInvestment / formData.targetAmount) * 100), 100)
+            : 0;
+        
+        // Determine status based on funding ratio
+        const fundingRatio = achievedPercent / 100;
+        let status: Goal["status"] = "Underfunded";
+        if (fundingRatio >= 0.9) status = "On Track";
+        if (fundingRatio >= 1) status = "Completed";
+        
+        const newGoal: Goal = {
+            id: newGoalId,
+            name: formData.name,
+            startYear: formData.startYear,
+            endYear: formData.targetYear,
+            tenure: tenure,
+            inflation: formData.inflationRate,
+            monthlyInvestment: formData.monthlyContribution,
+            stepUp: 0, // Default step-up
+            expectedReturn: formData.expectedReturnRate,
+            costToday: formData.targetAmount,
+            futureValue: Math.round(futureValue),
+            invested: formData.initialInvestment,
+            currentValue: formData.initialInvestment,
+            achievedPercent: achievedPercent,
+            fundingRatio: fundingRatio,
+            status: status,
+        };
+        
+        setGoals([...goals, newGoal]);
+        setIsCreateDrawerOpen(false);
+        console.log("New goal created:", newGoal);
+    }
+
     return (
-        <WalletSectionLayout
-            title="Goals"
-            subtitle="Manage your financial goals"
-            headerControls={
-                <ControlBar
-                    controlBarClassName={cnClassNames("flex flex-col md:flex-row items-center gap-1 p-2 rounded-2xl shadow-sm", theme.bg, theme.border)}
-                    controlBarItemsClassName={cnClassNames(
-                        "flex items-center gap-1 h-10 px-3 rounded-full font-semibold transition-all active:scale-95",
-                        theme.hoverBg, theme.primaryText
-                    )}
-                    iconSize={ICON_SIZES.lg}
-                    iconStrokeWidth={1}
-                    sortButtonConfig={{
-                        title: "Goal Name",
-                        sortKey: "name",
-                        currentSort: sortConfig,
-                        onSortChange: setSortConfig,
-                    }}
-                    searchInputConfigs={{
-                        value: searchTerm,
-                        onSearch: setSearchTerm // Directly updates state
-                    }}
-                    filterButtonConfig={{
-                        filterOptions: [
-                            { value: "", label: "All" },
-                            { value: "Underfunded", label: "Underfunded" },
-                            { value: "On Track", label: "On Track" },
-                            { value: "Completed", label: "Completed" },
-                        ],
-                        value: filterValue,
-                        onChange: setFilterValue
-                    }}
-                    viewToggleButtonConfig={{
-                        view: viewMode,
-                        onToggle: (v) => setViewMode(v as LayoutConfig),
-                    }}
-                    utilityControlls={[
-                        <Button
-                            isCursorPointer
-                            key="add"
-                            onClick={() => console.log("Add")}
-                            tooltip="Add">
-                            <Plus size={ICON_SIZES.lg} strokeWidth={1} />
-                        </Button>,
-                        <Button
-                            isCursorPointer
-                            key="print"
-                            onClick={() => window.print()}
-                            tooltip="Print">
-                            <Printer size={ICON_SIZES.lg} strokeWidth={1} />
-                        </Button>
-                    ]}
-                />
-            }
-        >
-            {content()}
-        </WalletSectionLayout >
+        <>
+            <WalletSectionLayout
+                title="Goals"
+                subtitle="Manage your financial goals"
+                headerControls={
+                    <ControlBar
+                        controlBarClassName={cnClassNames("flex flex-col md:flex-row items-center gap-1 p-2 rounded-2xl shadow-sm", theme.bg, theme.border)}
+                        controlBarItemsClassName={cnClassNames(
+                            "flex items-center gap-1 h-10 px-3 rounded-full font-semibold transition-all active:scale-95",
+                            theme.hoverBg, theme.primaryText
+                        )}
+                        iconSize={ICON_SIZES.lg}
+                        iconStrokeWidth={1}
+                        sortButtonConfig={{
+                            title: "Goal Name",
+                            sortKey: "name",
+                            currentSort: sortConfig,
+                            onSortChange: setSortConfig,
+                        }}
+                        searchInputConfigs={{
+                            value: searchTerm,
+                            onSearch: setSearchTerm // Directly updates state
+                        }}
+                        filterButtonConfig={{
+                            filterOptions: [
+                                { value: "", label: "All" },
+                                { value: "Underfunded", label: "Underfunded" },
+                                { value: "On Track", label: "On Track" },
+                                { value: "Completed", label: "Completed" },
+                            ],
+                            value: filterValue,
+                            onChange: setFilterValue
+                        }}
+                        viewToggleButtonConfig={{
+                            view: viewMode,
+                            onToggle: (v) => setViewMode(v as LayoutConfig),
+                        }}
+                        utilityControlls={[
+                            <Button
+                                isCursorPointer
+                                key="add"
+                                onClick={handleAdd}
+                                tooltip="Add">
+                                <Plus size={ICON_SIZES.lg} strokeWidth={1} />
+                            </Button>,
+                            <Button
+                                isCursorPointer
+                                key="print"
+                                onClick={() => window.print()}
+                                tooltip="Print">
+                                <Printer size={ICON_SIZES.lg} strokeWidth={1} />
+                            </Button>
+                        ]}
+                    />
+                }
+            >
+                {content()}
+            </WalletSectionLayout>
+
+            <GoalCreate
+                isOpen={isCreateDrawerOpen}
+                onClose={() => setIsCreateDrawerOpen(false)}
+                onSubmit={handleCreateGoal}
+            />
+        </>
     );
 }
