@@ -220,7 +220,6 @@ export default function AssetAllocationPage() {
                 storageKey={"wallet.asset-allocation.activeTab"}
                 className="h-8"
             >
-                
             </Tabs>
         </WalletSectionLayout>
     );

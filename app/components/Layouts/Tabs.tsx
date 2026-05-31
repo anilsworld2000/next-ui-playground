@@ -5,31 +5,47 @@ import { Tab } from '@/app/types';
 
 interface TabsProps<T extends string> {
     tabs: Tab<T>[];
+    rememberActiveTab?: boolean; // Optional prop to control active tab from parent
     storageKey: string; // To persist the choice (e.g., "allocation-view-tab")
     className?: string;
+    onBeforeTabChange?: (newTabId: T, currentTabId: T) => boolean | Promise<boolean>; // Optional callback for custom logic
 }
 
 export default function Tabs<T extends string>({
     tabs,
+    rememberActiveTab = true,
     storageKey,
-    className
+    className,
+    onBeforeTabChange
 }: TabsProps<T>) {
     const { theme } = useTheme();
-
     // Initialize state with a null-check for SSR
     const [activeTabId, setActiveTabId] = useState<T>(tabs[0].id);
 
     // Load persisted tab on mount
     useEffect(() => {
-        const saved = localStorage.getItem(storageKey) as T;
-        if (saved && tabs.find(t => t.id === saved)) {
-            setActiveTabId(saved);
+        if (rememberActiveTab) {
+            const saved = localStorage.getItem(storageKey) as T;
+            if (saved && tabs.find(t => t.id === saved)) {
+                setActiveTabId(saved);
+            }
         }
-    }, [storageKey, tabs]);
+    }, [storageKey, tabs, rememberActiveTab]);
 
-    const handleTabChange = (id: T) => {
+    const handleTabChange = async (id: T) => {
+        // If already on this tab, do nothing
+        if (id === activeTabId) return;
+
+        // Call optional callback - if it returns false, don't switch tabs
+        if (onBeforeTabChange) {
+            const shouldProceed = await onBeforeTabChange(id, activeTabId);
+            if (!shouldProceed) return;
+        }
+
         setActiveTabId(id);
-        localStorage.setItem(storageKey, id);
+        if (rememberActiveTab) {
+            localStorage.setItem(storageKey, id);
+        }
     };
 
     const activeTab = tabs.find(t => t.id === activeTabId) || tabs[0];
@@ -46,7 +62,12 @@ export default function Tabs<T extends string>({
                     return (
                         <button
                             key={tab.id}
-                            onClick={() => handleTabChange(tab.id)}
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleTabChange(tab.id);
+                            }}
                             className={cnClassNames(
                                 "flex items-center gap-1 px-4 py-2 text-xs font-medium transition-all cursor-pointer",
                                 isActive

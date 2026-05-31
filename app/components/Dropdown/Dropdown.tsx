@@ -1,6 +1,8 @@
-import { GENERIC_LABELS } from '@/app/utils';
+import { useTheme } from '@/app/hooks/ThemeContext';
+import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from '@/app/utils';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
+import { X } from "lucide-react";
 
 // --- Types ---
 export interface DropdownOption<T> {
@@ -44,19 +46,12 @@ export default function Dropdown<T>({
     className = ""
 }: DropdownProps<T>) {
     // We'll use a mock theme object - replace with your actual useTheme() hook
-    const theme = {
-        bg: "bg-white dark:bg-slate-900",
-        border: "border-slate-200 dark:border-slate-700",
-        textMain: "text-slate-900 dark:text-slate-100",
-        textMuted: "text-slate-500",
-        accent: "bg-blue-50 dark:bg-blue-900/30",
-        hoverBg: "hover:bg-slate-100 dark:hover:bg-slate-800"
-    };
-
+    const { theme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 });
     const containerRef = useRef<HTMLDivElement>(null);
+    const listRef = useRef<HTMLDivElement>(null);
 
     // 1. Position Logic (Portal)
     const updateCoords = () => {
@@ -78,13 +73,24 @@ export default function Dropdown<T>({
     // 2. Click-Away Logic
     useEffect(() => {
         const handler = (e: MouseEvent) => {
-            if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+            const target = e.target as Node;
+
+            // Check if the click is inside the trigger
+            const clickedInsideTrigger = containerRef.current?.contains(target);
+            // Check if the click is inside the portal list
+            const clickedInsideList = listRef.current?.contains(target);
+
+            if (!clickedInsideTrigger && !clickedInsideList) {
                 setIsOpen(false);
             }
         };
-        document.addEventListener("mousedown", handler);
+
+        if (isOpen) {
+            document.addEventListener("mousedown", handler);
+        }
+
         return () => document.removeEventListener("mousedown", handler);
-    }, []);
+    }, [isOpen]);
 
     // 3. Filtering Logic
     const filteredOptions = useMemo(() => {
@@ -94,7 +100,9 @@ export default function Dropdown<T>({
     }, [options, searchTerm]);
 
     // 4. Selection Logic
-    const handleSelect = (optionValue: T) => {
+    const handleSelect = (e: React.MouseEvent, optionValue: T) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (multiple) {
             const currentVal = value as T[];
             const isSelected = currentVal.includes(optionValue);
@@ -116,29 +124,45 @@ export default function Dropdown<T>({
         }
     };
 
+    useEffect(() => {
+        const handler = (e: MouseEvent) => {
+            const target = e.target as Node;
+            // Check if click is outside BOTH the trigger and the portal list
+            if (
+                containerRef.current && !containerRef.current.contains(target) &&
+                listRef.current && !listRef.current.contains(target)
+            ) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
+    }, []);
+
     return (
         <div className={`flex flex-col gap-1 w-full ${className}`} ref={containerRef}>
             {label && <label className="text-[10px] font-bold uppercase opacity-60 tracking-tighter">{label}</label>}
 
             <div
                 onClick={toggle}
-                className={`flex flex-wrap items-center gap-1 min-h-[36px] px-3 py-1.5 border rounded cursor-pointer transition-all ${theme.bg} ${theme.border} ${isOpen ? 'ring-1 ring-blue-500' : ''}`}
+                className={cnClassNames("flex flex-wrap items-center gap-1 min-h-[36px] px-3 py-1.5 border rounded cursor-pointer transition-all", theme.textMain, theme.bg, theme.border, isOpen ? "border-2" : "")}
             >
                 {multiple ? (
                     (value as T[]).length > 0 ? (
                         (value as T[]).map((v, i) => {
                             const opt = options.find(o => o.value === v);
                             return (
-                                <div key={i} className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] ${theme.accent}`}>
+                                <div key={i} className={cnClassNames("flex items-center gap-1 px-2 py-0.5 rounded text-[10px]", theme.accent)}>
                                     {opt?.label}
-                                    <span
-                                        className="hover:text-red-500 ml-1"
-                                        onClick={(e) => { e.stopPropagation(); handleSelect(v); }}
-                                    >×</span>
+                                    <span>
+                                        <X  className="hover:text-red-500 ml-1"
+                                            onClick={(e) => handleSelect(e, v)}
+                                            size={ICON_SIZES.md} />
+                                    </span>
                                 </div>
                             );
                         })
-                    ) : <span className={theme.textMuted + " text-xs"}>{placeholder}</span>
+                    ) : <span className={cnClassNames("text-xs", theme.textMuted)}>{placeholder}</span>
                 ) : (
                     <span className="text-xs">
                         {options.find(o => o.value === value)?.label || placeholder}
@@ -149,14 +173,17 @@ export default function Dropdown<T>({
             {isOpen && (
                 <Portal>
                     <div
+                        ref={listRef}
+                        onMouseDown={(e) => e.stopPropagation()}
                         style={{ position: 'absolute', top: `${coords.top}px`, left: `${coords.left}px`, width: `${coords.width}px` }}
-                        className={`z-[9999] mt-1 border rounded shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150 ${theme.bg} ${theme.border}`}
+                        className={cnClassNames("z-[9999] mt-1 border rounded shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150", theme.bg, theme.border)}
                     >
                         {isSearchable && (
                             <div className="p-2 border-b border-inherit">
                                 <input
                                     autoFocus
-                                    className={`w-full px-2 py-1.5 text-xs rounded outline-none ${theme.accent}`}
+                                    onMouseDown={(e) => e.stopPropagation()}
+                                    className={cnClassNames("w-full px-2 py-1.5 text-xs rounded outline-none", theme.accent)}
                                     placeholder={`${GENERIC_LABELS.search}...`}
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -168,7 +195,7 @@ export default function Dropdown<T>({
                             {multiple && allowSelectAll && (
                                 <li
                                     onClick={handleToggleAll}
-                                    className={`px-3 py-2 text-xs font-bold border-b cursor-pointer ${theme.hoverBg}`}
+                                    className={cnClassNames("px-3 py-2 text-xs font-bold border-b cursor-pointer", theme.hoverBg)}
                                 >
                                     {(value as T[]).length === options.length ? "Deselect All" : "Select All"}
                                 </li>
@@ -181,13 +208,17 @@ export default function Dropdown<T>({
                                 return (
                                     <li
                                         key={opt.id}
-                                        onClick={() => handleSelect(opt.value)}
-                                        className={`px-3 py-2 text-xs cursor-pointer flex items-center justify-between ${selected ? 'text-blue-500 font-medium' : theme.textMain} ${theme.hoverBg}`}
+                                        onClick={(e) => handleSelect(e, opt.value)}
+                                        className={cnClassNames("px-3 py-2 text-xs cursor-pointer flex items-center justify-between", theme.textMain, selected ? theme.accent : "", theme.hoverBg)}
                                     >
                                         <div className="flex items-center gap-2">
                                             {multiple && <input
                                                 title='Option'
-                                                type="checkbox" checked={selected} readOnly className="accent-blue-500" />}
+                                                type="checkbox"
+                                                checked={selected}
+                                                onClick={(e) => e.stopPropagation()}
+                                                readOnly
+                                                className={theme.accent} />}
                                             {opt.render ? opt.render(opt.value) : opt.label}
                                         </div>
                                         {!multiple && selected && <span>✓</span>}
