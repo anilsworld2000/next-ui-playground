@@ -41,6 +41,12 @@ export default function Home() {
       path: "/devotional",
       description: "Let's pay devotional God",
     },
+    {
+      id: "_reading",
+      name: "Reading",
+      path: "/reading",
+      description: "Read and print Markdown files",
+    },
   ];
 
   return (
