@@ -19,6 +19,12 @@
 - Confirm long code and table content remains readable and scrollable on screen.
 - Confirm the document filename, character count, word count, and file size appear after opening a file.
 
+## Scalability checks
+
+- Exercise representative small, medium, and large Markdown files.
+- Record open time, render time, memory pressure, and print behavior before changing the client-only architecture.
+- Verify empty files, unusually large files, long code blocks, wide tables, and many headings do not make the interface unusable.
+
 ## Automated candidates
 
 When test infrastructure is introduced, prioritize file validation, metadata calculation, mode switching, action disabled states, object URL cleanup, and print visibility rules.

@@ -13,4 +13,5 @@ description: Use when implementing or changing the client-only Markdown Reading 
 6. Use shared buttons, Lucide icons, theme tokens, and Tailwind utilities.
 7. Keep print-only rules explicit: hide app chrome and controls, then print the document on a white page.
 8. Update `docs/reading/Architecture.md`, `Testing.md`, and `Decisions.md` for behavior or scope changes.
-9. Run `npm run lint` and `npm run build`, then manually exercise upload, rendering, actions, responsive layout, themes, and print preview.
+9. Read `docs/reading/Scalability.md` before adding large-document, multi-document, persistence, plugin, export, or collaboration behavior.
+10. Run `npm run lint` and `npm run build`, then manually exercise upload, rendering, actions, responsive layout, themes, and print preview.

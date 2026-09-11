@@ -20,6 +20,7 @@ The current implementation uses `react-markdown` with `remark-gfm`, supports ren
 ## Documentation
 
 - [Architecture](Architecture.md): implementation boundaries and data flow.
+- [Scalability](Scalability.md): growth dimensions, scaling triggers, and phased roadmap.
 - [Testing](Testing.md): manual verification matrix.
 - [Decisions](Decisions.md): decisions and excluded scope.
 

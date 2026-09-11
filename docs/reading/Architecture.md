@@ -23,3 +23,7 @@ Clipboard, download, and print actions are client-only. Copy failures should be 
 ## Print boundary
 
 Print styles hide global navigation, reader controls, and transient UI. The Markdown document becomes full-width with a white background, black text, readable code blocks, and page margins.
+
+## Growth boundary
+
+The current one-document, in-memory model is the baseline. See [Scalability](Scalability.md) for the conditions that justify file-size limits, workers, section rendering, IndexedDB, or server persistence. Do not introduce those boundaries without updating the decision record.

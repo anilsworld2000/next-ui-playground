@@ -23,3 +23,7 @@ Architecture, workflow, testing, and decision documents are part of the feature.
 ## Current implementation
 
 The route uses a shared dashboard shell, shared themed buttons, a client-side hidden file input, explicit Markdown element styles, and print rules in `app/reading/reading.css`. The initial reader intentionally does not provide editing, drag-and-drop, multi-document history, or persistence.
+
+## Scaling boundary
+
+The current architecture scales first through browser-side hardening and performance work. Workers, selective rendering, IndexedDB, and server persistence are separate steps triggered by measured document size, performance, storage, sharing, or collaboration requirements. See [Scalability](Scalability.md).
