@@ -1,0 +1,159 @@
+.markdown-document {
+    line-height: 1.75;
+}
+
+.markdown-document h1,
+.markdown-document h2,
+.markdown-document h3,
+.markdown-document h4 {
+    margin-top: 1.75em;
+    margin-bottom: 0.65em;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.markdown-document h1 {
+    font-size: 2rem;
+}
+
+.markdown-document h2 {
+    font-size: 1.5rem;
+}
+
+.markdown-document h3 {
+    font-size: 1.25rem;
+}
+
+.markdown-document p,
+.markdown-document ul,
+.markdown-document ol,
+.markdown-document blockquote,
+.markdown-document pre,
+.markdown-document table {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.markdown-document ul,
+.markdown-document ol {
+    padding-left: 1.5rem;
+}
+
+.markdown-document ul {
+    list-style: disc;
+}
+
+.markdown-document ol {
+    list-style: decimal;
+}
+
+.markdown-document li + li {
+    margin-top: 0.35rem;
+}
+
+.markdown-document a {
+    color: #2563eb;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.markdown-document blockquote {
+    border-left: 4px solid currentColor;
+    padding-left: 1rem;
+    opacity: 0.8;
+}
+
+.markdown-document code {
+    border-radius: 0.25rem;
+    background: rgb(127 127 127 / 0.15);
+    padding: 0.15rem 0.35rem;
+    font-size: 0.9em;
+}
+
+.markdown-document pre {
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    background: rgb(127 127 127 / 0.15);
+    padding: 1rem;
+}
+
+.markdown-document pre code {
+    background: transparent;
+    padding: 0;
+}
+
+.markdown-document table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+
+.markdown-document th,
+.markdown-document td {
+    border: 1px solid rgb(127 127 127 / 0.35);
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+}
+
+.markdown-document th {
+    font-weight: 700;
+    background: rgb(127 127 127 / 0.1);
+}
+
+.markdown-document hr {
+    margin: 2rem 0;
+    border-color: rgb(127 127 127 / 0.35);
+}
+
+.markdown-document img {
+    max-width: 100%;
+    height: auto;
+}
+
+.markdown-document input[type="checkbox"] {
+    margin-right: 0.45rem;
+}
+
+@media print {
+    body {
+        background: white !important;
+    }
+
+    body > div > div > header,
+    .reading-toolbar,
+    .reading-document-meta,
+    .notification,
+    aside,
+    nav {
+        display: none !important;
+    }
+
+    .reading-app,
+    .reading-document-shell,
+    .markdown-document {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        border: 0 !important;
+        background: white !important;
+        color: black !important;
+    }
+
+    .markdown-document a {
+        color: black !important;
+    }
+
+    .markdown-document pre,
+    .markdown-document table {
+        break-inside: avoid;
+    }
+
+    @page {
+        margin: 18mm;
+    }
+}

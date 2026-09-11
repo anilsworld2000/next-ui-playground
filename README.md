@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Project Documentation
+
+The project architecture, shared UI conventions, micro-app boundaries, and agent workflows are documented in the [`docs`](docs/README.md) directory.
+
+When implementing or changing a feature, update the relevant documentation in the same change. At minimum, keep the affected micro-app document, architecture notes, decisions, and testing guidance aligned with the implementation.
+
 ## Getting Started
 
 First, run the development server:
