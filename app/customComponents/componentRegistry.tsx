@@ -1,4 +1,4 @@
-import { PlaygroundComponent } from "../types";
+import type { PlaygroundComponent } from "../playground/types";
 import { getStyleClassesFromProps, newLine, tab } from "../utils";
 import { cursorList, roundedList, sizeList, variantList } from "../variants";
 

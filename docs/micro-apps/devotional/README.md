@@ -1,6 +1,6 @@
 # Devotional Micro App
 
-The Devotional micro app provides data-driven devotional content at `/devotional` and `/devotional/<god>/<category>`.
+The Devotional micro app provides data-driven devotional content at `/devotional`, `/devotional/<god>`, and `/devotional/<god>/<category>`.
 
 ## Documents
 

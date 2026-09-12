@@ -1,88 +1,11 @@
-"use client";
-import Link from "next/link";
-import { useSelectedDashboard } from "./hooks/SelectedDashboardContext";
-import cnClassNames, { ICON_SIZES } from "./utils";
-import { useTheme } from "./hooks/ThemeContext";
-import { LayoutDashboard } from "lucide-react";
-
-type Route = {
-  id: string;
-  name: string;
-  path: string;
-  description: string;
-};
+import DashboardGrid from "./components/DashboardRegistry/DashboardGrid";
+import { dashboardRegistry } from "./config/dashboardRegistry";
 
 export default function Home() {
-  const { selectDashboard } = useSelectedDashboard();
-  selectDashboard("");
-
-  const routesList: Route[] = [
-    {
-      id: "_ui_playground",
-      name: "UI Playground",
-      path: "/playground",
-      description: "A playground to visualize components",
-    },
-    {
-      id: "_counter",
-      name: "Counter",
-      path: "/counter",
-      description: "Counter for you",
-    },
-    {
-      id: "_wallet",
-      name: "Wallet",
-      path: "/wallet",
-      description: "A Wallet for you",
-    },
-    {
-      id: "_devotional",
-      name: "Devotional",
-      path: "/devotional",
-      description: "Let's pay devotional God",
-    },
-    {
-      id: "_reading",
-      name: "Reading",
-      path: "/reading",
-      description: "Read and print Markdown files",
-    },
-  ];
-
   return (
-    <main className="">
+    <main>
       <h1 className="text-2xl font-bold mb-4">Dashboards</h1>
-
-      <div className={cnClassNames("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8")}>
-        {routesList.map((dash) => (
-          <DashboardPreview key={dash.id} dash={dash} />
-        ))}
-      </div>
+      <DashboardGrid dashboards={dashboardRegistry} />
     </main>
-  );
-}
-
-function DashboardPreview({ dash }: { dash: Route }) {
-  const theme = useTheme();
-  return (
-    <Link
-      aria-label={`Navigate to ${dash.name}`}
-      href={dash.path}
-      className={cnClassNames(theme.theme.card, theme.theme.border, theme.theme.hoverText, "group rounded-2xl shadow-md border overflow-hidden hover:shadow-lg transition")}
-    >
-      {/* 👇 Preview (mini live dashboard) */}
-      <div className="relative h-48 overflow-hidden flex items-center justify-center">
-
-        <LayoutDashboard size={ICON_SIZES.xlg} strokeWidth={1}/>
-        {/* Overlay for hover effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/90 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-      </div>
-
-      {/* 👇 Info */}
-      <div className="p-4" role="region" aria-labelledby={`dash-${dash.id}`} >
-        <h3 className="text-lg font-semibold">{dash.name}</h3>
-        <p className={cnClassNames("text-xs mt-1", theme.theme.textMuted)}>{dash.description}</p>
-      </div>
-    </Link>
   );
 }

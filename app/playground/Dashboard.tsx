@@ -4,7 +4,7 @@ import { useSelectedComponent } from "../hooks/SelectedComponentContext";
 import ComponentsSection from "../playground/ComponentsSection";
 import PreviewSection from "./Preview/PreviewSection";
 import PropertiesSection from "./Properties/PropertiesSection";
-import { PlaygroundComponent, PropValue } from "../types";
+import type { PlaygroundComponent, PropValue } from "./types";
 import Loader from "./Loader";
 
 export interface Theme {

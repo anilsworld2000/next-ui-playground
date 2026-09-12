@@ -1,4 +1,3 @@
-// import { defaultProps } from "@/app/types";
 
 // export default function Button ({ text, color, size, disabled, ...props }: defaultProps) {
 //     let colorClasses = '';

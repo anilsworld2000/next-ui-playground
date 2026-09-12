@@ -6,7 +6,7 @@ The Devotional micro app is rooted at `/devotional`. Its layout generates sideba
 
 ## Navigation and data
 
-Routes follow `/devotional/<god>/<category>`. The page resolves content through `GetPrayerContent()` and displays the selected devotional material. The supported deity and category lists are derived from the local data model.
+Routes follow `/devotional/<god>` and `/devotional/<god>/<category>`. The deity page lists the available categories, while the leaf page resolves content through `GetPrayerContent()` and displays the selected devotional material. The supported deity and category lists are derived from the local data model.
 
 ## Maintenance
 

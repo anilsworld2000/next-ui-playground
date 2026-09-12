@@ -1,5 +1,5 @@
 import { useTheme } from "@/app/hooks/ThemeContext";
-import { ListItem } from "@/app/types";
+import type { ListItem } from "@/app/types/ui";
 import cnClassNames from "@/app/utils";
 import { Check } from "lucide-react";
 

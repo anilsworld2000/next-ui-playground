@@ -1,7 +1,8 @@
 // components/DashboardLayout.tsx
 import { ReactNode } from "react";
 import VerticalNavbar from "../NavBars/VerticalNavBar";
-import { NavGroup, NavItem, UserSectionPosition } from "@/app/types";
+import type { NavGroup, NavItem } from "@/app/types/navigation";
+import { UserSectionPosition } from "@/app/types/navigation";
 import HorizontalNavBar from "../NavBars/HorizontalNavBar";
 
 interface DashboardLayoutProps {

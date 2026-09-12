@@ -2,7 +2,7 @@
 import Card from "@/app/components/Cards/Card";
 import ProgressRing from "@/app/components/Charts/ProgressRing";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import { Goal } from "@/app/types";
+import type { Goal } from "./types";
 import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, GOAL_LABELS, ICON_SIZES } from "@/app/utils";
 import KeyValueDisplay from "@/app/components/KeyValueDisplay";
 import { Pencil, Trash2 } from "lucide-react";

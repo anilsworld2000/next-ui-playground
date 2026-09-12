@@ -4,7 +4,7 @@ import React from "react";
 import { LayoutGrid, List } from "lucide-react";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Button from "./Button";
-import { LayoutConfig } from "@/app/types";
+import type { LayoutConfig } from "@/app/types/ui";
 
 export interface ViewToggleButtonProps {
     view: LayoutConfig;

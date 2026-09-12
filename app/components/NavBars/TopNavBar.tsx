@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSelectedRoute } from "../../hooks/CurrentRoute";
-import { useSelectedDashboard } from "../../hooks/SelectedDashboardContext";
 import HorizontalNavBar from "./HorizontalNavBar";
-import { NavItem } from "@/app/types";
+import type { NavItem } from "@/app/types/navigation";
 import ThemeButton from "../Buttons/ThemeButton";
 import cnClassNames from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
+import { getDashboardTitle } from "../../config/dashboardRegistry";
 
 function navBarItems(): NavItem[] {
     return [
@@ -26,8 +27,9 @@ function navBarItems(): NavItem[] {
 }
 export default function TopNavBar() {
     const { routes } = useSelectedRoute();
-    const { selectedDashboard } = useSelectedDashboard();
+    const pathname = usePathname();
     const theme = useTheme();
+    const dashboardTitle = pathname ? getDashboardTitle(pathname) : "";
 
     return (
         <nav className="relative flex flex-row items-center justify-between">
@@ -56,7 +58,7 @@ export default function TopNavBar() {
                 theme.theme.textMain,
                 "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm pointer-events-none"
             )}>
-                {selectedDashboard}
+                {dashboardTitle}
             </h1>
 
             {/* Right Section */}

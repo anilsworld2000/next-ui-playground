@@ -1,7 +1,7 @@
 "use client";
 
 import DataGrid from "@/app/components/Tables/DataGrid";
-import { Column } from "@/app/types";
+import type { Column } from "@/app/types/ui";
 
 export interface Stock {
     id: string;

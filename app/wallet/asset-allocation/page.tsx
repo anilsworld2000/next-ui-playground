@@ -2,7 +2,8 @@
 import DataGrid from "@/app/components/Tables/DataGrid";
 import WalletSectionLayout from "../WalletSectionLayout";
 import assetAllocationPlan from "@/app/wallet/asset-allocation/assetAllocationPlan.json";
-import { AllocationRow, Column, FilterOption, PortfolioSchema, SortConfig, Tab } from "@/app/types";
+import type { Column, FilterOption, SortConfig, Tab } from "@/app/types/ui";
+import type { AllocationRow, PortfolioSchema } from "./types";
 import { Activity, LayoutGrid, Shield, Table } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { useTheme } from "@/app/hooks/ThemeContext";

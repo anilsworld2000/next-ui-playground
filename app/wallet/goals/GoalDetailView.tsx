@@ -1,6 +1,6 @@
 import { ArrowLeft, Edit3, Trash2, Calendar, Link as LinkIcon } from "lucide-react";
 import Button from "@/app/components/Buttons/Button";
-import { Goal } from "@/app/types";
+import type { Goal } from "./types";
 import { ICON_SIZES } from "@/app/utils";
 
 type Props = {

@@ -3,7 +3,7 @@ import React from "react";
 import { ChevronUp, ChevronDown, ArrowUpDown } from "lucide-react";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
-import { SortConfig } from "@/app/types";
+import type { SortConfig } from "@/app/types/ui";
 import Button from "./Button";
 
 export interface SortButtonProps {

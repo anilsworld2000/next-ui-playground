@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cnClassNames from '@/app/utils';
 import { useTheme } from '@/app/hooks/ThemeContext';
-import { Tab } from '@/app/types';
+import type { Tab } from '@/app/types/ui';
 
 interface TabsProps<T extends string> {
     tabs: Tab<T>[];

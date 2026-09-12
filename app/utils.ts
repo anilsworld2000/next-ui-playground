@@ -1,4 +1,4 @@
-import { PropValue } from "./types";
+import type { PropValue } from "./playground/types";
 import { cursorStyles, roundedStyles, sizeStyles, variantStyles } from "./variants";
 
 export const newLine: string = '\n';

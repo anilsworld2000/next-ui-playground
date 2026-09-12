@@ -5,7 +5,8 @@ import Button from "./Button";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import Flyout from "../Flyout/Flyout";
-import { ListItem, statusColors } from "@/app/types";
+import type { ListItem } from "@/app/types/ui";
+import { statusColors } from "@/app/types/ui";
 import ActionList from "../Tables/ActionList";
 
 type FilterOption = { value: string; label: string };

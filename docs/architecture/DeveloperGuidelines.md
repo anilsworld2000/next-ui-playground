@@ -7,6 +7,8 @@ These guidelines apply to application code and documentation in this workspace.
 - Read the relevant macro-app and micro-app documentation before changing behavior.
 - Identify the owning route, component, context, or utility before editing.
 - State the smallest falsifiable hypothesis about the change and choose a focused validation check.
+- Before changing an existing contract, search all definitions, imports, usages, and tests; record the dependency impact, compatibility risk, and migration order.
+- Check `package.json` before adding or changing dependencies; prefer existing packages and document any required version or bundle-cost impact.
 - Preserve unrelated user changes and existing public APIs unless the task requires a contract change.
 
 ## React and Next.js
@@ -35,6 +37,7 @@ These guidelines apply to application code and documentation in this workspace.
 ## Validation
 
 - After the first substantive edit, run the narrowest executable check that can falsify the change.
+- After dependency or contract changes, verify active imports, type diagnostics, lint, and build output; distinguish pre-existing failures from regressions.
 - Run `npm run lint` and `npm run build` when application code or dependencies change.
 - Distinguish pre-existing warnings or environment failures from regressions introduced by the change.
 - Update the affected architecture, micro-app, decision, security, UX, and testing documentation in the same change.

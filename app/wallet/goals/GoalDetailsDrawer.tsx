@@ -1,6 +1,6 @@
 // /components/goals/GoalDetailsDrawer.tsx
 
-import { Goal } from "@/app/types";
+import type { Goal } from "./types";
 import ProgressRing from "@/app/components/Charts/ProgressRing";
 import BarChart from "@/app/components/Charts/BarChart";
 
