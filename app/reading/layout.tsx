@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { BookOpen, FileText } from "lucide-react";
 import DashboardLayout from "../components/Layouts/DashboardLayout";
-import { NavGroup, UserSectionPosition } from "../types";
+import type { NavGroup } from "../types/navigation";
+import { UserSectionPosition } from "../types/navigation";
 import { ICON_SIZES } from "../utils";
 
 const navGroups: NavGroup[] = [

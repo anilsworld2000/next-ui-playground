@@ -1,4 +1,4 @@
-import { statusColors } from "@/app/types";
+import { statusColors } from "@/app/types/ui";
 
 export function getGoalStatusColors(status: string) {
     switch (status) {

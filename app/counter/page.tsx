@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSelectedDashboard } from "../hooks/SelectedDashboardContext";
 import { useTheme } from "../hooks/ThemeContext";
 
 const styles = `
@@ -33,8 +32,6 @@ export default function Counter() {
     const [cycleCount, setCycleCount] = useState(0);
     const maxInputRef = useRef<HTMLInputElement>(null);
     const theme = useTheme();
-    const { selectDashboard } = useSelectedDashboard();
-    selectDashboard("Counter");
 
     const handleClick = useCallback(() => {
         // 1. Increment the count

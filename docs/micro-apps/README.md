@@ -14,4 +14,4 @@ Micro apps are independent route areas under `app/`. Each owns its domain behavi
 
 A micro app should define its route entry in `app/<name>/page.tsx`. Use `layout.tsx` for route navigation or providers, keep domain components beside the route, and register the app in `app/page.tsx` when it belongs on the home dashboard.
 
-Each micro app has a flat overview for quick discovery plus a route-named folder containing `README.md`, `Architecture.md`, `Testing.md`, and `Decisions.md`. Update the matching overview and structured documents whenever routes, state ownership, dependencies, workflows, or limitations change.
+Each micro app has a flat overview for quick discovery plus a route-named folder containing `README.md`, `Architecture.md`, `Testing.md`, and `Decisions.md`. Update the matching overview and structured documents whenever routes, state ownership, dependencies, workflows, or limitations change. Register dashboard-visible micro apps in `app/config/dashboardRegistry.ts`.

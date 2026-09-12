@@ -3,7 +3,6 @@
 import {
     ChangeEvent,
     useCallback,
-    useEffect,
     useRef,
     useState,
 } from "react";
@@ -20,7 +19,6 @@ import {
 } from "lucide-react";
 import Button from "../components/Buttons/Button";
 import Notification from "../components/Notifications/Notification";
-import { useSelectedDashboard } from "../hooks/SelectedDashboardContext";
 import { useTheme } from "../hooks/ThemeContext";
 import cnClassNames, { ICON_SIZES } from "../utils";
 import "./reading.css";
@@ -39,7 +37,6 @@ function isMarkdownFile(file: File) {
 
 export default function ReadingApp() {
     const theme = useTheme();
-    const { selectDashboard } = useSelectedDashboard();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState("");
     const [content, setContent] = useState("");
@@ -47,10 +44,6 @@ export default function ReadingApp() {
     const [viewMode, setViewMode] = useState<ViewMode>("rendered");
     const [status, setStatus] = useState("");
     const [error, setError] = useState("");
-
-    useEffect(() => {
-        selectDashboard("Reading");
-    }, [selectDashboard]);
 
     const hasDocument = Boolean(fileName);
 

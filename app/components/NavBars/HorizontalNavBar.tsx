@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import { NavItem } from "@/app/types";
+import type { NavItem } from "@/app/types/navigation";
 import cnClassNames from "@/app/utils";
 import Link from "next/link";
 import UserSection from "../UserSections/UserSection";

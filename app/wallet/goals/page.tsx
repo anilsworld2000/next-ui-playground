@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react";
 import GoalCard from "./GoalCard";
 import WalletSectionLayout from "../WalletSectionLayout";
-import { Column, Goal, LayoutConfig, SortConfig } from "@/app/types";
+import type { Column, LayoutConfig, SortConfig } from "@/app/types/ui";
+import type { Goal } from "./types";
 import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, ICON_SIZES } from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import Button from "@/app/components/Buttons/Button";

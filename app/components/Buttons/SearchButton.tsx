@@ -4,7 +4,7 @@ import { Search, X } from "lucide-react";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Button from "./Button";
-import { statusColors } from "@/app/types";
+import { statusColors } from "@/app/types/ui";
 
 export interface SearchInputProps {
     value: string;

@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import DashboardLayout from '../components/Layouts/DashboardLayout'
-import { NavGroup, UserSectionPosition } from '@/app/types';
+import type { NavGroup } from '@/app/types/navigation';
+import { UserSectionPosition } from '@/app/types/navigation';
 import { ChartCandlestick, Goal, Landmark, TicketSlash, TrendingUp, Wallet, WalletMinimal, HandCoins, PiggyBank } from 'lucide-react';
 import { ICON_SIZES } from '../utils';
 

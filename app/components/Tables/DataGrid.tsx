@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
-import { Column, DataGridProps, SortConfig } from "@/app/types";
+import type { Column, DataGridProps, SortConfig } from "@/app/types/ui";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import CustomCheckbox from "../CustomCheckbox";
 import Button from "../Buttons/Button";

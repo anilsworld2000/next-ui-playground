@@ -12,6 +12,8 @@
 
 Use the shared `Button` component for action buttons. Use Lucide icons and `ICON_SIZES` from `app/utils.ts`. Icon-only controls need a tooltip, title, or accessible label. Prefer existing controls and composition patterns over new one-off primitives.
 
+`Card` supports both content cards with `onClick` and navigation cards with `href`. Use `href` for cards whose entire surface navigates to another route; do not nest a `Link` inside a `Card`.
+
 ## Notifications
 
 Use `app/components/Notifications/Notification.tsx` for transient success and error feedback. It provides accessible `status`/`alert` semantics, a manual dismiss action, and automatic dismissal after a short timeout. Keep persistent validation or inline form guidance in the owning feature instead.

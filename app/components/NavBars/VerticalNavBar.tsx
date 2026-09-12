@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import { NavGroup } from "@/app/types";
+import type { NavGroup } from "@/app/types/navigation";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";

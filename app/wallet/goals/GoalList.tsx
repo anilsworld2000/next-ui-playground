@@ -1,6 +1,6 @@
 import ProgressRing from "@/app/components/Charts/ProgressRing";
 import { useTheme } from "@/app/hooks/ThemeContext";
-import { Goal } from "@/app/types";
+import type { Goal } from "./types";
 import cnClassNames, { GENERIC_LABELS, getFormatedCurrency } from "@/app/utils";
 import StatusBadge from "@/app/components/Badges/StatusBadge"; // new component
 import { Pencil, Trash2 } from "lucide-react";

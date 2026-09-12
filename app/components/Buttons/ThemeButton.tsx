@@ -4,7 +4,7 @@ import { ThemeKey, THEMES, useTheme } from "@/app/hooks/ThemeContext";
 import { useRef, useState } from "react";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import Flyout from "../Flyout/Flyout";
-import { ListItem } from "@/app/types";
+import type { ListItem } from "@/app/types/ui";
 import ActionList from "../Tables/ActionList";
 
 export default function ThemeButton() {
