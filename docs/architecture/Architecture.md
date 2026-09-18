@@ -8,7 +8,7 @@ Role-specific implementation and review workflows are defined in `.github/skills
 
 ## Composition
 
-- `app/layout.tsx` is the root layout. It loads global CSS and provides theme, route, and user contexts.
+- `app/layout.tsx` is the root layout. It loads global CSS and provides theme and user contexts.
 - `app/page.tsx` is the home dashboard composition. `app/config/dashboardRegistry.ts` is the typed registry of discoverable micro apps.
 - Each micro app owns a directory under `app/` and normally provides a route-local `layout.tsx` and `page.tsx`.
 - Dashboard-style micro apps compose `app/components/Layouts/DashboardLayout.tsx` with route-specific navigation groups.
@@ -61,7 +61,7 @@ Keep domain state and behavior inside the owning micro app. Shared components sh
 
 - The home page previously owned a hardcoded dashboard registry and was client-rendered unnecessarily. The registry now lives in `app/config/dashboardRegistry.ts`, while themed card rendering remains in a client component.
 - Dashboard title state was previously duplicated in a global context and updated by route pages. It is now derived from the current pathname and the dashboard registry in `TopNavBar`.
-- Root-level providers are broader than necessary and may cause avoidable rerenders as the application grows.
+- `ThemeProvider` and `UserProvider` remain root-scoped because shared shell components consume them. The former route context was removed because `TopNavBar` can derive breadcrumbs directly from `usePathname()`.
 - The former aggregate type module mixed navigation, shared UI, playground, wallet, and domain contracts; these contracts now have focused ownership modules.
 - Route navigation metadata is duplicated inside micro-app layouts.
 - `UserContext` is presentation state, not authentication or authorization.
@@ -93,7 +93,7 @@ Recommended ownership:
 2. Remove the render-time selected-dashboard update. **Completed:** route pages no longer update global dashboard state.
 3. Derive dashboard identity from the pathname where possible. **Completed:** `TopNavBar` derives the title from `dashboardRegistry`.
 4. Split the former aggregate type file into shared navigation/UI types and domain-local types. **Completed:** active consumers now import from focused modules under `app/types`, `app/playground`, and `app/wallet`.
-5. Keep only truly global providers in the root layout.
+5. Keep only truly global providers in the root layout. **Completed for current providers:** theme and user state are shell-wide; route breadcrumbs are derived locally in `TopNavBar`.
 6. Add typed, route-local navigation configuration files.
 7. Add server-side schema validation and authorization before persistence.
 8. Make `DashboardLayout` own responsive desktop/mobile navigation behavior.

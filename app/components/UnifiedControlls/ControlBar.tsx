@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import FilterButton, { FilterButtonProps } from "@/app/components/Buttons/FilterButton";
@@ -30,8 +30,6 @@ export default function ControlBar({
     controlBarItemsClassName = ""
 }: Props) {
     const theme = useTheme();
-    const [searchTerm, setSearchTerm] = useState("");
-    console.log("ControlBar Rendered with searchTerm:", searchTerm);
     const disabledActionButtonClass = "opacity-50 cursor-not-allowed pointer-events-none";
 
     const searchBar = () => {
@@ -41,9 +39,6 @@ export default function ControlBar({
                     // Use the value from props to keep it in sync with the parent
                     value={searchInputConfigs.value}
                     onSearch={(val: string) => {
-                        // Update local state for immediate UI feedback
-                        setSearchTerm(val);
-                        // CRITICAL: Notify the GoalsPage so it can filter the data
                         if (searchInputConfigs.onSearch) {
                             searchInputConfigs.onSearch(val);
                         }

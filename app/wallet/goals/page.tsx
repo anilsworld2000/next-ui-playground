@@ -237,7 +237,7 @@ export default function GoalsPage() {
                             title: "Goal Name",
                             sortKey: "name",
                             currentSort: sortConfig,
-                            onSortChange: setSortConfig,
+                            onSortChange: (next) => setSortConfig(Array.isArray(next) ? next[0] ?? null : next),
                         }}
                         searchInputConfigs={{
                             value: searchTerm,

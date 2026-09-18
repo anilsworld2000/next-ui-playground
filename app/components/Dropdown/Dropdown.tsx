@@ -3,14 +3,7 @@ import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from '@/app/utils';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from "lucide-react";
-
-// --- Types ---
-export interface DropdownOption<T> {
-    id: string | number;
-    label: string;
-    value: T;
-    render?: (item: T) => React.ReactNode;
-}
+import type { DropdownOption } from "@/app/types/ui";
 
 interface BaseProps<T> {
     options: DropdownOption<T>[];

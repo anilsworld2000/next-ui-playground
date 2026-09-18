@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Tabs from "@/app/components/Layouts/Tabs";
@@ -240,31 +240,28 @@ export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProp
         </div>
     );
 
-    const tabs = useMemo(
-        () => [
-            {
-                id: "basics" as TabId,
-                label: "Basics",
-                content: renderBasicsTab(),
-            },
-            {
-                id: "timeline" as TabId,
-                label: "Timeline",
-                content: renderTimelineTab(),
-            },
-            {
-                id: "financial" as TabId,
-                label: "Financial",
-                content: renderFinancialTab(),
-            },
-            {
-                id: "investment" as TabId,
-                label: "Investment",
-                content: renderInvestmentTab(),
-            },
-        ],
-        [formData, errors, renderBasicsTab, renderTimelineTab, renderFinancialTab, renderInvestmentTab]
-    );
+    const tabs = [
+        {
+            id: "basics" as TabId,
+            label: "Basics",
+            content: renderBasicsTab(),
+        },
+        {
+            id: "timeline" as TabId,
+            label: "Timeline",
+            content: renderTimelineTab(),
+        },
+        {
+            id: "financial" as TabId,
+            label: "Financial",
+            content: renderFinancialTab(),
+        },
+        {
+            id: "investment" as TabId,
+            label: "Investment",
+            content: renderInvestmentTab(),
+        },
+    ];
 
     return (
         <div className={cnClassNames("flex flex-col h-full p-2", theme.bg)}>

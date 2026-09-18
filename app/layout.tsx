@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 //import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { CurrentRouteContextProvider } from "./hooks/CurrentRoute";
 import TopNavBar from "./components/NavBars/TopNavBar";
 import { ThemeProvider } from "./hooks/ThemeContext";
 import ThemeWrapper from "./components/Wrappers/ThemeWrapper";
@@ -30,16 +29,14 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <ThemeWrapper>
-            <CurrentRouteContextProvider >
-              <UserProvider>
-                <header className="p-1">
-                  <TopNavBar />
-                </header>
-                <main role="main" className="p-1 pt-0.5">
-                  {children}
-                </main>
-              </UserProvider>
-            </CurrentRouteContextProvider>
+            <UserProvider>
+              <header className="p-1">
+                <TopNavBar />
+              </header>
+              <main role="main" className="p-1 pt-0.5">
+                {children}
+              </main>
+            </UserProvider>
           </ThemeWrapper>
         </ThemeProvider>
       </body>
