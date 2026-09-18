@@ -200,7 +200,7 @@ export default function AssetAllocationPage() {
                     title: "Bucket Name",
                     sortKey: "bucketName",
                     currentSort: sortConfig,
-                    onSortChange: setSortConfig,
+                    onSortChange: (next) => setSortConfig(Array.isArray(next) ? next[0] ?? null : next),
                 }}
                 searchInputConfigs={{
                     value: searchTerm,

@@ -12,7 +12,7 @@ Goals own mock goal state, filtering, sorting, view mode, creation, deletion, an
 
 ## Implemented workflows
 
-Goals support grid/list views, search, status filtering, sorting, goal creation, deletion, derived calculations, and printing. Asset Allocation renders the Plan tab with flattened data. Stocks renders an editable/selectable/paginated grid.
+Goals support grid/list views, search, status filtering, sorting, goal creation, deletion, derived calculations, and printing. Asset Allocation renders the Plan tab with flattened data. Stocks renders an editable/selectable/paginated grid that also exposes column visibility toggles and loading skeleton states via the shared `DataGrid` component.
 
 ## Incomplete sections
 

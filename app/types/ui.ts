@@ -12,17 +12,27 @@ export interface Column<T, K extends keyof T = keyof T> {
     onCellSave?: (newValue: T[K], record: T) => void;
 }
 
+export interface BulkAction<T> {
+    id: string;
+    label: string;
+    onAction: (selectedRows: T[]) => void;
+    variant?: "default" | "danger";
+}
+
 export interface DataGridProps<T> {
     data: T[];
     columns: Column<T>[];
     showRowNumbers?: boolean;
     enableSelection?: boolean;
+    selectionMode?: "none" | "checkbox" | "row" | "cell";
     onSelectionChange?: (selectedIds: (string | number)[]) => void;
+    onCellSelectionChange?: (selection: { rowId: string | number; column: string } | null) => void;
     className?: string;
     headerHeight?: string;
     rowHeight?: string;
     autoHeight?: boolean;
     loading?: boolean;
+    loadingSkeletonRows?: number;
     emptyMessage?: string;
     ariaLabel?: string;
     scrollable?: boolean;
@@ -31,6 +41,17 @@ export interface DataGridProps<T> {
     pageSize?: number;
     pageSizeOptions?: number[];
     initialPage?: number;
+    enableColumnVisibility?: boolean;
+    initialVisibleColumns?: string[];
+    showGlobalSearch?: boolean;
+    globalSearchTerm?: string;
+    onGlobalSearchChange?: (value: string) => void;
+    highlightMatches?: boolean;
+    enableKeyboardNavigation?: boolean;
+    enableMultiSort?: boolean;
+    enableExport?: boolean;
+    bulkActions?: BulkAction<T>[];
+    enableBulkActions?: boolean;
 }
 
 export interface DropdownOption<T> {

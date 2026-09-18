@@ -6,11 +6,13 @@ import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import type { SortConfig } from "@/app/types/ui";
 import Button from "./Button";
 
+type ValidSortConfig = Exclude<SortConfig, null>;
+
 export interface SortButtonProps {
     title?: string;
-    sortKey: string;             // The key for this specific column
-    currentSort: SortConfig;        // The current global sort state
-    onSortChange: (config: SortConfig) => void; // The "Smart" callback
+    sortKey: string;
+    currentSort: SortConfig | SortConfig[] | null;
+    onSortChange: (config: SortConfig | SortConfig[] | null) => void;
     iconSize?: number;
     iconStrokeWidth?: number;
     cssClasses?: string;
@@ -28,28 +30,26 @@ export default function SortButton({
     title = "",
 }: SortButtonProps) {
     const { theme } = useTheme();
+    const currentSorts: ValidSortConfig[] = (Array.isArray(currentSort) ? currentSort : currentSort ? [currentSort] : []).filter(
+        (sort): sort is ValidSortConfig => sort !== null
+    );
+    const activeSort = currentSorts.find((sort) => sort.key === sortKey) ?? null;
+    const isActive = activeSort !== null;
+    title = title || sortKey;
+    const direction = activeSort?.dir ?? null;
 
-    // 1. Logic Check: Is this button the one currently active?
-    const isActive = currentSort?.key === sortKey;
-    title = title || sortKey; // Fallback to sortKey if title is not provided
-    const direction = isActive ? currentSort?.dir : null;
-
-    // 2. The Internal Logic: Determine the next state
     const handleSortToggle = (e?: React.MouseEvent) => {
-        // Prevent click bubbling if needed (e.g., inside a Table Header)
         e?.stopPropagation();
 
-        let nextConfig: SortConfig = null;
+        const remainingSorts = currentSorts.filter((sort) => sort.key !== sortKey);
+        let nextConfig: SortConfig | SortConfig[] | null = remainingSorts;
 
         if (!isActive) {
-            // Cycle 1: Not active -> Ascending
-            nextConfig = { key: sortKey, dir: 'asc' };
-        } else if (direction === 'asc') {
-            // Cycle 2: Ascending -> Descending
-            nextConfig = { key: sortKey, dir: 'desc' };
+            nextConfig = [...remainingSorts, { key: sortKey, dir: "asc" }];
+        } else if (direction === "asc") {
+            nextConfig = [...remainingSorts, { key: sortKey, dir: "desc" }];
         } else {
-            // Cycle 3: Descending -> Null (Reset)
-            nextConfig = null;
+            nextConfig = remainingSorts.length === 0 ? null : remainingSorts;
         }
 
         onSortChange(nextConfig);
