@@ -1,15 +1,7 @@
-"use client";
-import { useEffect } from "react";
-import { useUser } from "../hooks/UserContext";
+import { redirect } from "next/navigation";
 
-export default function Wallet() {
-    const { setUser } = useUser();
+export default function WalletPage() {
+    redirect("/wallet/overview");
 
-    useEffect(() => {
-        setUser(null);
-    }, [setUser]);
-
-    return (
-        <div>Wallet</div>
-    )
+    return null;
 }

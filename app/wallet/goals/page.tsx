@@ -13,6 +13,7 @@ import ControlBar from "@/app/components/UnifiedControlls/ControlBar";
 import DataGrid from "@/app/components/Tables/DataGrid";
 import GoalCreate from "./GoalCreate";
 import { GoalCreateFormData } from "./GoalCreateForm";
+import { buildGoalFromForm } from "./goalUtils";
 // Mock data - replace with actual data fetching
 const mockGoals: Goal[] = [
     {
@@ -94,6 +95,7 @@ export default function GoalsPage() {
     const [filterValue, setFilterValue] = useState<string>("");
     const [sortConfig, setSortConfig] = useState<SortConfig>(null);
     const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
+    const [editingGoal, setEditingGoal] = useState<Goal | null>(null);
     const { theme } = useTheme();
 
     // --- STEP 1: Filter Logic ---
@@ -120,8 +122,8 @@ export default function GoalsPage() {
     }, [filteredGoals, sortConfig]);
 
     function handleEdit(goal: Goal): void {
-        console.log("Edit goal:", goal);
-        // TODO: Open edit goal modal/drawer
+        setEditingGoal(goal);
+        setIsCreateDrawerOpen(true);
     }
 
     function handleDelete(id: string): void {
@@ -171,52 +173,31 @@ export default function GoalsPage() {
     }
 
     function handleAdd() {
+        setEditingGoal(null);
         setIsCreateDrawerOpen(true);
     }
 
     function handleCreateGoal(formData: GoalCreateFormData) {
-        // Generate a new goal ID
-        const newGoalId = (Math.max(...goals.map(g => parseInt(g.id)), 0) + 1).toString();
-        
-        // Calculate tenure
-        const tenure = formData.targetYear - formData.startYear;
-        
-        // Calculate future value (simplified: targetAmount with inflation)
-        const futureValue = formData.targetAmount * Math.pow(1 + formData.inflationRate / 100, tenure);
-        
-        // Calculate achieved percent (based on initial investment vs target)
-        const achievedPercent = formData.initialInvestment > 0 
-            ? Math.min(Math.round((formData.initialInvestment / formData.targetAmount) * 100), 100)
-            : 0;
-        
-        // Determine status based on funding ratio
-        const fundingRatio = achievedPercent / 100;
-        let status: Goal["status"] = "Underfunded";
-        if (fundingRatio >= 0.9) status = "On Track";
-        if (fundingRatio >= 1) status = "Completed";
-        
-        const newGoal: Goal = {
-            id: newGoalId,
-            name: formData.name,
-            startYear: formData.startYear,
-            endYear: formData.targetYear,
-            tenure: tenure,
-            inflation: formData.inflationRate,
-            monthlyInvestment: formData.monthlyContribution,
-            stepUp: 0, // Default step-up
-            expectedReturn: formData.expectedReturnRate,
-            costToday: formData.targetAmount,
-            futureValue: Math.round(futureValue),
-            invested: formData.initialInvestment,
-            currentValue: formData.initialInvestment,
-            achievedPercent: achievedPercent,
-            fundingRatio: fundingRatio,
-            status: status,
-        };
-        
-        setGoals([...goals, newGoal]);
+        const newGoalId = (Math.max(...goals.map((goal) => parseInt(goal.id, 10) || 0), 0) + 1).toString();
+        const newGoal = buildGoalFromForm(formData, newGoalId);
+
+        setGoals((currentGoals) => [...currentGoals, newGoal]);
         setIsCreateDrawerOpen(false);
-        console.log("New goal created:", newGoal);
+        setEditingGoal(null);
+    }
+
+    function handleUpdateGoal(formData: GoalCreateFormData) {
+        if (!editingGoal) {
+            return;
+        }
+
+        const updatedGoal = buildGoalFromForm(formData, editingGoal.id, editingGoal);
+
+        setGoals((currentGoals) =>
+            currentGoals.map((goal) => (goal.id === editingGoal.id ? updatedGoal : goal)),
+        );
+        setIsCreateDrawerOpen(false);
+        setEditingGoal(null);
     }
 
     return (
@@ -281,8 +262,13 @@ export default function GoalsPage() {
 
             <GoalCreate
                 isOpen={isCreateDrawerOpen}
-                onClose={() => setIsCreateDrawerOpen(false)}
-                onSubmit={handleCreateGoal}
+                onClose={() => {
+                    setIsCreateDrawerOpen(false);
+                    setEditingGoal(null);
+                }}
+                onSubmit={editingGoal ? handleUpdateGoal : handleCreateGoal}
+                mode={editingGoal ? "edit" : "create"}
+                goal={editingGoal}
             />
         </>
     );

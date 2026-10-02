@@ -15,6 +15,7 @@ These guidelines apply to application code and documentation in this workspace.
 
 - Preserve the App Router structure and route ownership boundaries.
 - Keep browser APIs such as `window`, `document`, `navigator`, `File`, and `URL` inside client components and event handlers.
+- Protect authenticated route segments with server-side session checks; keep actual authorization in server-only modules such as `app/auth/session.ts` instead of UI contexts or client-only state.
 - Prefer local state inside a micro app. Promote state only when multiple route areas genuinely share ownership.
 - Use effects for synchronization with external systems, not for ordinary derived values.
 - Keep event handlers and component responsibilities small enough to test and review.

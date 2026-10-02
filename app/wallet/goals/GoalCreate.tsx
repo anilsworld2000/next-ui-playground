@@ -5,14 +5,18 @@ import { createPortal } from "react-dom";
 import cnClassNames from "@/app/utils";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import GoalCreateForm, { GoalCreateFormData } from "./GoalCreateForm";
+import type { Goal } from "./types";
+import { goalToFormData } from "./goalUtils";
 
 interface GoalCreateProps {
     isOpen: boolean;
     onClose: () => void;
     onSubmit: (data: GoalCreateFormData) => void;
+    mode?: "create" | "edit";
+    goal?: Goal | null;
 }
 
-export default function GoalCreate({ isOpen, onClose, onSubmit }: GoalCreateProps) {
+export default function GoalCreate({ isOpen, onClose, onSubmit, mode = "create", goal }: GoalCreateProps) {
     const { theme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const drawerRef = useRef<HTMLDivElement>(null);
@@ -64,7 +68,13 @@ export default function GoalCreate({ isOpen, onClose, onSubmit }: GoalCreateProp
                     theme.border
                 )}
             >
-                <GoalCreateForm onSubmit={onSubmit} onClose={onClose} />
+                <GoalCreateForm
+                    onSubmit={onSubmit}
+                    onClose={onClose}
+                    initialData={goal ? goalToFormData(goal) : undefined}
+                    title={mode === "edit" ? "Edit Goal" : "Create New Goal"}
+                    submitLabel={mode === "edit" ? "Save Changes" : "Create"}
+                />
             </div>
         </div>,
         document.body

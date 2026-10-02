@@ -24,7 +24,7 @@ Use `app/components/Notifications/Notification.tsx` for transient success and er
 
 Tailwind v4 is loaded through `app/globals.css`. Use responsive utility classes and stable dimensions for controls and panels. Route-specific styles may use a CSS module or a route-local stylesheet when utilities are not sufficient, especially for print rules or rich document content.
 
-The shared shell uses restrained borders, compact rounded surfaces, deliberate spacing, and the theme's semantic color tokens. Keep shared chrome scannable on narrow screens: breadcrumbs may scroll horizontally, centered titles may hide, and command rows should stack before controls become cramped.
+The shared shell uses restrained borders, compact rounded surfaces, deliberate spacing, and the theme's semantic color tokens. Keep shared chrome scannable on narrow screens: breadcrumbs may scroll horizontally, centered titles may hide, and command rows should stack before controls become cramped. The sidebar toggle closes automatically on route changes on small screens and exposes explicit `aria` state so the mobile navigation remains predictable.
 
 ## Accessibility and behavior
 

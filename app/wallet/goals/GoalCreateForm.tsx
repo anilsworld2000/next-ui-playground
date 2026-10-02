@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Tabs from "@/app/components/Layouts/Tabs";
@@ -46,16 +46,25 @@ const INITIAL_FORM_STATE: GoalCreateFormData = {
 interface GoalCreateFormProps {
     onSubmit: (data: GoalCreateFormData) => void;
     onClose: () => void;
+    initialData?: GoalCreateFormData;
+    title?: string;
+    submitLabel?: string;
 }
 
 type TabId = "basics" | "timeline" | "financial" | "investment";
 
-export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProps) {
+export default function GoalCreateForm({ onSubmit, onClose, initialData, title = "Create New Goal", submitLabel = "Create" }: GoalCreateFormProps) {
     const { theme } = useTheme();
-    const [formData, setFormData] = useState<GoalCreateFormData>(INITIAL_FORM_STATE);
+    const [formData, setFormData] = useState<GoalCreateFormData>(initialData ?? INITIAL_FORM_STATE);
     const [activeTab, setActiveTab] = useState<TabId>("basics");
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (initialData) {
+            setFormData(initialData);
+        }
+    }, [initialData]);
 
     // const validateAll = (): boolean => {
     //     const tabs: TabId[] = ["basics", "timeline", "financial", "investment"];
@@ -267,7 +276,7 @@ export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProp
         <div className={cnClassNames("flex flex-col h-full p-2", theme.bg)}>
             {/* Header */}
             <div className={cnClassNames("flex justify-between items-center pb-2")}>
-                <h2 className={cnClassNames("text-md font-bold flex-col-1", theme.textMain)}>Create New Goal</h2>
+                <h2 className={cnClassNames("text-md font-bold flex-col-1", theme.textMain)}>{title}</h2>
                 <div className="flex-cols-2 gap-2 flex">
                     <Button
                         onClick={handleCreate}
@@ -276,7 +285,7 @@ export default function GoalCreateForm({ onSubmit, onClose }: GoalCreateFormProp
                         className={cnClassNames("flex items-center gap-2 px-2 py-1 rounded-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed text-sm", theme.textMain, theme.accent, (isLoading || activeTab !== "investment") ? theme.textMuted : theme.hoverBg)}
                     >
                         <Save size={ICON_SIZES.sm} />
-                        {isLoading ? "Creating..." : "Create"}
+                        {isLoading ? "Saving..." : submitLabel}
                     </Button>
                     <Button
                         onClick={onClose}
