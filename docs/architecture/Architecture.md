@@ -65,6 +65,7 @@ Keep domain state and behavior inside the owning micro app. Shared components sh
 - The former aggregate type module mixed navigation, shared UI, playground, wallet, and domain contracts; these contracts now have focused ownership modules.
 - Route navigation metadata is duplicated inside micro-app layouts.
 - `UserContext` is presentation state, not authentication or authorization.
+- The app now exposes a server-only auth boundary in `app/auth/session.ts`, plus a demo login flow in `app/login/page.tsx`, so the wallet routes can enforce a genuine route access check instead of relying on UI state.
 - Theme persistence depends on `localStorage`, so the server cannot render the stored theme initially.
 - Theme values are coupled to Tailwind class names rather than fully semantic design tokens.
 - Responsive navigation, focus management, and mobile shell behavior are not yet explicit shared responsibilities.
@@ -94,14 +95,15 @@ Recommended ownership:
 3. Derive dashboard identity from the pathname where possible. **Completed:** `TopNavBar` derives the title from `dashboardRegistry`.
 4. Split the former aggregate type file into shared navigation/UI types and domain-local types. **Completed:** active consumers now import from focused modules under `app/types`, `app/playground`, and `app/wallet`.
 5. Keep only truly global providers in the root layout. **Completed for current providers:** theme and user state are shell-wide; route breadcrumbs are derived locally in `TopNavBar`.
-6. Add typed, route-local navigation configuration files.
-7. Add server-side schema validation and authorization before persistence.
+6. Add typed, route-local navigation configuration files. **Completed:** feature-level nav metadata now lives beside each route in a typed config module.
+7. Add server-side schema validation and authorization before persistence. **Completed for the route boundary:** wallet routes now enforce access with `app/auth/session.ts` and a cookie-backed demo login flow in `app/login/page.tsx`.
 8. Make `DashboardLayout` own responsive desktop/mobile navigation behavior.
 9. Add tests for domain calculations, shared shell behavior, navigation, and API boundaries.
 
 ### Security and scalability principles
 
 - Treat client contexts as UI state, never as an access-control boundary.
+- Add a server-only auth boundary for session validation, authorization, and protected routes; the current `UserContext` remains profile-only presentation data and the app now uses `app/auth/session.ts` plus cookie-based login in `app/login/page.tsx` to guard wallet routes.
 - Validate and authorize every server mutation independently.
 - Keep secrets, database clients, and repositories in server-only modules.
 - Validate uploaded content by size, type, and content where applicable.

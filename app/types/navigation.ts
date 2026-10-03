@@ -13,6 +13,14 @@ export type NavGroup = {
     items: NavItem[];
 };
 
+export type DashboardNavigationConfig = {
+    title: string;
+    icon?: ReactNode;
+    horizontalItems?: NavItem[];
+    groups: NavGroup[];
+    userSectionPosition: UserSectionPosition;
+};
+
 export enum UserSectionPosition {
     Undefined,
     Vertical,
