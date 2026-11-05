@@ -6,7 +6,6 @@ import type { Column, FilterOption, SortConfig, Tab } from "@/app/types/ui";
 import type { AllocationRow, PortfolioSchema } from "./types";
 import { Activity, LayoutGrid, Shield, Table } from "lucide-react";
 import React, { useMemo, useState } from "react";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import ControlBar from "@/app/components/UnifiedControlls/ControlBar";
 import Tabs from "@/app/components/Layouts/Tabs";
@@ -52,14 +51,13 @@ type AllocationView = 'AssetAllocationPlan' | 'AssetAllocationActual' | 'AssetAl
 export default function AssetAllocationPage() {
     const portfolioSchema: PortfolioSchema = assetAllocationPlan as PortfolioSchema;
     const tabIconSize = ICON_SIZES.xs;
-    const { theme } = useTheme();
     const [sortConfig, setSortConfig] = useState<SortConfig>(null);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [filterValue, setFilterValue] = useState<string>("");
     const [inputList] = useState<AllocationRow[]>(flattenAllocationData(portfolioSchema));
 
     function renderPercentageValue(value: number | string): React.ReactNode {
-        return (<span className={cnClassNames(theme.textMain)}>{value}%</span>);
+        return (<span className="text-main">{value}%</span>);
     }
 
     const ALLOCATION_COLUMNS: Column<AllocationRow>[] = [
@@ -71,7 +69,7 @@ export default function AssetAllocationPage() {
             filterable: true,
             render: (value) => (
                 <div className="flex items-center gap-2 font-medium">
-                    <Shield size={ICON_SIZES.md} className={theme.textMain} />
+                    <Shield size={ICON_SIZES.md} className="text-main" />
                     {value}
                 </div>
             )
@@ -118,13 +116,13 @@ export default function AssetAllocationPage() {
             sortable: true,
             render: (value) => (
                 <div className="flex items-center gap-2">
-                    <div className="w-12 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                    <div className="h-1.5 w-12 overflow-hidden rounded-full bg-accent">
                         <div
-                            className={cnClassNames("h-full", theme.primary)}
+                            className="h-full bg-primary"
                             style={{ width: `${value}%` }}
                         />
                     </div>
-                    <span className={theme.textMain}>{Number(value).toFixed(2)}%</span>
+                    <span className="text-main">{Number(value).toFixed(2)}%</span>
                 </div>
             )
         }
@@ -189,10 +187,10 @@ export default function AssetAllocationPage() {
             title="Asset Allocation"
             subtitle="Track your Asset Allocation contributions"
             headerControls={<ControlBar
-                controlBarClassName={cnClassNames("flex flex-col md:flex-row items-center gap-1 p-2 rounded-2xl shadow-sm", theme.bg, theme.border)}
+                controlBarClassName="flex flex-col items-center gap-1 rounded-2xl border border-border-subtle bg-surface-raised p-2 shadow-sm md:flex-row"
                 controlBarItemsClassName={cnClassNames(
                     "flex items-center gap-1 h-10 px-3 rounded-full font-semibold transition-all active:scale-95",
-                    theme.hoverBg, theme.primaryText
+                    "text-main hover:bg-surface-hover"
                 )}
                 iconSize={ICON_SIZES.lg}
                 iconStrokeWidth={1}

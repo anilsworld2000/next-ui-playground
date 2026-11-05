@@ -2,7 +2,6 @@
 import React, { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import type { Column, DataGridProps, SortConfig } from "@/app/types/ui";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import CustomCheckbox from "../CustomCheckbox";
 import Button from "../Buttons/Button";
 import ControlBar from "../UnifiedControlls/ControlBar";
@@ -26,7 +25,7 @@ function HighlightedText({ value, searchTerm, highlightMatches = true }: { value
         <>
             {parts.map((part, index) => {
                 const isMatch = part.toLowerCase() === trimmed.toLowerCase();
-                return isMatch ? <mark key={`${part}-${index}`} className="rounded bg-yellow-200 px-0.5 text-inherit">{part}</mark> : <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>;
+                return isMatch ? <mark key={`${part}-${index}`} className="rounded bg-warning-surface px-0.5 text-main">{part}</mark> : <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>;
             })}
         </>
     );
@@ -73,7 +72,6 @@ export default function DataGrid<T extends { id: string | number }>({
     const columnIconSize = ICON_SIZES.md;
     const columnIconThickness = 1;
     const scrollContainerClass = cnClassNames("overflow-auto custom-scrollbar", scrollable ? heightClass : undefined);
-    const { theme } = useTheme();
     const [selectedIds, setSelectedIds] = useState<Set<string | number>>(new Set());
     const [currentPage, setCurrentPage] = useState<number>(initialPage);
     const [currentPageSize, setCurrentPageSize] = useState<number>(pageSize);
@@ -345,23 +343,23 @@ export default function DataGrid<T extends { id: string | number }>({
     }, []);
 
     return (
-        <div className={cnClassNames("w-full flex flex-col overflow-hidden rounded-lg border shadow-sm", theme.border)}>
+        <div className="flex w-full flex-col overflow-hidden rounded-lg border border-border-subtle bg-surface text-main shadow-sm">
             {(showGlobalSearch || enableColumnVisibility || enableExport || (enableBulkActions && bulkActions.length > 0)) && (
-                <div className={cnClassNames("flex flex-col items-stretch justify-between gap-3 border-b p-3 text-[10px] sm:flex-row sm:items-center", theme.bg, theme.border)}>
+                <div className="flex flex-col items-stretch justify-between gap-3 border-b border-border-subtle bg-surface-raised p-3 text-[10px] text-main sm:flex-row sm:items-center">
                     <div className="flex flex-wrap items-center gap-2">
                         {showGlobalSearch && (
                             <input
                                 value={effectiveGlobalSearch}
                                 onChange={(event) => updateGlobalSearch(event.target.value)}
                                 placeholder="Search all rows..."
-                                className={cnClassNames("min-w-[220px] rounded border px-3 py-2 text-xs outline-none transition-shadow focus:ring-2 focus:ring-current/20", theme.border, theme.bg, theme.textMain)}
+                                className="min-w-[220px] rounded border border-border-subtle bg-canvas px-3 py-2 text-xs text-main outline-none transition-shadow focus:ring-2 focus:ring-focus/30"
                                 aria-label="Global search"
                             />
                         )}
 
                         {enableColumnVisibility && (
-                            <div className={cnClassNames("flex flex-wrap items-center gap-2", theme.textMain)}>
-                                <span className={cnClassNames("font-semibold uppercase", theme.textMuted)}>Columns</span>
+                            <div className="flex flex-wrap items-center gap-2 text-main">
+                                <span className="font-semibold uppercase text-muted">Columns</span>
                                 {columns.map((col) => {
                                     const key = String(col.accessor);
                                     const isVisible = visibleColumns[key] !== false;
@@ -374,8 +372,8 @@ export default function DataGrid<T extends { id: string | number }>({
                                             className={cnClassNames(
                                                 "rounded border px-2 py-1 transition-colors",
                                                 isVisible
-                                                    ? cnClassNames(theme.accent, "text-white border-transparent")
-                                                    : cnClassNames(theme.bg, theme.border, theme.textMain)
+                                                    ? "border-transparent bg-accent text-main"
+                                                    : "border-border-subtle bg-canvas text-main"
                                             )}
                                         >
                                             {col.header}
@@ -396,7 +394,7 @@ export default function DataGrid<T extends { id: string | number }>({
                                         disabled={selectedRows.length === 0}
                                         className={cnClassNames(
                                             "rounded border px-2 py-1 text-[10px] transition-colors",
-                                            action.variant === "danger" ? "border-red-300 text-red-600 hover:bg-red-50" : "border-slate-300 text-slate-700 hover:bg-slate-50",
+                                            action.variant === "danger" ? "border-danger/40 text-danger hover:bg-danger-surface" : "border-border-subtle text-main hover:bg-surface-hover",
                                             selectedRows.length === 0 && "cursor-not-allowed opacity-50"
                                         )}
                                     >
@@ -418,7 +416,7 @@ export default function DataGrid<T extends { id: string | number }>({
 
             <div className={scrollContainerClass}>
                 {loading ? (
-                    <table className={cnClassNames("w-full border-separate border-spacing-0 table-fixed min-w-full animate-pulse", theme.border)} aria-label={ariaLabel}>
+                    <table className="w-full min-w-full table-fixed border-separate border-spacing-0 border-border-subtle animate-pulse" aria-label={ariaLabel}>
                         <colgroup>
                             {selectionMode === "checkbox" && <col width={32} />}
                             {showRowNumbers && <col width={40} />}
@@ -428,12 +426,12 @@ export default function DataGrid<T extends { id: string | number }>({
                         </colgroup>
                         <tbody>
                             {Array.from({ length: loadingSkeletonRows }).map((_, rowIndex) => (
-                                <tr key={rowIndex} className={cnClassNames("border-b", theme.border)}>
-                                    {selectionMode === "checkbox" && <td className={cnClassNames("p-3", theme.border)}><div className={cnClassNames("h-4 w-4 rounded bg-slate-200 dark:bg-slate-700")} /></td>}
-                                    {showRowNumbers && <td className={cnClassNames("p-3", theme.border)}><div className={cnClassNames("h-4 w-4 rounded bg-slate-200 dark:bg-slate-700")} /></td>}
+                                <tr key={rowIndex} className="border-b border-border-subtle">
+                                    {selectionMode === "checkbox" && <td className="border-border-subtle p-3"><div className="h-4 w-4 rounded bg-accent" /></td>}
+                                    {showRowNumbers && <td className="border-border-subtle p-3"><div className="h-4 w-4 rounded bg-accent" /></td>}
                                     {visibleColumnDefs.map((col) => (
-                                        <td key={`${rowIndex}-${String(col.accessor)}`} className={cnClassNames("p-3", theme.border)}>
-                                            <div className={cnClassNames("h-4 rounded bg-slate-200 dark:bg-slate-700")} style={{ width: `${Math.min(100, Math.max(40, (rowIndex + 1) * 20))}%` }} />
+                                        <td key={`${rowIndex}-${String(col.accessor)}`} className="border-border-subtle p-3">
+                                            <div className="h-4 rounded bg-accent" style={{ width: `${Math.min(100, Math.max(40, (rowIndex + 1) * 20))}%` }} />
                                         </td>
                                     ))}
                                 </tr>
@@ -443,7 +441,7 @@ export default function DataGrid<T extends { id: string | number }>({
                 ) : (
                     <table
                         ref={tableRef}
-                        className={cnClassNames("w-full border-separate border-spacing-0 table-fixed min-w-full", theme.border)}
+                        className="w-full min-w-full table-fixed border-separate border-spacing-0 border-border-subtle bg-surface"
                         aria-label={ariaLabel}
                         onKeyDown={handleGridKeyDown}
                     >
@@ -454,11 +452,11 @@ export default function DataGrid<T extends { id: string | number }>({
                                 <col key={String(col.accessor)} width={colWidths[String(col.accessor)] ?? 150} />
                             ))}
                         </colgroup>
-                        <thead className={cnClassNames("sticky top-0 z-10 shadow-sm text-xs", theme.textMain)}>
-                            <tr className={cnClassNames(theme.bg)}>
+                        <thead className="sticky top-0 z-10 bg-surface-raised text-xs text-main shadow-sm">
+                            <tr>
                                 {selectionMode === "checkbox" && (
                                     <th
-                                        className={cnClassNames("w-12 min-w-[48px] sticky left-0 z-10 border-b", !autoHeight && headerHeight, pl, theme.border)}
+                                        className={cnClassNames("sticky left-0 z-10 w-12 min-w-[48px] border-b border-border-subtle bg-surface-raised", !autoHeight && headerHeight, pl)}
                                         aria-label={GENERIC_LABELS.selectAllRows}
                                     >
                                         <CustomCheckbox
@@ -472,7 +470,7 @@ export default function DataGrid<T extends { id: string | number }>({
                                 )}
 
                                 {showRowNumbers && (
-                                    <th className={cnClassNames("w-8 text-left text-[11px] font-bold uppercase border-b", !autoHeight && headerHeight, pl, theme.border)} aria-label={GENERIC_LABELS.rowNumber}>
+                                    <th className={cnClassNames("w-8 border-b border-border-subtle text-left text-[11px] font-bold uppercase", !autoHeight && headerHeight, pl)} aria-label={GENERIC_LABELS.rowNumber}>
                                         #
                                     </th>
                                 )}
@@ -481,11 +479,11 @@ export default function DataGrid<T extends { id: string | number }>({
                                     <th
                                         key={String(col.accessor)}
                                         scope="col"
-                                        className={cnClassNames("relative text-left group transition-colors border-b", theme.hoverBg, theme.border, !autoHeight && headerHeight, px)}
+                                        className={cnClassNames("group relative border-b border-border-subtle text-left transition-colors hover:bg-surface-hover", !autoHeight && headerHeight, px)}
                                         aria-label={col.header}
                                     >
                                         <div className="flex items-center justify-between gap-1">
-                                            <span className={cnClassNames("font-bold uppercase truncate", theme.textMain)}>{col.header}</span>
+                                            <span className="truncate font-bold uppercase text-main">{col.header}</span>
 
                                             <ControlBar
                                                 iconSize={columnIconSize}
@@ -521,10 +519,10 @@ export default function DataGrid<T extends { id: string | number }>({
                                 ))}
                             </tr>
                         </thead>
-                        <tbody className={cnClassNames("", theme.textMain)}>
+                        <tbody className="text-main">
                             {pageData.length === 0 ? (
                                 <tr>
-                                    <td colSpan={totalColumns} className={cnClassNames("text-center p-8 border-b", theme.textMuted)}>
+                                    <td colSpan={totalColumns} className="border-b border-border-subtle p-8 text-center text-muted">
                                         {emptyMessage}
                                     </td>
                                 </tr>
@@ -536,13 +534,13 @@ export default function DataGrid<T extends { id: string | number }>({
                                         onClick={() => selectionMode === "row" && selectRow(record.id)}
                                         className={cnClassNames(
                                             "transition-colors",
-                                            hasRowSelection && selectedIds.has(record.id) && theme.accent,
+                                            hasRowSelection && selectedIds.has(record.id) && "bg-accent",
                                             selectionMode === "row" && "cursor-pointer",
-                                            theme.hoverBg
+                                            "hover:bg-surface-hover"
                                         )}
                                     >
                                         {selectionMode === "checkbox" && (
-                                            <td className={cnClassNames("text-center sticky left-0 border-b", !autoHeight && rowHeight, pl, theme.border)} aria-label={`${GENERIC_LABELS.selectRow} ${index + 1}`}>
+                                            <td className={cnClassNames("sticky left-0 border-b border-border-subtle bg-surface text-center", !autoHeight && rowHeight, pl)} aria-label={`${GENERIC_LABELS.selectRow} ${index + 1}`}>
                                                 <CustomCheckbox
                                                     checked={selectedIds.has(record.id)}
                                                     onChange={() => {
@@ -556,7 +554,7 @@ export default function DataGrid<T extends { id: string | number }>({
                                         )}
 
                                         {showRowNumbers && (
-                                            <td className={cnClassNames("text-xs font-medium border-b", pl, theme.textMuted, !autoHeight && rowHeight, theme.border)} aria-label={`Row ${(currentPage - 1) * currentPageSize + index + 1}`}>
+                                            <td className={cnClassNames("border-b border-border-subtle text-xs font-medium text-muted", pl, !autoHeight && rowHeight)} aria-label={`Row ${(currentPage - 1) * currentPageSize + index + 1}`}>
                                                 {(currentPage - 1) * currentPageSize + index + 1}
                                             </td>
                                         )}
@@ -578,7 +576,7 @@ export default function DataGrid<T extends { id: string | number }>({
                                                         "text-xs truncate border-b outline-none",
                                                         !autoHeight && rowHeight,
                                                         pl,
-                                                        theme.border,
+                                                        "border-border-subtle",
                                                         focusedCell.row === index && focusedCell.column === colIndex ? "ring-2 ring-inset ring-primary/40" : "",
                                                         hasCellSelection && isSelectedCell && "ring-2 ring-inset ring-primary"
                                                     )}
@@ -603,12 +601,12 @@ export default function DataGrid<T extends { id: string | number }>({
                 )}
             </div>
 
-            <div className={cnClassNames("flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center p-2", theme.bg, theme.border)}>
-                <div className={cnClassNames("flex flex-wrap items-center gap-2 text-xs", theme.textMain)}>
-                    <span className={cnClassNames("font-medium", theme.textMuted)}>
+            <div className="flex flex-col gap-2 border-t border-border-subtle bg-surface-raised p-2 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-wrap items-center gap-2 text-xs text-main">
+                    <span className="font-medium text-muted">
                         {selectedIds.size} {GENERIC_LABELS.selected}
                     </span>
-                    <span className={cnClassNames("font-medium", theme.textMuted)}>
+                    <span className="font-medium text-muted">
                         {GENERIC_LABELS.rowsOf} {rangeStart}-{rangeEnd} of {sortedData.length}{pagination ? `, ${GENERIC_LABELS.pageOf} ${currentPage} of ${totalPages}` : ""}
                     </span>
                 </div>
@@ -617,7 +615,7 @@ export default function DataGrid<T extends { id: string | number }>({
                     {Object.values(columnFilters).some(v => v) && (
                         <Button
                             onClick={() => setColumnFilters({})}
-                            className="text-[10px] px-2 py-1 text-red-500 hover:bg-red-50"
+                            className="text-[10px] px-2 py-1 text-danger hover:bg-danger-surface"
                             aria-label={GENERIC_LABELS.clearAllFilters}
                         >
                             {GENERIC_LABELS.clear} {GENERIC_LABELS.filter}
@@ -627,12 +625,12 @@ export default function DataGrid<T extends { id: string | number }>({
                     {pagination && (
                         <>
                             <div className="flex items-center gap-2 text-[10px]">
-                                <label className={cnClassNames("text-xs font-medium", theme.textMuted)} htmlFor="pageSizeSelect">{GENERIC_LABELS.rowsPerPage}</label>
+                                <label className="text-xs font-medium text-muted" htmlFor="pageSizeSelect">{GENERIC_LABELS.rowsPerPage}</label>
                                 <select
                                     id="pageSizeSelect"
                                     value={currentPageSize}
                                     onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                                    className={cnClassNames("rounded px-2 py-1 text-[10px] border outline-none", theme.border, theme.bg)}
+                                    className="rounded border border-border-subtle bg-canvas px-2 py-1 text-[10px] text-main outline-none focus:ring-2 focus:ring-focus/30"
                                 >
                                     {pageSizeOptions.map((size) => (
                                         <option key={size} value={size}>{size}</option>
@@ -643,7 +641,7 @@ export default function DataGrid<T extends { id: string | number }>({
                             <div className="flex items-center gap-1 text-[10px]">
                                 <Button onClick={goToFirstPage} disabled={currentPage === 1} className="px-2 py-1" aria-label={GENERIC_LABELS.goToFirstPage}>&#171;</Button>
                                 <Button onClick={goToPreviousPage} disabled={currentPage === 1} className="px-2 py-1" aria-label={GENERIC_LABELS.goToPreviousPage}>&#8249;</Button>
-                                <span className={cnClassNames("px-2 py-1", theme.textMuted)}>{currentPage} / {totalPages}</span>
+                                <span className="px-2 py-1 text-muted">{currentPage} / {totalPages}</span>
                                 <Button onClick={goToNextPage} disabled={currentPage === totalPages} className="px-2 py-1" aria-label={GENERIC_LABELS.goToNextPage}>&#8250;</Button>
                                 <Button onClick={goToLastPage} disabled={currentPage === totalPages} className="px-2 py-1" aria-label={GENERIC_LABELS.goToLastPage}>&#187;</Button>
                             </div>
@@ -668,7 +666,6 @@ function EditableCell<T extends { id: string | number }>({
     searchTerm: string;
     highlightMatches: boolean;
 }) {
-    const { theme } = useTheme();
     const [isEditing, setIsEditing] = useState(false);
     const [value, setValue] = useState<string>(String(record[col.accessor as keyof T] ?? ""));
 
@@ -712,7 +709,7 @@ function EditableCell<T extends { id: string | number }>({
                 onChange={(e) => setValue(e.target.value)}
                 onBlur={handleSave}
                 onKeyDown={handleKeyDown}
-                className={cnClassNames("w-full border rounded px-2 py-1 outline-none ring-2 ring-primary/20 focus:ring-primary/50", theme.border, theme.hoverBg, theme.textMain)}
+                className="w-full rounded border border-border-subtle bg-canvas px-2 py-1 text-main outline-none ring-2 ring-focus/20 focus:ring-focus/50"
                 aria-label={`${GENERIC_LABELS.editCell} ${col.header}`}
             />
         );

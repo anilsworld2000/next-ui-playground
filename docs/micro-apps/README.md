@@ -5,6 +5,7 @@ Micro apps are independent route areas under `app/`. Each owns its domain behavi
 ## Current apps
 
 - [Wallet](Wallet.md): financial dashboard with asset and goal sections. See the [structured Wallet docs](wallet/README.md).
+- [Finance Calculators](FinanceCalculators.md): investment, retirement, and withdrawal calculator routes. See the [structured Finance Calculators docs](finance-calculators/README.md).
 - [Counter](Counter.md): keyboard-friendly interactive counter. See the [structured Counter docs](counter/README.md).
 - [Devotional](Devotional.md): data-driven devotional content by deity and category. See the [structured Devotional docs](devotional/README.md).
 - [Playground](Playground.md): component preview and property editing workspace. See the [structured Playground docs](playground/README.md).

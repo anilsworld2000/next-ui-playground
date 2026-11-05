@@ -1,7 +1,6 @@
 "use client";
 import { Check } from "lucide-react";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
-import { useTheme } from "../hooks/ThemeContext";
 
 interface CheckboxProps {
     checked: boolean;
@@ -12,11 +11,6 @@ interface CheckboxProps {
 }
 
 export default function CustomCheckbox({ checked, onChange, label, iconSize = ICON_SIZES.sm, iconStrokeWidth = 2 }: CheckboxProps) {
-    const { theme } = useTheme();
-
-    // Check if the theme uses hex codes (like Parchment)
-    const isHex = theme.primary.startsWith("#");
-
     return (
         <div
             className="flex items-center gap-3 cursor-pointer group select-none"
@@ -26,23 +20,15 @@ export default function CustomCheckbox({ checked, onChange, label, iconSize = IC
             }}
         >
             <div
-                style={{
-                    backgroundColor: 'transparent', // Always transparent
-                    // If checked, use primary color for border; otherwise use theme border
-                    borderColor: isHex
-                        ? (checked ? theme.primary : theme.border)
-                        : undefined,
-                }}
                 className={cnClassNames(
-                    "w-4 h-4 rounded-md border transition-all", "flex items-center justify-center",
-                    // Fallback for Tailwind-only themes (Midnight, Emerald)
-                    !theme.primary.startsWith('#') && checked ? theme.primary : ""
+                    "w-4 h-4 rounded-md border transition-all flex items-center justify-center",
+                    checked ? "bg-primary border-primary text-primary-foreground" : "border-border-subtle",
                 )}
             >
-                {checked && <Check size={iconSize} strokeWidth={iconStrokeWidth} className={theme.textMain} />}
+                {checked && <Check size={iconSize} strokeWidth={iconStrokeWidth} />}
             </div>
             {label && (
-                <span className={cnClassNames("text-sm font-medium", theme.textMain)}>
+                <span className="text-sm font-medium text-main">
                     {label}
                 </span>
             )}

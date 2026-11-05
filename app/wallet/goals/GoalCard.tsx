@@ -1,7 +1,6 @@
 "use client";
 import Card from "@/app/components/Cards/Card";
 import ProgressRing from "@/app/components/Charts/ProgressRing";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import type { Goal } from "./types";
 import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, GOAL_LABELS, ICON_SIZES } from "@/app/utils";
 import KeyValueDisplay from "@/app/components/KeyValueDisplay";
@@ -16,10 +15,8 @@ type Props = {
 };
 
 export default function GoalCard({ goal, onEdit, onDelete }: Props) {
-    const theme = useTheme();
-
     return (
-        <Card onClick={() => onEdit(goal)} className={cnClassNames("cursor-pointer transition-shadow", theme.theme.bg, theme.theme.border, theme.theme.hoverBg)}>
+        <Card onClick={() => onEdit(goal)} className="cursor-pointer border-border-subtle bg-surface text-main transition-shadow hover:bg-surface-hover">
             {/* Header */}
             <div className="flex justify-between items-center mb-3">
                 <h2 className="text-sm font-semibold">{goal.name}</h2>
@@ -38,7 +35,7 @@ export default function GoalCard({ goal, onEdit, onDelete }: Props) {
                             value={goal.achievedPercent / 100}
                             size={ICON_SIZES.xlg}
                             thickness={6}
-                            color={theme.theme.textMain}
+                            color="text-main"
                         />
                     </div>
                 </div>

@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { Filter, FunnelPlus } from "lucide-react";
 import Button from "./Button";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import Flyout from "../Flyout/Flyout";
 import type { ListItem } from "@/app/types/ui";
 import { statusColors } from "@/app/types/ui";
@@ -36,7 +35,6 @@ export default function FilterButton({
     type = "text",
     disabled = false
 }: FilterButtonProps) {
-    const { theme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     // Close dropdown when clicking outside
@@ -70,14 +68,13 @@ export default function FilterButton({
                     onChange={(e) => onChange(e.target.value)}
                     className={cnClassNames(
                         "w-full pl-8 pr-8 py-2 text-xs rounded border bg-transparent outline-none focus:ring-1 focus:ring-primary/40",
-                        theme.border,
-                        theme.textMain
+                        "border-border-subtle text-main"
                     )}
                 />
                 {value && (
                     <Button
                         onClick={handleClear}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700 text-xs font-bold"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-danger text-xs font-bold"
                         disabled={disabled}
                     >
                         ✕
@@ -89,7 +86,7 @@ export default function FilterButton({
 
     const selectTypeFilter = () => {
         if (filterOptions === undefined || filterOptions.length === 0) {
-            return <div className={cnClassNames("text-xs opacity-50", theme.textMain)}>{GENERIC_LABELS.noDataFound}</div>;
+            return <div className="text-xs text-main opacity-50">{GENERIC_LABELS.noDataFound}</div>;
         }
 
         const filterList: ListItem<string>[] = filterOptions.map(opt => ({
@@ -122,10 +119,10 @@ export default function FilterButton({
                     anchorRef={containerRef}
                 >
                     <div className="flex items-center justify-between m-2 text-xs">
-                        <span className={cnClassNames("font-bold tracking-widest", theme.primaryText)}>{GENERIC_LABELS.filterBy}</span>
+                        <span className="font-bold tracking-widest text-link">{GENERIC_LABELS.filterBy}</span>
                         <Button
                             onClick={handleClear}
-                            className={cnClassNames("text-red-500 hover:text-red-700 text-xs transition-colors p-1", disabled && statusColors["disabled"])}
+                            className={cnClassNames("text-danger hover:bg-danger-surface text-xs transition-colors p-1", disabled && statusColors["disabled"])}
                             disabled={disabled}
                             isCursorPointer
                         >

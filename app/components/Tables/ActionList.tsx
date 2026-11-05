@@ -1,4 +1,3 @@
-import { useTheme } from "@/app/hooks/ThemeContext";
 import type { ListItem } from "@/app/types/ui";
 import cnClassNames from "@/app/utils";
 import { Check } from "lucide-react";
@@ -11,8 +10,6 @@ interface ActionListProps<T> {
 }
 
 export default function ActionList<T>({ items, selectedValue, onSelect }: ActionListProps<T>) {
-    const { theme } = useTheme();
-
     return (
         <ul role="menu" className="flex flex-col gap-1 list-none p-0 m-0">
             {items.map((item) => {
@@ -25,7 +22,8 @@ export default function ActionList<T>({ items, selectedValue, onSelect }: Action
                             onClick={() => onSelect(item.value)}
                             className={cnClassNames(
                                 "w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-all cursor-pointer",
-                                isSelected ? `${theme.accent} ${theme.primaryText}` : theme.textMain, theme.hoverBg
+                                isSelected ? "bg-accent text-main" : "text-main",
+                                "hover:bg-surface-hover",
                             )}
                         >
                             <div className="flex items-center gap-3">

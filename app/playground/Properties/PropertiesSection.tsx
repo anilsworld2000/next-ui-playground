@@ -16,14 +16,14 @@ export default function PropertiesSection({ className, selectedComponent, values
     return (
         <section className={className}>
             <div className="mb-4">
-                <p className="font-semibold">Properties: {selectedComponent?.name}</p>
+                <p className="font-semibold text-main">Properties: {selectedComponent?.name}</p>
 
-                {!selectedComponent && <p className="text-sm text-gray-500">Select a component to edit its properties.</p>}
+                {!selectedComponent && <p className="text-sm text-muted">Select a component to edit its properties.</p>}
 
                 {selectedComponent &&
                     selectedComponent.defaultProps.map(prop => (
                         <div key={prop.name} className="flex flex-col">
-                            {prop.type != 'boolean' && prop.type != 'jsx' && <label className={`text-sm mt-1`}>{prop.label || prop.name}</label>}
+                            {prop.type != 'boolean' && prop.type != 'jsx' && <label className="mt-1 text-sm text-main">{prop.label || prop.name}</label>}
 
                             {prop.type === 'jsx' && values['useJSX'] && (
                                 <div className="flex flex-col">
@@ -31,7 +31,7 @@ export default function PropertiesSection({ className, selectedComponent, values
                                         title={prop.label}
                                         value={values[prop.name] as string ?? ''}
                                         onChange={(e) => handleChange(prop.name, e.target.value)}
-                                        className="text-sm border rounded px-2 py-1 font-mono"
+                                        className="rounded border border-border-subtle bg-canvas px-2 py-1 text-sm font-mono text-main"
                                         rows={6}
                                         placeholder="Enter JSX or HTML content"
                                     />
@@ -44,7 +44,7 @@ export default function PropertiesSection({ className, selectedComponent, values
                                     type="text"
                                     value={values[prop.name] as string ?? ''}
                                     onChange={(e) => handleChange(prop.name, e.target.value)}
-                                    className="text-sm border rounded px-2 py-1"
+                                    className="rounded border border-border-subtle bg-canvas px-2 py-1 text-sm text-main"
                                 />
                             )}
                             {prop.type === 'number' && (
@@ -53,12 +53,12 @@ export default function PropertiesSection({ className, selectedComponent, values
                                     type="number"
                                     value={values[prop.name] as number ?? prop.defaultValue}
                                     onChange={(e) => handleChange(prop.name, Number(e.target.value))}
-                                    className="text-sm border rounded px-2 py-1"
+                                    className="rounded border border-border-subtle bg-canvas px-2 py-1 text-sm text-main"
                                 />
                             )}
                             {prop.type === 'boolean' && (
                                 <div className="flex items-center justify-between mt-1">
-                                    <label htmlFor={prop.name} className="text-sm font-medium">
+                                    <label htmlFor={prop.name} className="text-sm font-medium text-main">
                                         {prop.label}
                                     </label>
 
@@ -70,8 +70,8 @@ export default function PropertiesSection({ className, selectedComponent, values
                                             onChange={(e) => handleChange(prop.name, e.target.checked)}
                                             className="sr-only peer"
                                         />
-                                        <div className="w-9 h-4 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:bg-blue-600 transition-all"></div>
-                                        <div className="absolute left-1 top-1 bg-white w-2 h-2 rounded-full transition-transform peer-checked:translate-x-5"></div>
+                                        <div className="h-4 w-9 rounded-full bg-accent transition-all peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-focus peer-checked:bg-primary"></div>
+                                        <div className="absolute left-1 top-1 bg-primary-foreground w-2 h-2 rounded-full transition-transform peer-checked:translate-x-5"></div>
                                     </label>
                                 </div>
 
@@ -81,7 +81,7 @@ export default function PropertiesSection({ className, selectedComponent, values
                                     title={prop.label}
                                     value={values[prop.name] as string ?? prop.defaultValue}
                                     onChange={(e) => handleChange(prop.name, e.target.value)}
-                                    className="text-sm border rounded px-2 py-1"
+                                    className="rounded border border-border-subtle bg-canvas px-2 py-1 text-sm text-main"
                                 >
                                     {prop.options?.map((opt) => (
                                         <option key={opt} value={opt}>{opt}</option>

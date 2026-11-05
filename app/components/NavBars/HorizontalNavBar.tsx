@@ -1,5 +1,4 @@
 "use client";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import type { NavItem } from "@/app/types/navigation";
 import cnClassNames from "@/app/utils";
 import Link from "next/link";
@@ -13,7 +12,6 @@ interface HorizontalNavBarProps {
 }
 
 export default function HorizontalNavBar({ items, rightContent, addUserSection }: HorizontalNavBarProps) {
-    const theme = useTheme();
     const user = useUser();
 
     return (
@@ -26,9 +24,7 @@ export default function HorizontalNavBar({ items, rightContent, addUserSection }
                         key={item.id}
                         href={item.href}
                         className={cnClassNames(
-                            theme.theme.primaryText,
-                            theme.theme.hoverBg,
-                            'p-2 rounded-xl text-sm font-medium items-center gap-1 flex'
+                            "flex items-center gap-1 rounded-xl p-2 text-sm font-medium text-link hover:bg-surface-hover"
                         )}
                     >
                         {item.icon && <span>{item.icon}</span>}
@@ -39,7 +35,7 @@ export default function HorizontalNavBar({ items, rightContent, addUserSection }
             {/* Right Side: Content + User Section */}
             <div className="flex items-center gap-6">
                 {rightContent && (
-                    <div className="text-slate-500 text-sm font-medium border-r pr-6 hidden md:block">
+                    <div className="hidden border-r border-border-subtle pr-6 text-sm font-medium text-muted md:block">
                         {rightContent}
                     </div>
                 )}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Tabs from "@/app/components/Layouts/Tabs";
 import Button from "@/app/components/Buttons/Button";
@@ -54,7 +53,6 @@ interface GoalCreateFormProps {
 type TabId = "basics" | "timeline" | "financial" | "investment";
 
 export default function GoalCreateForm({ onSubmit, onClose, initialData, title = "Create New Goal", submitLabel = "Create" }: GoalCreateFormProps) {
-    const { theme } = useTheme();
     const [formData, setFormData] = useState<GoalCreateFormData>(initialData ?? INITIAL_FORM_STATE);
     const [activeTab, setActiveTab] = useState<TabId>("basics");
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -145,7 +143,7 @@ export default function GoalCreateForm({ onSubmit, onClose, initialData, title =
                 error={errors.name}
             />
             <div className="flex flex-col gap-2">
-                <label className={cnClassNames("text-sm font-semibold", theme.textMain)}>
+                <label className="text-sm font-semibold text-main">
                     Risk Profile
                 </label>
                 <Dropdown<"Low" | "Moderate" | "High">
@@ -273,16 +271,16 @@ export default function GoalCreateForm({ onSubmit, onClose, initialData, title =
     ];
 
     return (
-        <div className={cnClassNames("flex flex-col h-full p-2", theme.bg)}>
+        <div className="flex h-full flex-col bg-surface p-2 text-main">
             {/* Header */}
             <div className={cnClassNames("flex justify-between items-center pb-2")}>
-                <h2 className={cnClassNames("text-md font-bold flex-col-1", theme.textMain)}>{title}</h2>
+                <h2 className="text-md flex-col-1 font-bold text-main">{title}</h2>
                 <div className="flex-cols-2 gap-2 flex">
                     <Button
                         onClick={handleCreate}
                         isCursorPointer
                         disabled={isLoading || activeTab !== "investment"}
-                        className={cnClassNames("flex items-center gap-2 px-2 py-1 rounded-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed text-sm", theme.textMain, theme.accent, (isLoading || activeTab !== "investment") ? theme.textMuted : theme.hoverBg)}
+                        className={cnClassNames("flex items-center gap-2 rounded-lg px-2 py-1 text-sm transition-all disabled:cursor-not-allowed disabled:opacity-70", (isLoading || activeTab !== "investment") ? "bg-accent text-muted" : "bg-primary text-primary-foreground hover:bg-primary-hover")}
                     >
                         <Save size={ICON_SIZES.sm} />
                         {isLoading ? "Saving..." : submitLabel}
@@ -291,7 +289,7 @@ export default function GoalCreateForm({ onSubmit, onClose, initialData, title =
                         onClick={onClose}
                         tooltip={GENERIC_LABELS.close}
                         aria-label="Close goal creation form"
-                        className={cnClassNames("p-1 rounded transition-colors", theme.hoverBg, theme.textMain)}
+                        className="rounded p-1 text-main transition-colors hover:bg-surface-hover"
                     >
                         <X size={ICON_SIZES.md} />
                     </Button>

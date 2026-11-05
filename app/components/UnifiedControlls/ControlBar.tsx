@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import FilterButton, { FilterButtonProps } from "@/app/components/Buttons/FilterButton";
 import SortButton, { SortButtonProps } from "@/app/components/Buttons/SortButton";
 import SearchButton, { SearchInputProps } from "@/app/components/Buttons/SearchButton";
@@ -29,7 +28,6 @@ export default function ControlBar({
     controlBarClassName = "",
     controlBarItemsClassName = ""
 }: Props) {
-    const theme = useTheme();
     const disabledActionButtonClass = "opacity-50 cursor-not-allowed pointer-events-none";
 
     const searchBar = () => {
@@ -101,7 +99,7 @@ export default function ControlBar({
     };
 
     const divider = () => {
-        return <div className={cnClassNames("hidden md:block w-[1px] self-stretch opacity-50 my-2", theme.theme.primary)} />;
+        return <div className="my-2 hidden w-px self-stretch bg-border-strong opacity-50 md:block" />;
     }
 
     return (

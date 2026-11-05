@@ -1,5 +1,3 @@
-import { useTheme } from "../hooks/ThemeContext";
-
 type Props = {
     label: string;
     value: string | number;
@@ -7,13 +5,12 @@ type Props = {
 };
 
 export default function KeyValueDisplay({ label, value, inLine }: Props) {
-    const theme = useTheme();
     const cssClass = "font-medium";
 
     if (inLine) {
         return (
             <div>
-                <p className={theme.theme.textMuted}>{label}: </p>
+                <p className="text-muted">{label}: </p>
                 <p className={cssClass}>{value}</p>
             </div>
         );
@@ -21,7 +18,7 @@ export default function KeyValueDisplay({ label, value, inLine }: Props) {
 
     return (
         <div>
-            <span className={theme.theme.textMuted}>{label}: </span>
+            <span className="text-muted">{label}: </span>
             <span className={cssClass}>{value}</span>
         </div>
     );

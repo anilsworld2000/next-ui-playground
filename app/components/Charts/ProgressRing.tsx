@@ -1,4 +1,3 @@
-import { useTheme } from "@/app/hooks/ThemeContext";
 
 type Props = {
     value: number; // 0 to 1
@@ -11,14 +10,13 @@ export default function ProgressRing({ value, size, thickness, color }: Props) {
     const radius = (size - thickness) / 2; // radius adjusted for stroke
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - value * circumference;
-    const theme = useTheme();
 
     return (
         <svg width={size} height={size} className="rotate-[-90deg]">
             {/* Background circle */}
             <circle
                 stroke="currentColor"
-                className={theme.theme.textMuted}
+                className="text-muted"
                 fill="transparent"
                 strokeWidth={thickness}
                 r={radius}
@@ -44,7 +42,7 @@ export default function ProgressRing({ value, size, thickness, color }: Props) {
                 y="50%"
                 dominantBaseline="middle"
                 textAnchor="middle"
-                className={`${theme.theme.textMain} font-medium progress-text`}
+                className="text-main font-medium progress-text"
             >
                 {`${Math.round(value * 100)}%`}
             </text>

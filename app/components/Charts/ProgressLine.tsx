@@ -1,4 +1,3 @@
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames from "@/app/utils";
 
 type Props = {
@@ -9,11 +8,10 @@ type Props = {
 };
 
 export default function ProgressLine({ value, thickness, width, color }: Props) {
-    const theme = useTheme();
-
     return (
         <div
-            className={cnClassNames("rounded-full overflow-hidden translate-0.5", theme.theme.accent, `h-${thickness}`, `w-${width}`)}
+            className={cnClassNames("rounded-full overflow-hidden translate-0.5 bg-accent")}
+            style={{ height: `${thickness}px`, width: `${width}px` }}
         >
             {/* Filled portion */}
             <div

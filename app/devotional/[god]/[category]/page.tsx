@@ -1,7 +1,5 @@
 "use client";
 
-import { useTheme } from '@/app/hooks/ThemeContext';
-import cnClassNames from '@/app/utils';
 import { notFound } from 'next/navigation';
 import { GetPrayerContent } from '../../data';
 
@@ -10,7 +8,6 @@ interface DevotionalPageProps {
 }
 
 export default function DevotionalPage({ params }: DevotionalPageProps) {
-    const { theme } = useTheme();
     const { god, category } = params;
     if (!god || !category) {
         notFound();
@@ -19,10 +16,10 @@ export default function DevotionalPage({ params }: DevotionalPageProps) {
     const prayer = GetPrayerContent(god, category);
 
     return (
-        <div className={cnClassNames(theme.primaryText, theme.bg, 'p-4 justify-center')}>
+        <div className="bg-canvas p-4 text-main">
             <h1 className='justify-center flex p-2'>{god.toLocaleUpperCase()}</h1>
             <h2 className='justify-center flex p-2'>{category.toLocaleUpperCase()}</h2>
-            <p className={cnClassNames('justify-center flex p-1 shadow-md', theme.accent)}>
+            <p className="flex justify-center rounded bg-accent p-1 shadow-md">
                 {prayer}
             </p>
         </div>

@@ -18,7 +18,7 @@ const iconSize = ICON_SIZES.lg;
 
 export const walletNavigation: DashboardNavigationConfig = {
     title: "Wallet",
-    icon: <WalletMinimal className="text-white" size={ICON_SIZES.xlg} />,
+    icon: <WalletMinimal className="text-primary-foreground" size={ICON_SIZES.xlg} />,
     horizontalItems: [],
     groups: [
         {

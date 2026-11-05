@@ -87,13 +87,13 @@ export interface Tab<T extends string> {
 }
 
 export const statusColors: Record<string, string> = {
-    "Warning-bg": "bg-amber-100",
-    "Warning-text": "text-amber-600",
-    "Success-bg": "bg-green-100",
-    "Success-text": "text-green-600",
-    "Error-bg": "bg-red-100",
-    "Error-text": "text-red-600",
-    "Completed-bg": "bg-blue-100",
-    "Completed-text": "text-blue-600",
+    "Warning-bg": "bg-warning-surface",
+    "Warning-text": "text-warning",
+    "Success-bg": "bg-success-surface",
+    "Success-text": "text-success",
+    "Error-bg": "bg-danger-surface",
+    "Error-text": "text-danger",
+    "Completed-bg": "bg-info-surface",
+    "Completed-text": "text-info",
     disabled: "opacity-50 cursor-not-allowed pointer-events-none"
 };

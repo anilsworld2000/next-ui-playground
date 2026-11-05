@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { ChevronUp, ChevronDown, ArrowUpDown } from "lucide-react";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import type { SortConfig } from "@/app/types/ui";
 import Button from "./Button";
@@ -29,7 +28,6 @@ export default function SortButton({
     disabled = false,
     title = "",
 }: SortButtonProps) {
-    const { theme } = useTheme();
     const currentSorts: ValidSortConfig[] = (Array.isArray(currentSort) ? currentSort : currentSort ? [currentSort] : []).filter(
         (sort): sort is ValidSortConfig => sort !== null
     );
@@ -74,7 +72,8 @@ export default function SortButton({
             onClick={handleSortToggle}
             className={cssClasses || cnClassNames(
                 "inline-flex items-center justify-center rounded p-1 transition-all",
-                isActive ? theme.textMain : "opacity-100 hover:opacity-100", theme.hoverBg
+                isActive ? "text-main" : "opacity-100 hover:opacity-100",
+                "hover:bg-surface-hover",
             )}
             tooltip={isActive ? `Sorted ${getSortDirectionLabel()}` : `Sort by ${title}`}
         >

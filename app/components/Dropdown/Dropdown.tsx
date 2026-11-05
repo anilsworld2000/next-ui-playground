@@ -1,4 +1,3 @@
-import { useTheme } from '@/app/hooks/ThemeContext';
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from '@/app/utils';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
@@ -38,8 +37,6 @@ export default function Dropdown<T>({
     allowSelectAll = false,
     className = ""
 }: DropdownProps<T>) {
-    // We'll use a mock theme object - replace with your actual useTheme() hook
-    const { theme } = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 });
@@ -138,24 +135,24 @@ export default function Dropdown<T>({
 
             <div
                 onClick={toggle}
-                className={cnClassNames("flex flex-wrap items-center gap-1 min-h-[36px] px-3 py-1.5 border rounded cursor-pointer transition-all", theme.textMain, theme.bg, theme.border, isOpen ? "border-2" : "")}
+                className={cnClassNames("flex min-h-[36px] flex-wrap items-center gap-1 rounded border border-border-subtle bg-canvas px-3 py-1.5 text-main transition-all cursor-pointer", isOpen && "border-2")}
             >
                 {multiple ? (
                     (value as T[]).length > 0 ? (
                         (value as T[]).map((v, i) => {
                             const opt = options.find(o => o.value === v);
                             return (
-                                <div key={i} className={cnClassNames("flex items-center gap-1 px-2 py-0.5 rounded text-[10px]", theme.accent)}>
+                                <div key={i} className="flex items-center gap-1 rounded bg-accent px-2 py-0.5 text-[10px] text-main">
                                     {opt?.label}
                                     <span>
-                                        <X  className="hover:text-red-500 ml-1"
+                                        <X className="text-danger ml-1"
                                             onClick={(e) => handleSelect(e, v)}
                                             size={ICON_SIZES.md} />
                                     </span>
                                 </div>
                             );
                         })
-                    ) : <span className={cnClassNames("text-xs", theme.textMuted)}>{placeholder}</span>
+                    ) : <span className="text-xs text-muted">{placeholder}</span>
                 ) : (
                     <span className="text-xs">
                         {options.find(o => o.value === value)?.label || placeholder}
@@ -169,14 +166,14 @@ export default function Dropdown<T>({
                         ref={listRef}
                         onMouseDown={(e) => e.stopPropagation()}
                         style={{ position: 'absolute', top: `${coords.top}px`, left: `${coords.left}px`, width: `${coords.width}px` }}
-                        className={cnClassNames("z-[9999] mt-1 border rounded shadow-2xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-150", theme.bg, theme.border)}
+                        className="z-[9999] mt-1 overflow-hidden rounded border border-border-subtle bg-surface text-main shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
                     >
                         {isSearchable && (
                             <div className="p-2 border-b border-inherit">
                                 <input
                                     autoFocus
                                     onMouseDown={(e) => e.stopPropagation()}
-                                    className={cnClassNames("w-full px-2 py-1.5 text-xs rounded outline-none", theme.accent)}
+                                    className="w-full rounded bg-accent px-2 py-1.5 text-xs text-main outline-none focus:ring-2 focus:ring-focus"
                                     placeholder={`${GENERIC_LABELS.search}...`}
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -188,7 +185,7 @@ export default function Dropdown<T>({
                             {multiple && allowSelectAll && (
                                 <li
                                     onClick={handleToggleAll}
-                                    className={cnClassNames("px-3 py-2 text-xs font-bold border-b cursor-pointer", theme.hoverBg)}
+                                    className="cursor-pointer border-b border-border-subtle px-3 py-2 text-xs font-bold text-main hover:bg-surface-hover"
                                 >
                                     {(value as T[]).length === options.length ? "Deselect All" : "Select All"}
                                 </li>
@@ -202,7 +199,7 @@ export default function Dropdown<T>({
                                     <li
                                         key={opt.id}
                                         onClick={(e) => handleSelect(e, opt.value)}
-                                        className={cnClassNames("px-3 py-2 text-xs cursor-pointer flex items-center justify-between", theme.textMain, selected ? theme.accent : "", theme.hoverBg)}
+                                        className={cnClassNames("flex cursor-pointer items-center justify-between px-3 py-2 text-xs text-main hover:bg-surface-hover", selected && "bg-accent")}
                                     >
                                         <div className="flex items-center gap-2">
                                             {multiple && <input
@@ -211,7 +208,7 @@ export default function Dropdown<T>({
                                                 checked={selected}
                                                 onClick={(e) => e.stopPropagation()}
                                                 readOnly
-                                                className={theme.accent} />}
+                                                className="accent-primary" />}
                                             {opt.render ? opt.render(opt.value) : opt.label}
                                         </div>
                                         {!multiple && selected && <span>✓</span>}

@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Search, X } from "lucide-react";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames, { GENERIC_LABELS, ICON_SIZES } from "@/app/utils";
 import Button from "./Button";
 import { statusColors } from "@/app/types/ui";
@@ -27,7 +26,6 @@ export default function SearchButton({
     className = "",
     containerClassName = ""
 }: SearchInputProps) {
-    const { theme } = useTheme();
     // Local state to keep typing snappy, even if parent logic is heavy
     const [localValue, setLocalValue] = useState(value);
 
@@ -68,7 +66,7 @@ export default function SearchButton({
                 placeholder={`${placeholder}...`}
                 className={cnClassNames(
                     "w-full rounded-xl border px-10 text-sm outline-none transition-all",
-                    theme.bg, theme.border,
+                    "bg-canvas border-border-subtle text-main",
                     disabled ? statusColors["disabled"] : "focus:ring-1 focus:ring-primary/30",
                     className
                 )}
@@ -78,7 +76,7 @@ export default function SearchButton({
             {localValue && !disabled && (
                 <Button
                     onClick={handleClear}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 opacity-60 hover:opacity-100 hover:text-red-500 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 opacity-60 text-danger transition-colors hover:opacity-100"
                 >
                     <X size={iconSize - 2} strokeWidth={iconStrokeWidth + 1} />
                 </Button>

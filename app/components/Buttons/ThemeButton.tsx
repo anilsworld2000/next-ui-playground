@@ -1,6 +1,7 @@
 import Button from "./Button";
 import { Palette } from "lucide-react";
-import { ThemeKey, THEMES, useTheme } from "@/app/hooks/ThemeContext";
+import { useTheme } from "@/app/hooks/ThemeContext";
+import { THEMES, THEME_KEYS, type ThemeKey } from "@/app/config/themes";
 import { useRef, useState } from "react";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import Flyout from "../Flyout/Flyout";
@@ -12,11 +13,11 @@ export default function ThemeButton() {
     const [isThemeMenuOpen, setThemeMenuOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const themeItems: ListItem<string>[] = Object.keys(THEMES).map(key => ({
+    const themeItems: ListItem<ThemeKey>[] = THEME_KEYS.map(key => ({
         id: key,
-        label: THEMES[key as keyof typeof THEMES].name,
+        label: THEMES[key].name,
         value: key,
-        indicator: <div className={`w-3 h-3 rounded-full ${THEMES[key as keyof typeof THEMES].primary}`} />
+        indicator: <span data-theme={key} aria-hidden="true" className="size-3 rounded-full bg-primary" />
     }));
 
     return (
@@ -38,7 +39,7 @@ export default function ThemeButton() {
                     anchorRef={containerRef}
                 >
                     <ActionList
-                        items={themeItems} selectedValue={themeKey} onSelect={(value) => { setTheme(value as ThemeKey); setThemeMenuOpen(false); }} />
+                        items={themeItems} selectedValue={themeKey} onSelect={(value) => { setTheme(value); setThemeMenuOpen(false); }} />
                 </Flyout>
             )}
         </div>

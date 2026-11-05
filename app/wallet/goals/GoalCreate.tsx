@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import cnClassNames from "@/app/utils";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import GoalCreateForm, { GoalCreateFormData } from "./GoalCreateForm";
 import type { Goal } from "./types";
 import { goalToFormData } from "./goalUtils";
@@ -17,7 +16,6 @@ interface GoalCreateProps {
 }
 
 export default function GoalCreate({ isOpen, onClose, onSubmit, mode = "create", goal }: GoalCreateProps) {
-    const { theme } = useTheme();
     const [mounted, setMounted] = useState(false);
     const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -64,8 +62,7 @@ export default function GoalCreate({ isOpen, onClose, onSubmit, mode = "create",
                 ref={drawerRef}
                 className={cnClassNames(
                     "relative w-full max-w-md h-full flex flex-col animate-in slide-in-from-right duration-300",
-                    theme.bg,
-                    theme.border
+                    "border-border-subtle bg-surface text-main"
                 )}
             >
                 <GoalCreateForm

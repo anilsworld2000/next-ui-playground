@@ -6,7 +6,7 @@ import { ICON_SIZES } from "@/app/utils";
 
 export const readingNavigation: DashboardNavigationConfig = {
     title: "Reading",
-    icon: <BookOpen className="text-white" size={ICON_SIZES.xlg} />,
+    icon: <BookOpen className="text-primary-foreground" size={ICON_SIZES.xlg} />,
     horizontalItems: [],
     groups: [
         {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTheme } from "../hooks/ThemeContext";
 
 const styles = `
   @keyframes pop {
@@ -31,7 +30,6 @@ export default function Counter() {
     const [maxValue, setMaxValue] = useState(0);
     const [cycleCount, setCycleCount] = useState(0);
     const maxInputRef = useRef<HTMLInputElement>(null);
-    const theme = useTheme();
 
     const handleClick = useCallback(() => {
         // 1. Increment the count
@@ -98,7 +96,7 @@ export default function Counter() {
             <div className="h-[calc(100vh-4rem)] pt-1 w-full flex flex-col items-center justify-center font-sans select-none overflow-hidden">
                 <div className="flex flex-col items-center">
                     <button
-                        className={`w-64 h-64 ${theme.theme.button} rounded-full ${theme.theme.textMain} text-8xl font-black shadow-2xl cursor-pointer transition-all duration-150 ease-out
+                        className={`h-64 w-64 rounded-full bg-primary text-8xl font-black text-primary-foreground shadow-2xl transition-all duration-150 ease-out hover:bg-primary-hover
                         active:scale-95 active:shadow-lg
                         ${isPopping ? 'animate-pop' : ''}`}
                         onClick={handleClick}
@@ -130,7 +128,7 @@ export default function Counter() {
                                     // When user leaves the field, reset to 1 if empty
                                     if (isNaN(maxValue) || maxValue <= 0) setMaxValue(1);
                                 }}
-                                className="ml-2 w-24 text-center px-2 py-1 rounded-md outline-1 focus:ring-2 focus:ring-indigo-400"
+                                className="ml-2 w-24 text-center px-2 py-1 rounded-md border border-border-subtle bg-surface text-main focus:outline-none focus:ring-2 focus:ring-focus"
                             />
                         </div>
                     </div>

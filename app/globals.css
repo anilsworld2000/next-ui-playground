@@ -1,28 +1,188 @@
 @import "tailwindcss";
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #121212;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--theme-canvas);
+  --color-surface: var(--theme-surface);
+  --color-surface-raised: var(--theme-surface-raised);
+  --color-surface-hover: var(--theme-surface-hover);
+  --color-sidebar: var(--theme-sidebar);
+  --color-primary: var(--theme-primary);
+  --color-primary-hover: var(--theme-primary-hover);
+  --color-primary-foreground: var(--theme-primary-foreground);
+  --color-link: var(--theme-link);
+  --color-link-hover: var(--theme-link-hover);
+  --color-accent: var(--theme-accent);
+  --color-main: var(--theme-main);
+  --color-muted: var(--theme-muted);
+  --color-inverse: var(--theme-inverse);
+  --color-border-subtle: var(--theme-border-subtle);
+  --color-border-strong: var(--theme-border-strong);
+  --color-focus: var(--theme-focus);
+  --color-success: var(--theme-success);
+  --color-success-surface: var(--theme-success-surface);
+  --color-warning: var(--theme-warning);
+  --color-warning-surface: var(--theme-warning-surface);
+  --color-danger: var(--theme-danger);
+  --color-danger-surface: var(--theme-danger-surface);
+  --color-info: var(--theme-info);
+  --color-info-surface: var(--theme-info-surface);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: var(--background);
-    --foreground: #var(--foreground);
-  }
-}*/
+:root {
+  color-scheme: light;
+  --theme-canvas: #f8fafc;
+  --theme-surface: #ffffff;
+  --theme-surface-raised: #ffffff;
+  --theme-surface-hover: #eff6ff;
+  --theme-sidebar: #ffffff;
+  --theme-primary: #2563eb;
+  --theme-primary-hover: #1d4ed8;
+  --theme-primary-foreground: #ffffff;
+  --theme-link: #1d4ed8;
+  --theme-link-hover: #1e40af;
+  --theme-accent: #dbeafe;
+  --theme-main: #0f172a;
+  --theme-muted: #64748b;
+  --theme-inverse: #ffffff;
+  --theme-border-subtle: #cbd5e1;
+  --theme-border-strong: #94a3b8;
+  --theme-focus: #2563eb;
+  --theme-success: #166534;
+  --theme-success-surface: #dcfce7;
+  --theme-warning: #854d0e;
+  --theme-warning-surface: #fef9c3;
+  --theme-danger: #b91c1c;
+  --theme-danger-surface: #fee2e2;
+  --theme-info: #075985;
+  --theme-info-surface: #e0f2fe;
+}
+
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --theme-canvas: #020617;
+  --theme-surface: #0f172a;
+  --theme-surface-raised: #1e293b;
+  --theme-surface-hover: #1e293b;
+  --theme-sidebar: #0f172a;
+  --theme-primary: #4f46e5;
+  --theme-primary-hover: #4338ca;
+  --theme-primary-foreground: #ffffff;
+  --theme-link: #a5b4fc;
+  --theme-link-hover: #c7d2fe;
+  --theme-accent: #312e81;
+  --theme-main: #f1f5f9;
+  --theme-muted: #a1aebf;
+  --theme-inverse: #020617;
+  --theme-border-subtle: #334155;
+  --theme-border-strong: #64748b;
+  --theme-focus: #a5b4fc;
+  --theme-success: #86efac;
+  --theme-success-surface: #14532d;
+  --theme-warning: #fde047;
+  --theme-warning-surface: #713f12;
+  --theme-danger: #fca5a5;
+  --theme-danger-surface: #7f1d1d;
+  --theme-info: #7dd3fc;
+  --theme-info-surface: #0c4a6e;
+}
+
+[data-theme="emerald"] {
+  color-scheme: dark;
+  --theme-canvas: #0c0a09;
+  --theme-surface: #1c1917;
+  --theme-surface-raised: #292524;
+  --theme-surface-hover: #292524;
+  --theme-sidebar: #1c1917;
+  --theme-primary: #047857;
+  --theme-primary-hover: #065f46;
+  --theme-primary-foreground: #ffffff;
+  --theme-link: #6ee7b7;
+  --theme-link-hover: #a7f3d0;
+  --theme-accent: #064e3b;
+  --theme-main: #f5f5f4;
+  --theme-muted: #b0aaa4;
+  --theme-inverse: #0c0a09;
+  --theme-border-subtle: #44403c;
+  --theme-border-strong: #78716c;
+  --theme-focus: #6ee7b7;
+  --theme-success: #86efac;
+  --theme-success-surface: #14532d;
+  --theme-warning: #fde047;
+  --theme-warning-surface: #713f12;
+  --theme-danger: #fca5a5;
+  --theme-danger-surface: #7f1d1d;
+  --theme-info: #7dd3fc;
+  --theme-info-surface: #0c4a6e;
+}
+
+[data-theme="amethyst"] {
+  color-scheme: dark;
+  --theme-canvas: #09090b;
+  --theme-surface: #18181b;
+  --theme-surface-raised: #27272a;
+  --theme-surface-hover: #27272a;
+  --theme-sidebar: #18181b;
+  --theme-primary: #7e22ce;
+  --theme-primary-hover: #6b21a8;
+  --theme-primary-foreground: #ffffff;
+  --theme-link: #d8b4fe;
+  --theme-link-hover: #e9d5ff;
+  --theme-accent: #581c87;
+  --theme-main: #f4f4f5;
+  --theme-muted: #a1a1aa;
+  --theme-inverse: #09090b;
+  --theme-border-subtle: #3f3f46;
+  --theme-border-strong: #71717a;
+  --theme-focus: #d8b4fe;
+  --theme-success: #86efac;
+  --theme-success-surface: #14532d;
+  --theme-warning: #fde047;
+  --theme-warning-surface: #713f12;
+  --theme-danger: #fca5a5;
+  --theme-danger-surface: #7f1d1d;
+  --theme-info: #7dd3fc;
+  --theme-info-surface: #0c4a6e;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="monochrome"] {
+  color-scheme: light;
+  --theme-canvas: #ffffff;
+  --theme-surface: #ffffff;
+  --theme-surface-raised: #f4f4f5;
+  --theme-surface-hover: #e4e4e7;
+  --theme-sidebar: #fafafa;
+  --theme-primary: #18181b;
+  --theme-primary-hover: #27272a;
+  --theme-primary-foreground: #ffffff;
+  --theme-link: #18181b;
+  --theme-link-hover: #52525b;
+  --theme-accent: #e4e4e7;
+  --theme-main: #09090b;
+  --theme-muted: #52525b;
+  --theme-inverse: #ffffff;
+  --theme-border-subtle: #d4d4d8;
+  --theme-border-strong: #71717a;
+  --theme-focus: #18181b;
+  --theme-success: #166534;
+  --theme-success-surface: #dcfce7;
+  --theme-warning: #854d0e;
+  --theme-warning-surface: #fef9c3;
+  --theme-danger: #b91c1c;
+  --theme-danger-surface: #fee2e2;
+  --theme-info: #075985;
+  --theme-info-surface: #e0f2fe;
+}
 
 body {
   font-family: "Avenir Next", Avenir, "Helvetica Neue", sans-serif;
   letter-spacing: 0;
   text-rendering: optimizeLegibility;
+  background-color: var(--theme-canvas);
+  color: var(--theme-main);
 } 
 
 /* tooltips.css */
@@ -38,7 +198,7 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
   white-space: nowrap;
-  color: white;
+  color: var(--theme-primary-foreground);
   z-index: 9999;
   pointer-events: none;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
