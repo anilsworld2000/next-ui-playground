@@ -16,6 +16,6 @@ Goals support grid/list views, search, status filtering, sorting, goal creation,
 
 ## Incomplete sections
 
-Overview, Mutual Funds, Banks, PPF, PF, and Preferences are largely placeholders. Asset Allocation Summary, Goals, and Actual tabs are placeholders. Some edit/detail components are present but not fully wired.
+Overview, Mutual Funds, Banks, PPF, PF, and Preferences are largely placeholders. Asset Allocation Summary, Goals, and Actual tabs are placeholders. Goal cards open the create/edit drawer; a separate goal detail view is not part of the current workflow.
 
 Update this document when Wallet routes, state boundaries, persistence, shared dependencies, or section maturity changes.
