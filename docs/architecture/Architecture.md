@@ -47,6 +47,8 @@ No new package is required for the type-module migration. The former aggregate t
 
 Keep domain state and behavior inside the owning micro app. Shared components should remain generic. Do not introduce server persistence, APIs, or global state for a client-only feature without updating this document and its decision record.
 
+The Games micro app follows these boundaries with a dashboard-registered catalog at `/games` and an independent local Tic-Tac-Toe route at `/games/tic-tac-toe`. Its state and game rules stay within the Games route area; adding another game does not require a shared provider or server boundary.
+
 ## Architecture review
 
 ### Current strengths
