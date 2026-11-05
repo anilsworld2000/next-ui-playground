@@ -30,6 +30,8 @@ These guidelines apply to application code and documentation in this workspace.
 ## UI and CSS
 
 - Reuse shared layout, buttons, notifications, icons, utilities, and theme tokens before adding equivalents.
+- Use the root `data-theme` CSS-variable palette and semantic utilities (`bg-canvas`, `bg-surface`, `text-main`, `border-border-subtle`, `bg-primary`, status tokens) for application UI. Do not add palette-specific Tailwind color classes for themeable surfaces or status states.
+- Keep data-series colors, the playground's editable component preview palette, and deliberate print styling separate when their color semantics are intentional. Theme preference is non-sensitive UI state; validate the root-readable cookie and never reuse authentication cookie semantics.
 - Use Tailwind v4 utilities and responsive constraints. Add route-local CSS only for behavior utilities, rich document styles, or print rules that utilities cannot express clearly.
 - Keep controls accessible with names, focus states, disabled states, and appropriate status semantics.
 - Use icon-only controls only with a tooltip or accessible label.

@@ -9,7 +9,7 @@ const iconSize = ICON_SIZES.lg;
 
 export const devotionalNavigation: DashboardNavigationConfig = {
     title: "Devotional",
-    icon: <Clover className="text-white" size={ICON_SIZES.xlg} />,
+    icon: <Clover className="text-primary-foreground" size={ICON_SIZES.xlg} />,
     horizontalItems: [],
     groups: godNames.map((god) => ({
         id: god,

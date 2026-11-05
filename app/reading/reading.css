@@ -52,7 +52,7 @@
 }
 
 .markdown-document a {
-    color: #2563eb;
+    color: var(--theme-link);
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }

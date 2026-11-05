@@ -107,12 +107,12 @@ export default function Dashboard() {
     return (
         <div className="flex flex-col md:flex-row h-screen">
             {/* Components Panel */}
-            <div className="md:w-1/5 pr-4 w-full shadow-sm overflow-auto">
+            <div className="w-full overflow-auto border-r border-border-subtle bg-surface p-4 shadow-sm md:w-1/5">
                 <ComponentsSection />
             </div>
 
             {/* Preview Panel */}
-            <div className="flex-1 pl-4 pr-4 overflow-auto bg-white">
+            <div className="flex-1 overflow-auto bg-canvas px-4">
                 <PreviewSection
                     selectedComponent={Component}
                     values={componentProps}
@@ -120,7 +120,7 @@ export default function Dashboard() {
             </div>
 
             {/* Properties Panel */}
-            <div className="md:w-1/4 w-full pl-4 overflow-auto">
+            <div className="w-full overflow-auto border-l border-border-subtle bg-surface p-4 md:w-1/4">
                 <PropertiesSection
                     selectedComponent={Component}
                     values={componentProps}

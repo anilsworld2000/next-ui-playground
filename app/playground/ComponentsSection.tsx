@@ -34,14 +34,14 @@ export default function ComponentsSection({ className }: ComponentsSecProps) {
                 placeholder="Search components..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="w-full text-sm px-2 py-1 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2"
+                className="mb-4 w-full rounded border border-border-subtle bg-canvas px-2 py-1 text-sm text-main focus:outline-none focus:ring-2 focus:ring-focus"
             />
 
             {Object.entries(grouped).map(([category, items]) => (
                 <div key={category} className="mb-4">
                     <button
                         onClick={() => setOpenCategory(openCategory === category ? null : category)}
-                        className="w-full text-left hover:text-blue-600"
+                        className="w-full text-left text-main hover:text-link-hover"
                     >
                         {category}
                     </button>
@@ -51,7 +51,7 @@ export default function ComponentsSection({ className }: ComponentsSecProps) {
                         <ul className="mt-1 space-y-2">
                             {items.map((item) => (
                                 <li
-                                    className="flex items-center text-sm gap-1 p-2 rounded hover:bg-blue-50 cursor-pointer"
+                                    className="flex cursor-pointer items-center gap-1 rounded p-2 text-sm text-main hover:bg-surface-hover"
                                     key={item}
                                     onClick={() => selectComponent(item)}
                                     title={`Add a ${item} component`} // Tooltip
@@ -66,7 +66,7 @@ export default function ComponentsSection({ className }: ComponentsSecProps) {
             ))}
 
             {filtered.length === 0 && (
-                <p className="text-sm">No components found.</p>
+                <p className="text-sm text-muted">No components found.</p>
             )}
         </aside>
     )

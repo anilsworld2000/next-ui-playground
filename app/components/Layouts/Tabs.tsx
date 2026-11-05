@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import cnClassNames from '@/app/utils';
-import { useTheme } from '@/app/hooks/ThemeContext';
 import type { Tab } from '@/app/types/ui';
 
 interface TabsProps<T extends string> {
@@ -18,7 +17,6 @@ export default function Tabs<T extends string>({
     className,
     onBeforeTabChange
 }: TabsProps<T>) {
-    const { theme } = useTheme();
     // Initialize state with a null-check for SSR
     const [activeTabId, setActiveTabId] = useState<T>(tabs[0].id);
 
@@ -55,7 +53,7 @@ export default function Tabs<T extends string>({
             {/* Tab Headers */}
             <div className={cnClassNames(
                 "flex gap-1  w-fit transition-all shadow-lg",
-                theme.accent
+                "bg-accent"
             )}>
                 {tabs.map((tab) => {
                     const isActive = activeTabId === tab.id;
@@ -71,8 +69,8 @@ export default function Tabs<T extends string>({
                             className={cnClassNames(
                                 "flex items-center gap-1 px-4 py-2 text-xs font-medium transition-all cursor-pointer",
                                 isActive
-                                    ? `${theme.card} ${theme.primaryText} shadow-sm scale-105`
-                                    : `${theme.textMuted} hover:${theme.textMain} opacity-70 hover:opacity-100`
+                                    ? "scale-105 bg-surface text-link shadow-sm"
+                                    : "text-muted opacity-70 hover:bg-surface-hover hover:text-main hover:opacity-100"
                             )}
                         >
                             {tab.icon}

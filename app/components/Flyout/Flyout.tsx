@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useLayoutEffect, useState } from 'react';
 import cnClassNames, { GENERIC_LABELS } from "@/app/utils";
-import { useTheme } from '@/app/hooks/ThemeContext';
 import { createPortal } from 'react-dom';
 
 interface FlyoutProps {
@@ -24,7 +23,6 @@ export default function Flyout({
     onClose,
     anchorRef
 }: FlyoutProps) {
-    const { theme } = useTheme();
     const flyoutRef = useRef<HTMLDivElement>(null);
     const [coords, setCoords] = useState({ top: 0, left: 0 });
     const [mounted, setMounted] = useState(false);
@@ -102,8 +100,7 @@ export default function Flyout({
             }}
             className={cnClassNames(
                 "overflow-hidden border shadow-2xl p-2 animate-in fade-in zoom-in-95 rounded-2xl duration-100",
-                theme.card,
-                theme.border,
+                "bg-surface text-main border-border-subtle",
                 className
             )}
         >
@@ -116,7 +113,7 @@ export default function Flyout({
                             e.stopPropagation();
                             onClose();
                         }}
-                        className="text-red-500 hover:text-red-700 text-xs transition-colors p-1"
+                        className="text-danger hover:bg-danger-surface text-xs transition-colors p-1"
                     >
                         <span className='m-2 '>✕</span>
                     </button>

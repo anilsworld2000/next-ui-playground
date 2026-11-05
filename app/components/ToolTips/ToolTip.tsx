@@ -1,11 +1,9 @@
 "use client";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames from "@/app/utils";
 import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 export default function ToolTip({ title }: { title: string }) {
-    const theme = useTheme();
     const triggerRef = useRef<HTMLSpanElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
@@ -46,10 +44,10 @@ export default function ToolTip({ title }: { title: string }) {
                     className={cnClassNames(
                         "tooltip-portal",
                         isVisible && "visible",
-                        theme.theme.primary
+                        "bg-primary text-primary-foreground"
                     )}
                 >
-                    <div className={cnClassNames("tooltip-arrow", theme.theme.primary)} />
+                    <div className="tooltip-arrow bg-primary" />
                     <span className="relative z-10">{title}</span>
                 </div>,
                 document.body

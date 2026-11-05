@@ -1,5 +1,4 @@
 import ProgressRing from "@/app/components/Charts/ProgressRing";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import type { Goal } from "./types";
 import cnClassNames, { GENERIC_LABELS, getFormatedCurrency } from "@/app/utils";
 import StatusBadge from "@/app/components/Badges/StatusBadge"; // new component
@@ -13,11 +12,10 @@ type Props = {
 };
 
 export default function GoalsList({ goal, onEdit, onDelete }: Props) {
-    const theme = useTheme();
     const tableRowCss = "px-3 py-2";
 
     return (
-        <tr className={cnClassNames(theme.theme.bg, theme.theme.hoverBg, "cursor-pointer")}>
+        <tr className="cursor-pointer bg-surface text-main hover:bg-surface-hover">
             <td className={tableRowCss}>{goal.name}</td>
             <td className={tableRowCss}>{getFormatedCurrency(goal.monthlyInvestment)}</td>
             <td className={tableRowCss}>{getFormatedCurrency(goal.currentValue)}</td>
@@ -27,7 +25,7 @@ export default function GoalsList({ goal, onEdit, onDelete }: Props) {
                     value={goal.achievedPercent / 100}
                     size={35}
                     thickness={6}
-                    color={theme.theme.textMain}
+                    color="text-main"
                 />
             </td>
             <td className={tableRowCss}><StatusBadge status={goal.status}/></td>

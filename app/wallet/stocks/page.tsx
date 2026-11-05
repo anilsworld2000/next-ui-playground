@@ -36,7 +36,7 @@ export default function StocksPage() {
             accessor: 'change',
             sortable: true,
             filterable: true,
-            render: (val) => <span className={parseFloat(String(val)) > 0 ? "text-green-500" : "text-red-500"}>{val}%</span>
+            render: (val) => <span className={parseFloat(String(val)) > 0 ? "text-success" : "text-danger"}>{val}%</span>
         }
     ];
 

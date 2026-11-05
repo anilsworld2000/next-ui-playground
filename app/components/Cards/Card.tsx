@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import cnClassNames from "@/app/utils";
 import { ReactNode } from "react";
 
@@ -12,8 +11,7 @@ type Props = {
 };
 
 export default function Card({ children, onClick, href, ariaLabel, className }: Props) {
-    const theme = useTheme();
-    const cardClassName = cnClassNames("shadow-md rounded-2xl p-5 border", theme.theme.bg, theme.theme.border, className);
+    const cardClassName = cnClassNames("shadow-md rounded-2xl p-5 border bg-surface border-border-subtle text-main", className);
 
     if (href) {
         return (

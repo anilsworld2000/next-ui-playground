@@ -1,5 +1,4 @@
 "use client";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import type { NavGroup } from "@/app/types/navigation";
 import cnClassNames, { ICON_SIZES } from "@/app/utils";
 import { usePathname, useRouter } from "next/navigation";
@@ -30,7 +29,6 @@ export function getSidebarClasses(isSidebarOpen: boolean, baseClassName: string)
 }
 
 export default function VerticalNavbar(props: VerticalNavbarProps) {
-    const theme = useTheme();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
@@ -63,7 +61,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
             {props.groups?.length > 0 && (
                 <aside
                     aria-label="Sidebar navigation"
-                    className={getSidebarClasses(isSidebarOpen, theme.theme.sidebar)}
+                    className={getSidebarClasses(isSidebarOpen, "bg-sidebar text-main")}
                 >
                     <div className="flex h-full flex-col">
                         <div className="flex shrink-0 items-center gap-3 p-4">
@@ -71,7 +69,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                                 type="button"
                                 aria-label={isSidebarOpen ? "Close sidebar" : "Open sidebar"}
                                 aria-expanded={isSidebarOpen}
-                                className={cnClassNames("shrink-0 rounded-xl p-2", theme.theme.primary, !isSidebarOpen && "mx-auto")}
+                                className={cnClassNames("shrink-0 rounded-xl bg-primary p-2 text-primary-foreground", !isSidebarOpen && "mx-auto")}
                                 onClick={() => setSidebarOpen(!isSidebarOpen)}
                             >
                                 {props.icon}
@@ -98,8 +96,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                                             onClick={() => handleNavClick(item.href)}
                                             className={cnClassNames(
                                                 "group relative flex w-full items-center gap-2 rounded-lg px-3 py-3 text-left transition-all",
-                                                pathname === item.href ? theme.theme.primary : theme.theme.hoverBg,
-                                                pathname === item.href ? "text-white" : "",
+                                                pathname === item.href ? "bg-primary text-primary-foreground" : "text-main hover:bg-surface-hover",
                                                 !isSidebarOpen && "justify-center"
                                             )}
                                         >
@@ -115,7 +112,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                             ))}
                         </nav>
 
-                        <div className="mt-auto shrink-0 border-t border-white/10 p-4">
+                        <div className="mt-auto shrink-0 border-t border-border-subtle p-4">
                             {props.addUserSection && user.user && (
                                 <UserSection
                                     name={user.user?.name}
@@ -132,7 +129,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                                 onClick={() => setSidebarOpen(!isSidebarOpen)}
                                 className={cnClassNames(
                                     "group relative flex w-full items-center gap-4 rounded-lg px-3 py-3 text-left transition-all",
-                                    theme.theme.hoverBg,
+                                    "text-main hover:bg-surface-hover",
                                     !isSidebarOpen && "justify-center"
                                 )}
                             >
@@ -159,7 +156,7 @@ export default function VerticalNavbar(props: VerticalNavbarProps) {
                     <Button
                         type="button"
                         aria-label={props.title ? `Open ${props.title} navigation` : "Open navigation"}
-                        className={cnClassNames("rounded-full p-4 shadow-lg", theme.theme.primary)}
+                        className="rounded-full bg-primary p-4 text-primary-foreground shadow-lg"
                         onClick={() => setSidebarOpen(true)}
                     >
                         {props.icon}

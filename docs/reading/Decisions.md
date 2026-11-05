@@ -14,7 +14,7 @@ The first version optimizes for a focused reading flow. Multi-document history, 
 
 ## Tailwind styling
 
-Use existing Tailwind v4 utilities and explicit element styles. Do not add the Typography plugin solely for this feature unless the project adopts it more broadly.
+Use existing Tailwind v4 semantic theme utilities and explicit Markdown element styles. Screen chrome and rendered links follow the active app theme; print output deliberately stays black-on-white. Do not add the Typography plugin solely for this feature unless the project adopts it more broadly.
 
 ## Documentation maintenance
 

@@ -19,7 +19,6 @@ import {
 } from "lucide-react";
 import Button from "../components/Buttons/Button";
 import Notification from "../components/Notifications/Notification";
-import { useTheme } from "../hooks/ThemeContext";
 import cnClassNames, { ICON_SIZES } from "../utils";
 import "./reading.css";
 
@@ -36,7 +35,6 @@ function isMarkdownFile(file: File) {
 }
 
 export default function ReadingApp() {
-    const theme = useTheme();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileName, setFileName] = useState("");
     const [content, setContent] = useState("");
@@ -121,7 +119,7 @@ export default function ReadingApp() {
                         <BookOpen size={ICON_SIZES.xlg} aria-hidden="true" />
                         <h1 className="truncate text-xl font-bold">Markdown Reader</h1>
                     </div>
-                    <p className={cnClassNames("mt-1 text-xs", theme.theme.textMuted)}>
+                    <p className="mt-1 text-xs text-muted">
                         Open a local Markdown file and keep it in this browser session.
                     </p>
                 </div>
@@ -136,7 +134,7 @@ export default function ReadingApp() {
                 />
                 <div className="flex flex-wrap items-center gap-2">
                     <Button
-                        className={cnClassNames("inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm", theme.theme.button)}
+                        className="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm text-primary-foreground hover:bg-primary-hover"
                         isCursorPointer
                         onClick={openFilePicker}
                         tooltip="Open a Markdown file"
@@ -149,7 +147,7 @@ export default function ReadingApp() {
                             <div className="flex overflow-hidden rounded-lg border" role="group" aria-label="Document view">
                                 <button
                                     type="button"
-                                    className={cnClassNames("px-3 py-2 text-sm", viewMode === "rendered" ? theme.theme.accent : theme.theme.hoverBg)}
+                                    className={cnClassNames("px-3 py-2 text-sm text-main", viewMode === "rendered" ? "bg-accent" : "hover:bg-surface-hover")}
                                     onClick={() => setViewMode("rendered")}
                                     aria-pressed={viewMode === "rendered"}
                                 >
@@ -157,7 +155,7 @@ export default function ReadingApp() {
                                 </button>
                                 <button
                                     type="button"
-                                    className={cnClassNames("px-3 py-2 text-sm", viewMode === "raw" ? theme.theme.accent : theme.theme.hoverBg)}
+                                    className={cnClassNames("px-3 py-2 text-sm text-main", viewMode === "raw" ? "bg-accent" : "hover:bg-surface-hover")}
                                     onClick={() => setViewMode("raw")}
                                     aria-pressed={viewMode === "raw"}
                                 >
@@ -165,7 +163,7 @@ export default function ReadingApp() {
                                 </button>
                             </div>
                             <Button
-                                className={cnClassNames("inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm", theme.theme.hoverBg)}
+                                className="inline-flex items-center gap-2 rounded-lg border border-border-subtle px-3 py-2 text-sm text-main hover:bg-surface-hover"
                                 isCursorPointer
                                 onClick={copyContent}
                                 tooltip="Copy Markdown source"
@@ -174,7 +172,7 @@ export default function ReadingApp() {
                                 Copy
                             </Button>
                             <Button
-                                className={cnClassNames("inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm", theme.theme.hoverBg)}
+                                className="inline-flex items-center gap-2 rounded-lg border border-border-subtle px-3 py-2 text-sm text-main hover:bg-surface-hover"
                                 isCursorPointer
                                 onClick={downloadContent}
                                 tooltip="Download Markdown source"
@@ -183,7 +181,7 @@ export default function ReadingApp() {
                                 Download
                             </Button>
                             <Button
-                                className={cnClassNames("inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm", theme.theme.hoverBg)}
+                                className="inline-flex items-center gap-2 rounded-lg border border-border-subtle px-3 py-2 text-sm text-main hover:bg-surface-hover"
                                 isCursorPointer
                                 onClick={() => window.print()}
                                 tooltip="Print document"
@@ -192,7 +190,7 @@ export default function ReadingApp() {
                                 Print
                             </Button>
                             <Button
-                                className={cnClassNames("inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm", theme.theme.hoverBg)}
+                                className="inline-flex items-center gap-2 rounded-lg border border-border-subtle px-3 py-2 text-sm text-main hover:bg-surface-hover"
                                 isCursorPointer
                                 onClick={clearDocument}
                                 tooltip="Close document"
@@ -214,14 +212,14 @@ export default function ReadingApp() {
             )}
 
             {!hasDocument ? (
-                <section className={cnClassNames("reading-empty flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed p-8 text-center", theme.theme.card, theme.theme.border)}>
+                <section className="reading-empty flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed border-border-subtle bg-surface p-8 text-center text-main">
                     <FileText size={40} strokeWidth={1.5} aria-hidden="true" />
                     <h2 className="mt-4 text-lg font-semibold">Choose a Markdown file to begin</h2>
-                    <p className={cnClassNames("mt-2 max-w-md text-sm", theme.theme.textMuted)}>
+                    <p className="mt-2 max-w-md text-sm text-muted">
                         Your file stays in browser memory. Nothing is uploaded or saved by this reader.
                     </p>
                     <Button
-                        className={cnClassNames("mt-5 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm", theme.theme.button)}
+                        className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground hover:bg-primary-hover"
                         isCursorPointer
                         onClick={openFilePicker}
                     >
@@ -230,13 +228,13 @@ export default function ReadingApp() {
                     </Button>
                 </section>
             ) : (
-                <section className={cnClassNames("reading-document-shell flex-1 overflow-hidden rounded-xl border", theme.theme.card, theme.theme.border)}>
+                <section className="reading-document-shell flex-1 overflow-hidden rounded-xl border border-border-subtle bg-surface text-main">
                     <div className="reading-document-meta flex flex-wrap items-center justify-between gap-2 border-b px-4 py-3">
                         <div className="flex min-w-0 items-center gap-2">
                             <FileText size={ICON_SIZES.lg} aria-hidden="true" />
                             <span className="truncate text-sm font-medium">{fileName}</span>
                         </div>
-                        <span className={cnClassNames("text-xs", theme.theme.textMuted)}>
+                        <span className="text-xs text-muted">
                             {content.length.toLocaleString()} characters · {countWords(content).toLocaleString()} words · {(fileSize / 1024).toFixed(1)} KB
                         </span>
                     </div>

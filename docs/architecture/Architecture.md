@@ -18,6 +18,8 @@ Role-specific implementation and review workflows are defined in `.github/skills
 
 Use shared components and utilities before creating new equivalents. Use `useTheme()` for theme tokens, `cnClassNames()` for class composition, and Lucide icons with the shared icon sizes. Keep client-only browser APIs inside client components and event handlers.
 
+Framework-agnostic calculation APIs intentionally shared across route areas live under root `lib/`. The personal-finance calculation module has no UI or runtime framework dependencies; its Monte Carlo retirement engine exposes randomized path simulation and percentile summaries. Route-specific calculations remain with their owning micro app.
+
 ## Dependency-impact workflow
 
 Every change to an existing component, context, type, utility, route contract, or dependency must begin with a focused impact check:
@@ -66,8 +68,8 @@ Keep domain state and behavior inside the owning micro app. Shared components sh
 - Route navigation metadata is duplicated inside micro-app layouts.
 - `UserContext` is presentation state, not authentication or authorization.
 - The app now exposes a server-only auth boundary in `app/auth/session.ts`, plus a demo login flow in `app/login/page.tsx`, so the wallet routes can enforce a genuine route access check instead of relying on UI state.
-- Theme persistence depends on `localStorage`, so the server cannot render the stored theme initially.
-- Theme values are coupled to Tailwind class names rather than fully semantic design tokens.
+- Theme palettes now use root CSS custom properties mapped to Tailwind v4 semantic utilities. `useTheme()` retains stable semantic class aliases as a migration compatibility layer.
+- Theme preference is read from a validated root-readable cookie, preventing a saved-theme hydration flash. Reading it in the root layout makes all routes request-dynamic; this is an explicit tradeoff if static generation becomes important.
 - Responsive navigation, focus management, and mobile shell behavior are not yet explicit shared responsibilities.
 
 ### Improvement triggers
@@ -85,6 +87,7 @@ Recommended ownership:
 - `app/components/navigation/`: shared navigation behavior and visuals.
 - `app/providers/`: only genuinely application-wide providers.
 - `app/<micro-app>/`: route-owned UI, state, domain types, calculations, and navigation configuration.
+- `lib/`: pure, framework-agnostic calculations intentionally shared across route areas.
 - `app/api/`: server-side validation, authorization, and persistence access.
 - `app/types/`: only contracts shared by multiple domains.
 
@@ -99,6 +102,28 @@ Recommended ownership:
 7. Add server-side schema validation and authorization before persistence. **Completed for the route boundary:** wallet routes now enforce access with `app/auth/session.ts` and a cookie-backed demo login flow in `app/login/page.tsx`.
 8. Make `DashboardLayout` own responsive desktop/mobile navigation behavior.
 9. Add tests for domain calculations, shared shell behavior, navigation, and API boundaries.
+10. Replace palette-specific theme classes with root CSS-variable tokens. **Completed:** root palettes and server initialization are in place; active shared and route-owned surfaces use semantic utilities; the styling compatibility facade has been removed.
+
+### Theme migration status
+
+- **Complete — palette and initialization:** five CSS-variable palettes live in `app/globals.css`; validated `app-theme` cookie initializes `html[data-theme]` before render. The root cookie makes every route request-dynamic.
+- **Complete — shared UI:** shared controls, cards, charts, navigation shell, forms, menus/portals, notifications, and `DataGrid` use semantic utilities directly. `useTheme()` exposes selection state only.
+- **Complete — route-owned consumers:** home, login, counter, playground shell/editor controls, devotional, finance calculators, Reading chrome, and Wallet screens use semantic utilities. No active styling consumer uses a React theme class map.
+- **Complete with intentional exceptions — authored/data palettes:** active warning/success/error/goal status styling uses semantic status tokens. Preserve the playground's editable component preview/variants, print-specific black-on-white styling, and data-coded portfolio/chart series unless their design semantics change. Dormant wallet detail surfaces remain outside the active-route migration scope.
+- **Pending — visual verification:** theme key tests, lint, and build pass; visually inspect all five palettes across routes and body-level portals. The full suite currently has three unrelated finance-calculation expected-value failures; track those separately.
+
+### Current assistant-owned follow-through
+
+Keep the remaining automated work narrow and explicit:
+
+- verify the final migration boundary stays limited to selection state in `useTheme()` and the selector UI
+- keep the architecture docs aligned with the actual state and the remaining manual verification scopes
+- track unrelated finance calculation mismatches separately from the theme migration in `lib/financeCalculations.test.ts`
+- avoid reintroducing compatibility abstractions that would re-expand the current cleanup scope
+
+Manual browser validation remains outside the assistant scope: all five palettes, portaled overlays, focus states, mobile responsiveness, and reading/print behavior should be checked by the human reviewer.
+
+Next action: complete browser visual verification of all five palettes, including body-level portals, focus states, and narrow layouts. Revisit the root-cookie dynamic rendering tradeoff only if static generation becomes a requirement.
 
 ### Security and scalability principles
 
@@ -109,4 +134,6 @@ Recommended ownership:
 - Validate uploaded content by size, type, and content where applicable.
 - Avoid dynamically evaluating generated JSX or JavaScript.
 - Use semantic theme tokens and server-readable theme initialization when theme persistence becomes important.
+- Keep theme palette values in CSS custom properties on the document root; use semantic Tailwind utilities for surfaces, text, borders, focus, and status states. Do not introduce new palette-specific color classes into application UI.
+- Keep the non-sensitive theme preference separate from authentication cookies and validate the theme key before applying it.
 - Add rate limiting, security headers, structured error handling, and audit logging when server-backed workflows are introduced.

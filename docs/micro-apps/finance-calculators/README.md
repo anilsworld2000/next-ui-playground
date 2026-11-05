@@ -1,6 +1,6 @@
 # Finance Calculators Micro App
 
-The Finance Calculators micro app provides investment-growth and retirement-corpus calculators, plus placeholders for SIP planning and systematic withdrawal planning under `/finance-calculators`.
+The Finance Calculators micro app provides investment-growth, reverse SIP planning, retirement-corpus, Monte Carlo retirement stress testing, and systematic-withdrawal calculator routes under `/finance-calculators`.
 
 ## Documents
 

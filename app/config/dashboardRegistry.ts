@@ -25,6 +25,12 @@ export const dashboardRegistry: DashboardRoute[] = [
         description: "A Wallet for you",
     },
     {
+        id: "_finance_calculators",
+        name: "Finance Calculators",
+        path: "/finance-calculators",
+        description: "Plan investments, retirement, and withdrawals",
+    },
+    {
         id: "_devotional",
         name: "Devotional",
         path: "/devotional",

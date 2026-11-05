@@ -15,6 +15,7 @@ The file input accepts `.md` and `text/markdown`. Runtime validation checks the 
 ## Rendering flow
 
 Use `react-markdown` with `remark-gfm` for rendering. Do not build an ad hoc Markdown parser. Markdown output is styled explicitly in `app/reading/reading.css` because the project does not use the Typography plugin.
+The reader toolbar, empty state, document shell, and rendered document links use the shared semantic theme tokens. The selected theme is applied at the document root, so body-level portals such as notifications remain synchronized.
 
 ## Browser actions
 
@@ -23,6 +24,7 @@ Clipboard, download, and print actions are client-only. Copy failures should be 
 ## Print boundary
 
 Print styles hide global navigation, reader controls, and transient UI. The Markdown document becomes full-width with a white background, black text, readable code blocks, and page margins.
+This black-on-white output is intentional and must remain independent of the selected screen theme.
 
 ## Growth boundary
 

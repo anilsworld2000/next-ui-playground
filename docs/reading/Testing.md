@@ -14,8 +14,9 @@
 - Download the source and verify filename and content.
 - Clear the document and reopen another file.
 - Test narrow and wide viewport layouts.
-- Test every supported theme.
+- Test all five themes and verify the toolbar, empty state, document shell, rendered links, and notification portals stay synchronized.
 - Use print preview and verify only the document is printed.
+- Verify print output remains black text and links on a white page for every selected theme.
 - Confirm long code and table content remains readable and scrollable on screen.
 - Confirm the document filename, character count, word count, and file size appear after opening a file.
 

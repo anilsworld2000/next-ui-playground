@@ -6,7 +6,6 @@ import WalletSectionLayout from "../WalletSectionLayout";
 import type { Column, LayoutConfig, SortConfig } from "@/app/types/ui";
 import type { Goal } from "./types";
 import cnClassNames, { GENERIC_LABELS, getFormatedCurrency, ICON_SIZES } from "@/app/utils";
-import { useTheme } from "@/app/hooks/ThemeContext";
 import Button from "@/app/components/Buttons/Button";
 import { Plus, Printer } from "lucide-react";
 import ControlBar from "@/app/components/UnifiedControlls/ControlBar";
@@ -96,7 +95,6 @@ export default function GoalsPage() {
     const [sortConfig, setSortConfig] = useState<SortConfig>(null);
     const [isCreateDrawerOpen, setIsCreateDrawerOpen] = useState(false);
     const [editingGoal, setEditingGoal] = useState<Goal | null>(null);
-    const { theme } = useTheme();
 
     // --- STEP 1: Filter Logic ---
     const filteredGoals = useMemo(() => {
@@ -163,7 +161,7 @@ export default function GoalsPage() {
             <div className="space-y-6">
                 {finalDisplayData.length === 0 ? (
                     <div className="text-center py-12">
-                        <p className={cnClassNames(theme.textMuted)}>{GENERIC_LABELS.noDataFound}</p>
+                        <p className="text-muted">{GENERIC_LABELS.noDataFound}</p>
                     </div>
                 ) : (
                     viewMode === "grid" ? renderCardView() : renderListView()
@@ -207,10 +205,10 @@ export default function GoalsPage() {
                 subtitle="Manage your financial goals"
                 headerControls={
                     <ControlBar
-                        controlBarClassName={cnClassNames("flex flex-col md:flex-row items-center gap-1 p-2 rounded-2xl shadow-sm", theme.bg, theme.border)}
+                        controlBarClassName="flex flex-col items-center gap-1 rounded-2xl border border-border-subtle bg-surface-raised p-2 shadow-sm md:flex-row"
                         controlBarItemsClassName={cnClassNames(
                             "flex items-center gap-1 h-10 px-3 rounded-full font-semibold transition-all active:scale-95",
-                            theme.hoverBg, theme.primaryText
+                            "text-main hover:bg-surface-hover"
                         )}
                         iconSize={ICON_SIZES.lg}
                         iconStrokeWidth={1}
