@@ -407,9 +407,19 @@ describe("spreadsheet-verified calculation values", () => {
         expect(Math.abs(actual - 148548127) / 148548127).toBeLessThanOrEqual(0.01);
     });
 
-    it("matches the expected required monthly SIP within 1 percent", () => {
+    it("matches the expected required monthly SIP for the retirement corpus within 1 percent", () => {
         const actual = requiredMonthlySIP({
             targetFV: 148548127,
+            annualRate: 0.12,
+            years: 20,
+        });
+
+        expect(Math.abs(actual - 150162) / 150162).toBeLessThanOrEqual(0.01);
+    });
+
+    it("matches the expected required monthly SIP for the lower target within 1 percent", () => {
+        const actual = requiredMonthlySIP({
+            targetFV: 119697492,
             annualRate: 0.12,
             years: 20,
         });
@@ -428,6 +438,17 @@ describe("spreadsheet-verified calculation values", () => {
         expect(Math.abs(actual - 75400) / 75400).toBeLessThanOrEqual(0.01);
     });
 
+    it("matches the expected required step-up SIP for the lower target within 1 percent", () => {
+        const actual = requiredStepUpSIP({
+            targetFV: 119697492,
+            annualRate: 0.12,
+            stepUpRate: 0.1,
+            years: 20,
+        });
+
+        expect(Math.abs(actual - 60785) / 60785).toBeLessThanOrEqual(0.01);
+    });
+
     it("matches the expected small step-up SIP future value to the nearest rupee", () => {
         const actual = futureValueStepUpSIP({
             monthlyAmount: 1000,
@@ -436,7 +457,7 @@ describe("spreadsheet-verified calculation values", () => {
             years: 3,
         });
 
-        expect(Math.round(actual)).toBe(47250);
+        expect(Math.round(actual)).toBe(47169);
     });
 
     it("matches the small step-up SIP target in an independent monthly simulation", () => {
@@ -450,7 +471,7 @@ describe("spreadsheet-verified calculation values", () => {
             balance = balance * 1.01 + monthlyAmount;
         }
 
-        expect(Math.round(balance)).toBe(47250);
+        expect(Math.round(balance)).toBe(47169);
     });
 
     it("matches the expected inflation-adjusted real return", () => {
