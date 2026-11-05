@@ -30,8 +30,8 @@ describe("SIP Planner form model", () => {
         })).toEqual({
             targetAmount: "Target amount cannot be negative.",
             years: "Years must be greater than zero.",
-            annualReturnPercent: "Rate must be between -100% and 100%.",
-            stepUpRatePercent: "Rate must be between -100% and 100%.",
+            annualReturnPercent: "Rate must be between 0% and 100%.",
+            stepUpRatePercent: "Rate must be between 0% and 100%.",
         });
     });
 
