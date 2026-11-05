@@ -4,7 +4,7 @@
 
 - Open `/wallet` and verify sidebar navigation.
 - Open every Wallet route directly and through the sidebar.
-- Goals: create, validate, search, filter, sort, switch grid/list, delete, inspect details, and print.
+- Goals: create, validate, edit from a goal card, search, filter, sort, switch grid/list, delete, and print.
 - Stocks: render rows, sort, select, paginate, toggle column visibility, exercise editable cells, and validate loading skeleton states.
 - DataGrid selection: verify checkbox selection remains available, row mode selects a row on click, cell mode marks a single cell, and first/last cell focus edges remain visible.
 - Asset Allocation: verify JSON flattening, search, filter, sort, Plan tab, and placeholder tabs.
