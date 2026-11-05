@@ -19,6 +19,12 @@ export const dashboardRegistry: DashboardRoute[] = [
         description: "Counter for you",
     },
     {
+        id: "_games",
+        name: "Games",
+        path: "/games",
+        description: "Play quick, lightweight games",
+    },
+    {
         id: "_wallet",
         name: "Wallet",
         path: "/wallet",

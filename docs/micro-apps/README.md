@@ -4,6 +4,7 @@ Micro apps are independent route areas under `app/`. Each owns its domain behavi
 
 ## Current apps
 
+- [Games](Games.md): a lightweight game catalog with local two-player Tic-Tac-Toe.
 - [Wallet](Wallet.md): financial dashboard with asset and goal sections. See the [structured Wallet docs](wallet/README.md).
 - [Finance Calculators](FinanceCalculators.md): investment, retirement, and withdrawal calculator routes. See the [structured Finance Calculators docs](finance-calculators/README.md).
 - [Counter](Counter.md): keyboard-friendly interactive counter. See the [structured Counter docs](counter/README.md).
